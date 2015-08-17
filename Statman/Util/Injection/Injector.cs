@@ -224,19 +224,25 @@ namespace Statman.Util.Injection
                 if (hFreeLib == IntPtr.Zero)
                     throw new Win32Exception(Marshal.GetLastWin32Error());
 
-                hThread = Imports.CreateRemoteThread(_handle, IntPtr.Zero, 0, hFreeLib, injectedModules[libSearchName].BaseAddress, 0, IntPtr.Zero);
+                hThread = Imports.CreateRemoteThread(_handle, IntPtr.Zero, 0, hFreeLib,
+                    injectedModules[libSearchName].BaseAddress, 0, IntPtr.Zero);
                 if (hThread == IntPtr.Zero)
                     throw new Win32Exception(Marshal.GetLastWin32Error());
-                if (Imports.WaitForSingleObject(hThread, (uint)ThreadWaitValue.Infinite) != (uint)ThreadWaitValue.Object0)
+                if (Imports.WaitForSingleObject(hThread, (uint) ThreadWaitValue.Infinite) !=
+                    (uint) ThreadWaitValue.Object0)
                     throw new Win32Exception(Marshal.GetLastWin32Error());
 
                 // get exit code of FreeLibrary
-                IntPtr pFreeLibRet;// = IntPtr.Zero;
+                IntPtr pFreeLibRet; // = IntPtr.Zero;
                 if (!Imports.GetExitCodeThread(hThread, out pFreeLibRet))
                     throw new Win32Exception(Marshal.GetLastWin32Error());
 
                 if (pFreeLibRet == IntPtr.Zero)
                     throw new Exception("FreeLibrary failed in remote process");
+            }
+            catch
+            {
+                
             }
             finally
             {

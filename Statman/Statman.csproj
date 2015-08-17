@@ -79,13 +79,13 @@
     <Compile Include="Engines\H3\Controls\MainControl.xaml.cs">
       <DependentUpon>MainControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Engines\H3\SceneTracker.cs" />
     <Compile Include="Engines\H3\StatTracker.cs" />
     <Compile Include="Engines\H3\Stats.cs" />
     <Compile Include="Engines\H3\TimeTracker.cs" />
     <Compile Include="Engines\IEngine.cs" />
     <Compile Include="MainApp.cs" />
     <Compile Include="MainLoop.cs" />
+    <Compile Include="Network\Pipeman.cs" />
     <Compile Include="Util\Injection\CustomMarshal.cs" />
     <Compile Include="Util\Injection\CustomMarshalAsAttribute.cs" />
     <Compile Include="Util\Injection\CustomMarshalAttribute.cs" />

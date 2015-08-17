@@ -100,16 +100,29 @@ namespace Statman.Engines.H3
 
         private void ProcessStats(Stats p_Stats)
         {
-            var s_LevelTime = p_Stats.m_Time / 1000.0;
+            CurrentStats = p_Stats;
 
+            // Calculate rating.
             var s_Rating0 = CalculateRating0(p_Stats);
             var s_Rating1 = CalculateRating1(p_Stats);
-
-            //Trace.WriteLine("Level Rating: " + m_Ratings[s_Rating0 + "x" + s_Rating1]);
-
+            
+            // Update UI rating.
+            m_Engine.Control.SetRatingPerfect((s_Rating0 + s_Rating1) == 0);
             m_Engine.Control.SetRating(m_Ratings[s_Rating0 + "x" + s_Rating1]);
 
-            CurrentStats = p_Stats;
+            // Update UI stats.
+            m_Engine.Control.SetShotsFired(p_Stats.m_ShotsFired);
+            m_Engine.Control.SetHeadshots(p_Stats.m_Headshots);
+            m_Engine.Control.SetAccidents(p_Stats.m_AccidentKills);
+            m_Engine.Control.SetAlarms(p_Stats.m_Alarms);
+            m_Engine.Control.SetBodiesFound(p_Stats.m_BodiesFound);
+            m_Engine.Control.SetCameraCaught(p_Stats.m_CameraCaught);
+            m_Engine.Control.SetEnemiesKilled(p_Stats.m_EnemiesKilled);
+            m_Engine.Control.SetEnemiesWounded(p_Stats.m_EnemiesWounded);
+            m_Engine.Control.SetPolicemenKilled(p_Stats.m_PoliceMenKilled);
+            m_Engine.Control.SetPolicemenWounded(p_Stats.m_PoliceMenWounded);
+            m_Engine.Control.SetInnocentsKilled(p_Stats.m_InnocentsKilled);
+            m_Engine.Control.SetInnocentsWounded(p_Stats.m_InnocentsWounded);
         }
 
         private uint CalculateRating0(Stats p_Stats)

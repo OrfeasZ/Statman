@@ -1,4 +1,5 @@
 ﻿using Statman.Engines;
+using Statman.Network;
 using Statman.Windows;
 
 namespace Statman
@@ -8,9 +9,13 @@ namespace Statman
         public static MainLoop Loop { get; private set; }
         public static EngineManager EngineManager { get; private set; }
         public static MainWindow MainWindow { get; set; }
+        public static Pipeman Pipe { get; private set; }
 
         static MainApp()
         {
+            // Initialize the named pipe server.
+            Pipe = new Pipeman("Statman_IPC");
+
             // Initialize our main loop at 30Hz.
             Loop = new MainLoop(30);
 
@@ -22,6 +27,7 @@ namespace Statman
         public static void Close()
         {
             Loop.Dispose();
+            EngineManager.Dispose();
         }
 
         public static void RegisterEngines()
