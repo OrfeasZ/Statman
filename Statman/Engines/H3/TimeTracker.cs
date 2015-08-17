@@ -29,7 +29,7 @@ namespace Statman.Engines.H3
                 if (s_TimeData == null)
                     return false;
 
-                CurrentTime = BitConverter.ToUInt32(s_TimeData, 0)*0.0009765625;
+                CurrentTime = BitConverter.ToUInt32(s_TimeData, 0) * 0.0009765625;
 
                 return true;
             }

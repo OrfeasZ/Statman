@@ -107,6 +107,8 @@ namespace Statman.Engines.H3
 
             //Trace.WriteLine("Level Rating: " + m_Ratings[s_Rating0 + "x" + s_Rating1]);
 
+            m_Engine.Control.SetRating(m_Ratings[s_Rating0 + "x" + s_Rating1]);
+
             CurrentStats = p_Stats;
         }
 

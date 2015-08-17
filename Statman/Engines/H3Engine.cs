@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Statman.Engines.H3;
 using Statman.Engines.H3.Controls;
 using Statman.Util;
+using Statman.Util.Injection;
 
 namespace Statman.Engines
 {
@@ -18,6 +19,7 @@ namespace Statman.Engines
         public MainControl Control { get; private set; }
 
         private Process m_GameProcess;
+        private Injector m_Injector;
 
         private uint m_SkipUpdates;
 
@@ -47,6 +49,12 @@ namespace Statman.Engines
                     Reader = null;
                 }
 
+                if (m_Injector != null)
+                {
+                    m_Injector.Dispose();
+                    m_Injector = null;
+                }
+
                 var s_Processes = Process.GetProcessesByName("HitmanBloodMoney");
 
                 if (s_Processes.Length == 0)
@@ -64,6 +72,10 @@ namespace Statman.Engines
                     {
                         m_SkipUpdates = 0;
                         Active = true;
+
+                        // Create our injector and inject our stat module.
+                        m_Injector = new Injector(m_GameProcess, true);
+                        m_Injector.InjectLibrary("H3.dll");
 
                         // Setup our main control.
                         MainApp.MainWindow.Dispatcher.Invoke((Action) (() =>
@@ -93,6 +105,11 @@ namespace Statman.Engines
             SceneTracker.Update();
             TimeTracker.Update();
             StatTracker.Update();
+
+            if (StatTracker.CurrentStats.m_Time > 0 || !SceneTracker.InGame)
+                Control.SetCurrentTime(StatTracker.CurrentStats.m_Time);
+            else
+                Control.SetCurrentTime(TimeTracker.CurrentTime);
         }
     }
 }

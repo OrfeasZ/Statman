@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40418.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Statman", "Statman.csproj", "{4591C6E1-EB82-4541-8172-E13B8B42714D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Statman", "Statman\Statman.csproj", "{4591C6E1-EB82-4541-8172-E13B8B42714D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StatModules", "StatModules", "{D6C3F035-AD14-4900-9535-2969187B3EE9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "H3", "StatModules\H3\H3.vcxproj", "{8883C6D6-7617-4348-9EF9-FEB10EEC973F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +15,19 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4591C6E1-EB82-4541-8172-E13B8B42714D}.Debug|x86.ActiveCfg = Release|x86
-		{4591C6E1-EB82-4541-8172-E13B8B42714D}.Debug|x86.Build.0 = Release|x86
+		{4591C6E1-EB82-4541-8172-E13B8B42714D}.Debug|x86.ActiveCfg = Debug|x86
+		{4591C6E1-EB82-4541-8172-E13B8B42714D}.Debug|x86.Build.0 = Debug|x86
 		{4591C6E1-EB82-4541-8172-E13B8B42714D}.Release|x86.ActiveCfg = Release|x86
 		{4591C6E1-EB82-4541-8172-E13B8B42714D}.Release|x86.Build.0 = Release|x86
+		{8883C6D6-7617-4348-9EF9-FEB10EEC973F}.Debug|x86.ActiveCfg = Debug|Win32
+		{8883C6D6-7617-4348-9EF9-FEB10EEC973F}.Debug|x86.Build.0 = Debug|Win32
+		{8883C6D6-7617-4348-9EF9-FEB10EEC973F}.Release|x86.ActiveCfg = Release|Win32
+		{8883C6D6-7617-4348-9EF9-FEB10EEC973F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8883C6D6-7617-4348-9EF9-FEB10EEC973F} = {D6C3F035-AD14-4900-9535-2969187B3EE9}
 	EndGlobalSection
 EndGlobal
