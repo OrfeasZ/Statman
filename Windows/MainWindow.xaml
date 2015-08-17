@@ -1,0 +1,10 @@
+﻿<Window x:Class="Statman.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="STATMAN" Height="144" Width="363" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+    <Grid>
+        <Image Margin="10,10,10,0" Source="../Resources/Logo-324px.png" Height="63" VerticalAlignment="Top"/>
+        <Label Content="Waiting for game..." Margin="10,0,10,10" Height="26" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"/>
+
+    </Grid>
+</Window>
