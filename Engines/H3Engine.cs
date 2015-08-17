@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Statman.Engines.H3;
+using Statman.Engines.H3.Controls;
 using Statman.Util;
 
 namespace Statman.Engines
@@ -12,6 +14,8 @@ namespace Statman.Engines
         public StatTracker StatTracker { get; private set; }
         public TimeTracker TimeTracker { get; private set; }
         public SceneTracker SceneTracker { get; private set; }
+
+        public MainControl Control { get; private set; }
 
         private Process m_GameProcess;
 
@@ -54,15 +58,32 @@ namespace Statman.Engines
                 // Setup our Memory Reader.
                 Reader = new ProcessMemoryReader(m_GameProcess);
 
-                if (Reader.OpenProcess())
+                try
                 {
-                    m_SkipUpdates = 0;
-                    Active = true;
+                    if (Reader.OpenProcess())
+                    {
+                        m_SkipUpdates = 0;
+                        Active = true;
 
-                    // Setup our engine-specific classes.
-                    StatTracker = new StatTracker(this);
-                    TimeTracker = new TimeTracker(this);
-                    SceneTracker = new SceneTracker(this);
+                        // Setup our main control.
+                        MainApp.MainWindow.Dispatcher.Invoke((Action) (() =>
+                        {
+                            Control = new MainControl();
+                        }));
+
+                        // Setup our engine-specific classes.
+                        StatTracker = new StatTracker(this);
+                        TimeTracker = new TimeTracker(this);
+                        SceneTracker = new SceneTracker(this);
+
+                        // Set our control in the main window.
+                        MainApp.MainWindow.SetEngineControl(Control);
+                    }
+                }
+                catch (Exception)
+                {
+                    m_GameProcess = null;
+                    Active = false;
                 }
             }
 

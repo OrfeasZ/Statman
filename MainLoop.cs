@@ -36,7 +36,9 @@ namespace Statman
                 return;
 
             m_Running = true;
+
             m_Thread = new Thread(DoLoopWork);
+            m_Thread.SetApartmentState(ApartmentState.STA);
             m_Thread.Start();
         }
 

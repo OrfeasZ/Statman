@@ -21,14 +21,23 @@ namespace Statman
 
         private void Update(object p_Sender, EventArgs p_EventArgs)
         {
+            var s_ActiveEngines = false;
+
             foreach (var s_Engine in m_Engines)
             {
                 s_Engine.Update();
 
+                if (!s_Engine.Active) 
+                    continue;
+
                 // Skip updating other engines when an engine is active.
-                if (s_Engine.Active)
-                    break;
+                s_ActiveEngines = true;
+                break;
             }
+
+            // Remove any and all engine controls.
+            if (!s_ActiveEngines)
+                MainApp.MainWindow.ResetEngineControls();
         }
     }
 }

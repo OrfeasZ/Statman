@@ -78,18 +78,18 @@ namespace Statman.Engines.H3
 
         public bool Update()
         {
-            var s_StructData = m_Engine.Reader.Read(m_Engine.Reader.Process.MainModule.BaseAddress + 0x005B2538, 0x10C);
-
-            if (s_StructData == null)
-                return false;
-
             try
             {
+                var s_StructData = m_Engine.Reader.Read(m_Engine.Reader.Process.MainModule.BaseAddress + 0x005B2538, 0x10C);
+
+                if (s_StructData == null)
+                    return false;
+
                 var s_Handle = GCHandle.Alloc(s_StructData, GCHandleType.Pinned);
-                var p_Stats = (Stats) Marshal.PtrToStructure(s_Handle.AddrOfPinnedObject(), typeof (Stats));
+                var s_Stats = (Stats) Marshal.PtrToStructure(s_Handle.AddrOfPinnedObject(), typeof (Stats));
                 s_Handle.Free();
 
-                ProcessStats(p_Stats);
+                ProcessStats(s_Stats);
                 return true;
             }
             catch
@@ -105,7 +105,7 @@ namespace Statman.Engines.H3
             var s_Rating0 = CalculateRating0(p_Stats);
             var s_Rating1 = CalculateRating1(p_Stats);
 
-            Trace.WriteLine("Level Rating: " + m_Ratings[s_Rating0 + "x" + s_Rating1]);
+            //Trace.WriteLine("Level Rating: " + m_Ratings[s_Rating0 + "x" + s_Rating1]);
 
             CurrentStats = p_Stats;
         }
@@ -147,18 +147,26 @@ namespace Statman.Engines.H3
         private uint CalculateRating1(Stats p_Stats)
         {
             var s_Rating1 = 0.0;
+            byte[] s_UnknownValue;
 
-            var s_UnknownPtrData = m_Engine.Reader.Read(m_Engine.Reader.Process.MainModule.BaseAddress + 0x41F83C, 4);
+            try
+            {
+                var s_UnknownPtrData = m_Engine.Reader.Read(m_Engine.Reader.Process.MainModule.BaseAddress + 0x41F83C, 4);
 
-            if (s_UnknownPtrData == null)
+                if (s_UnknownPtrData == null)
+                    return 0;
+
+                var s_UnknownPtr = BitConverter.ToUInt32(s_UnknownPtrData, 0);
+
+                s_UnknownValue = m_Engine.Reader.Read(s_UnknownPtr + 0x6664, 1);
+
+                if (s_UnknownValue == null)
+                    return 0;
+            }
+            catch (Exception)
+            {
                 return 0;
-
-            var s_UnknownPtr = BitConverter.ToUInt32(s_UnknownPtrData, 0);
-
-            var s_UnknownValue = m_Engine.Reader.Read(s_UnknownPtr + 0x6664, 1);
-
-            if (s_UnknownValue == null)
-                return 0;
+            }
 
             // Frisk Failed
             var s_FriskFailed = p_Stats.m_FriskFailed >= 34 ? 33 : p_Stats.m_FriskFailed;

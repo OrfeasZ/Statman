@@ -15,21 +15,28 @@ namespace Statman.Engines.H3
 
         public bool Update()
         {
-            var s_BasePtrData = m_Engine.Reader.Read(m_Engine.Reader.Process.MainModule.BaseAddress + 0x0041F820, 4);
+            try
+            {
+                var s_BasePtrData = m_Engine.Reader.Read(m_Engine.Reader.Process.MainModule.BaseAddress + 0x0041F820, 4);
 
-            if (s_BasePtrData == null)
+                if (s_BasePtrData == null)
+                    return false;
+
+                var s_BasePtr = BitConverter.ToUInt32(s_BasePtrData, 0);
+
+                var s_TimeData = m_Engine.Reader.Read(s_BasePtr + 0x48, 4);
+
+                if (s_TimeData == null)
+                    return false;
+
+                CurrentTime = BitConverter.ToUInt32(s_TimeData, 0)*0.0009765625;
+
+                return true;
+            }
+            catch (Exception)
+            {
                 return false;
-
-            var s_BasePtr = BitConverter.ToUInt32(s_BasePtrData, 0);
-
-            var s_TimeData = m_Engine.Reader.Read(s_BasePtr + 0x48, 4);
-
-            if (s_TimeData == null)
-                return false;
-
-            CurrentTime = BitConverter.ToUInt32(s_TimeData, 0) * 0.0009765625;
-
-            return true;
+            }
         }
     }
 }
