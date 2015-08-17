@@ -155,5 +155,21 @@ namespace Statman.Engines.H3.Controls
                 InnocentsWoundedLabel.Content = p_Value.ToString();
             }));
         }
+
+        public void SetWitnesses(int p_Value)
+        {
+            Dispatcher.Invoke((Action)(() =>
+            {
+                WitnessesLabel.Content = p_Value.ToString();
+            }));
+        }
+
+        public void SetTargetsKilled(int p_Value)
+        {
+            Dispatcher.Invoke((Action)(() =>
+            {
+                TargetsKilledLabel.Content = p_Value.ToString();
+            }));
+        }
     }
 }

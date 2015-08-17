@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Height="387" Width="332">
+             Height="425" Width="332">
     <Grid>
         <Label x:Name="CurrentLevelLabel" Content="No Level" Margin="10,10,10,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center"/>
         <Label x:Name="CurrentLevelSceneLabel" Content="No Level" Margin="10,31,10,0" VerticalAlignment="Top" FontSize="10" HorizontalContentAlignment="Center"/>
@@ -25,8 +25,10 @@
             <Label x:Name="AlarmsLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,132,0,0" FontSize="14" FontWeight="Bold"/>
             <Label Content="Bodies Found" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,155,0,0"/>
             <Label x:Name="BodiesFoundLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,171,0,-12" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Caught by Camera" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,194,0,0"/>
+            <Label Content="Caught on Camera" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,194,0,0"/>
             <Label x:Name="CameraCaughtLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,210,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Content="Witnesses" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,233,0,0"/>
+            <Label x:Name="WitnessesLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,249,0,0" FontSize="14" FontWeight="Bold"/>
 
             <Label Content="Enemies Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center"/>
             <Label x:Name="EnemiesKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,16,0,0" FontSize="14" FontWeight="Bold"/>
@@ -38,8 +40,10 @@
             <Label x:Name="PolicemenWoundedLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,132,0,0" FontSize="14" FontWeight="Bold"/>
             <Label Content="Innocents Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,155,0,0"/>
             <Label x:Name="InnocentsKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,171,0,-12" FontSize="14" FontWeight="Bold"/>
-           <Label Content="Innocents Wounded" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,194,0,0"/>
+            <Label Content="Innocents Wounded" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,194,0,0"/>
             <Label x:Name="InnocentsWoundedLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,210,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Content="Targets Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,233,0,0"/>
+            <Label x:Name="TargetsKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,249,0,0" FontSize="14" FontWeight="Bold"/>
         </Grid>
     </Grid>
 </UserControl>

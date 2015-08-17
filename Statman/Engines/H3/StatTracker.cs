@@ -123,6 +123,8 @@ namespace Statman.Engines.H3
             m_Engine.Control.SetPolicemenWounded(p_Stats.m_PoliceMenWounded);
             m_Engine.Control.SetInnocentsKilled(p_Stats.m_InnocentsKilled);
             m_Engine.Control.SetInnocentsWounded(p_Stats.m_InnocentsWounded);
+            m_Engine.Control.SetWitnesses(p_Stats.m_Witnesses);
+            m_Engine.Control.SetTargetsKilled(p_Stats.m_TargetsKilled);
         }
 
         private uint CalculateRating0(Stats p_Stats)
