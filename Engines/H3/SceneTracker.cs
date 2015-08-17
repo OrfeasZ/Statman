@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Text;
 
 namespace Statman.Engines.H3
 {
     class SceneTracker
     {
+        public string CurrentScene { get; private set; }
+
         private readonly H3Engine m_Engine;
 
         public SceneTracker(H3Engine p_Engine)
@@ -42,7 +43,7 @@ namespace Statman.Engines.H3
             if (s_NullIndex >= 0)
                 s_Scene = s_Scene.Remove(s_NullIndex);
 
-            Trace.WriteLine("Current Scene: " + s_Scene);
+            CurrentScene = s_Scene;
 
             return true;
         }

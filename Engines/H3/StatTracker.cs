@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using Statman.Util;
 
 namespace Statman.Engines.H3
 {
@@ -68,6 +67,8 @@ namespace Statman.Engines.H3
             { "6x6", "Mass Murderer" }
         };
 
+        public Stats CurrentStats { get; private set; }
+
         private readonly H3Engine m_Engine;
 
         public StatTracker(H3Engine p_Engine)
@@ -105,6 +106,8 @@ namespace Statman.Engines.H3
             var s_Rating1 = CalculateRating1(p_Stats);
 
             Trace.WriteLine("Level Rating: " + m_Ratings[s_Rating0 + "x" + s_Rating1]);
+
+            CurrentStats = p_Stats;
         }
 
         private uint CalculateRating0(Stats p_Stats)
@@ -166,7 +169,7 @@ namespace Statman.Engines.H3
             s_Rating1 += m_Multipliers[s_CoverBlown] * 6.0;
 
             // Bodies Found
-            var s_BodiesFound = 0;
+            int s_BodiesFound;
             if (s_UnknownValue[0] <= 1)
                 s_BodiesFound = p_Stats.m_BodiesFound >= 34 ? 33 : p_Stats.m_BodiesFound;
             else

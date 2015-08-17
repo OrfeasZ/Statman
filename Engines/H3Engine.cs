@@ -9,11 +9,11 @@ namespace Statman.Engines
         public bool Active { get; private set; }
         public ProcessMemoryReader Reader { get; private set; }
 
-        private Process m_GameProcess;
+        public StatTracker StatTracker { get; private set; }
+        public TimeTracker TimeTracker { get; private set; }
+        public SceneTracker SceneTracker { get; private set; }
 
-        private StatTracker m_StatTracker;
-        private TimeTracker m_TimeTracker;
-        private SceneTracker m_SceneTracker;
+        private Process m_GameProcess;
 
         private uint m_SkipUpdates;
 
@@ -60,18 +60,18 @@ namespace Statman.Engines
                     Active = true;
 
                     // Setup our engine-specific classes.
-                    m_StatTracker = new StatTracker(this);
-                    m_TimeTracker = new TimeTracker(this);
-                    m_SceneTracker = new SceneTracker(this);
+                    StatTracker = new StatTracker(this);
+                    TimeTracker = new TimeTracker(this);
+                    SceneTracker = new SceneTracker(this);
                 }
             }
 
             if (!Active)
                 return;
 
-            m_SceneTracker.Update();
-            m_TimeTracker.Update();
-            m_StatTracker.Update();
+            SceneTracker.Update();
+            TimeTracker.Update();
+            StatTracker.Update();
         }
     }
 }

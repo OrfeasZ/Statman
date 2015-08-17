@@ -1,4 +1,5 @@
-﻿using Statman.Engines;
+﻿using System.Windows;
+using Statman.Engines;
 
 namespace Statman
 {
@@ -6,6 +7,7 @@ namespace Statman
     {
         public static MainLoop Loop { get; private set; }
         public static EngineManager EngineManager { get; private set; }
+        public static Window MainWindow { get; set; }
 
         static MainApp()
         {

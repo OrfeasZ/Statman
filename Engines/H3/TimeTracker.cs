@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
-using Statman.Util;
 
 namespace Statman.Engines.H3
 {
     class TimeTracker
     {
+        public double CurrentTime { get; private set; }
+
         private readonly H3Engine m_Engine;
 
         public TimeTracker(H3Engine p_Engine)
@@ -27,9 +27,7 @@ namespace Statman.Engines.H3
             if (s_TimeData == null)
                 return false;
 
-            var s_Time = BitConverter.ToUInt32(s_TimeData, 0) * 0.0009765625;
-
-            Trace.WriteLine("Current game time: " + s_Time);
+            CurrentTime = BitConverter.ToUInt32(s_TimeData, 0) * 0.0009765625;
 
             return true;
         }

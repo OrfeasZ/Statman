@@ -1,15 +1,15 @@
-﻿using System.Windows;
-
-namespace Statman.Windows
+﻿namespace Statman.Windows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : GlassWindow
     {
         public MainWindow()
         {
             InitializeComponent();
+
+            MainApp.MainWindow = this;
             MainApp.Loop.Start();
         }
 
