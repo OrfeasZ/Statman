@@ -138,7 +138,7 @@ namespace Statman.Engines.H3
             // Max Rating is 100
             s_Rating0 = s_Rating0 > 100.0 ? 100.0 : s_Rating0;
 
-            return (uint) Math.Ceiling((Math.Ceiling(s_Rating0) / 100.0) * 6.0);
+            return (uint) Math.Ceiling((Math.Round(s_Rating0) / 100.0) * 6.0);
         }
 
         private uint CalculateRating1(Stats p_Stats)
@@ -199,7 +199,7 @@ namespace Statman.Engines.H3
             // Max Rating is 100
             s_Rating1 = s_Rating1 > 100.0 ? 100.0 : s_Rating1;
 
-            return (uint) Math.Ceiling((Math.Ceiling(s_Rating1) / 100.0) * 6.0);
+            return (uint) Math.Ceiling((Math.Round(s_Rating1) / 100.0) * 6.0);
         }
     }
 }
