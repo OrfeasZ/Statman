@@ -114,7 +114,7 @@ namespace Statman.Engines.H3
             m_Engine.Control.SetShotsFired(p_Stats.m_ShotsFired);
             m_Engine.Control.SetHeadshots(p_Stats.m_Headshots);
             m_Engine.Control.SetAccidents(p_Stats.m_AccidentKills);
-            m_Engine.Control.SetAlarms(p_Stats.m_Alarms);
+            m_Engine.Control.SetCloseCombatKills(p_Stats.m_CloseCombatKills);
             m_Engine.Control.SetBodiesFound(p_Stats.m_BodiesFound);
             m_Engine.Control.SetCameraCaught(p_Stats.m_CameraCaught);
             m_Engine.Control.SetEnemiesKilled(p_Stats.m_EnemiesKilled);

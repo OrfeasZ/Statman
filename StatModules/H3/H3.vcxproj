@@ -53,7 +53,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>Full</Optimization>
+      <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;H3_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -70,7 +70,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <Optimization>Full</Optimization>
+      <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;H3_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -86,11 +86,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Src\HM3\HM3Module.h" />
+    <ClInclude Include="Src\HM3\HM3Functions.h" />
+    <ClInclude Include="Src\HM3\HM3Hooks.h" />
+    <ClInclude Include="Src\HM3\HM3Pointers.h" />
     <ClInclude Include="Src\stdafx.h" />
+    <ClInclude Include="Src\HM3\Structs\HM3NPC.h" />
+    <ClInclude Include="Src\HM3\Structs\HM3Stats.h" />
+    <ClInclude Include="Src\HM3\Structs\UnknownClass01.h" />
+    <ClInclude Include="Src\HM3\Structs\UnknownClass02.h" />
     <ClInclude Include="Src\targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\H3.cpp" />
+    <ClCompile Include="Src\Entry.cpp" />
+    <ClCompile Include="Src\HM3\HM3Module.cpp" />
+    <ClCompile Include="Src\HM3\HM3Functions.cpp" />
+    <ClCompile Include="Src\HM3\HM3Hooks.cpp" />
+    <ClCompile Include="Src\HM3\HM3Pointers.cpp" />
+    <ClCompile Include="Src\HM3\Hooks\EndLevel.cpp" />
+    <ClCompile Include="Src\HM3\Hooks\LoadScene.cpp" />
+    <ClCompile Include="Src\HM3\Hooks\UnknownUpdateFunc01.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -84,11 +84,11 @@ namespace Statman.Engines.H3.Controls
             }));
         }
 
-        public void SetAlarms(int p_Value)
+        public void SetCloseCombatKills(int p_Value)
         {
             Dispatcher.Invoke((Action)(() =>
             {
-                AlarmsLabel.Content = p_Value.ToString();
+                CloseCombatKillsLabel.Content = p_Value.ToString();
             }));
         }
 
