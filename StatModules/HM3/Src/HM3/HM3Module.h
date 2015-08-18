@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdafx.h>
+#include <string>
 
 class Pipeman;
 
@@ -20,13 +21,22 @@ public:
 	HM3Pointers* Pointers() const { return m_Pointers; }
 	HM3Functions* Functions() const { return m_Functions; }
 
+public:
+	bool CheatsEnabled() const { return m_CheatsEnabled; }
+	bool UnlimitedSaves() const { return m_UnlimitedSaves; }
+
 protected:
 	bool CheckInstance();
 	void PerformPatches();
+	void OnMessage(const std::string& p_Type, const std::string& p_Content);
 
 protected:
 	Pipeman* m_Pipeman;
 	HM3Hooks* m_Hooks;
 	HM3Pointers* m_Pointers;
 	HM3Functions* m_Functions;
+
+protected:
+	bool m_CheatsEnabled;
+	bool m_UnlimitedSaves;
 };

@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace Statman.Windows
 {
@@ -10,8 +15,16 @@ namespace Statman.Windows
         private Size m_BaseSize;
         private bool m_HasEngineControl;
 
+        private readonly List<Control> m_DefaultMenuItems;
+        private readonly ObservableCollection<Control> m_ContextMenuItems;
+        private List<Control> m_EngineMenuItems; 
+
         public MainWindow()
         {
+            m_DefaultMenuItems = new List<Control>();
+            m_ContextMenuItems = new ObservableCollection<Control>();
+
+            InitContextMenuItems();
             InitializeComponent();
 
             m_HasEngineControl = false;
@@ -29,11 +42,12 @@ namespace Statman.Windows
             m_BaseSize = new Size(Width, Height);
         }
 
-        public void SetEngineControl(UserControl p_Control)
+        public void SetEngineControl(UserControl p_Control, List<Control> p_EngineMenuItems = null)
         {
             Dispatcher.Invoke((Action) (() =>
             {
                 m_HasEngineControl = true;
+                m_EngineMenuItems = p_EngineMenuItems;
 
                 ContentGrid.Children.Clear();
                 ContentGrid.Children.Add(p_Control);
@@ -43,7 +57,9 @@ namespace Statman.Windows
 
                 OldSize = m_BaseSize;
                 NewSize = new Size(m_BaseSize.Width, (m_BaseSize.Height - 30) + p_Control.Height);
+
                 ApplyResizeAnimation();
+                UpdateContextMenu();
             }));
         }
 
@@ -64,8 +80,76 @@ namespace Statman.Windows
                 WaitingLabel.Visibility = Visibility.Visible;
 
                 NewSize = m_BaseSize;
+
                 ApplyResizeAnimation();
+                UpdateContextMenu();
             }));
+        }
+
+        private void InitContextMenuItems()
+        {
+            var s_Assembly = Assembly.GetExecutingAssembly();
+            var s_VersionInfo = FileVersionInfo.GetVersionInfo(s_Assembly.Location);
+            var s_Version = s_VersionInfo.FileVersion;
+
+            var s_Header = new MenuItem() { Header = "Statman v" + s_Version, StaysOpenOnClick = true, IsEnabled = false };
+
+            var s_ToggleTheme = new MenuItem() { Header = "Toggle Theme" };
+            s_ToggleTheme.Click += OnToggleTheme;
+            
+            var s_CheckForUpdates = new MenuItem() { Header = "Check for Updates" };
+            s_CheckForUpdates.Click += OnCheckForUpdates;
+
+            var s_Exit = new MenuItem() { Header = "Exit" };
+            s_Exit.Click += OnExit;
+
+            m_DefaultMenuItems.Add(s_Header);
+            m_DefaultMenuItems.Add(new Separator());
+            m_DefaultMenuItems.Add(s_ToggleTheme);
+            m_DefaultMenuItems.Add(s_CheckForUpdates);
+            m_DefaultMenuItems.Add(s_Exit);
+        }
+
+        private void OnToggleTheme(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
+        {
+            MessageBox.Show("Toggling theme.");
+        }
+
+        private void OnCheckForUpdates(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
+        {
+            MessageBox.Show("Checking for updates.");
+        }
+
+        private void OnExit(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
+        {
+            Close();
+        }
+
+        private void UpdateContextMenu()
+        {
+            m_ContextMenuItems.Clear();
+
+            foreach (var s_Item in m_DefaultMenuItems)
+                m_ContextMenuItems.Add(s_Item);
+
+            if (!m_HasEngineControl || m_EngineMenuItems == null || m_EngineMenuItems.Count == 0)
+                return;
+
+            m_ContextMenuItems.Add(new Separator());
+
+            foreach (var s_Item in m_EngineMenuItems)
+                m_ContextMenuItems.Add(s_Item);
+        }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            UpdateContextMenu();
+    
+            // Setup our custom context menu.
+            var s_TitleBar = GetChildControl<Rectangle>("PART_TitleBar");
+            s_TitleBar.ContextMenu = new ContextMenu { ItemsSource = m_ContextMenuItems };
         }
     }
 }

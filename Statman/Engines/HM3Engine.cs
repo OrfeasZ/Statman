@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows;
+using System.Windows.Controls;
 using Statman.Engines.HM3;
 using Statman.Engines.HM3.Controls;
+using Statman.Network;
 using Statman.Util;
 using Statman.Util.Injection;
 
@@ -118,9 +121,60 @@ namespace Statman.Engines
 
         private uint m_SkipUpdates;
 
+        private readonly List<Control> m_MenuItems; 
+
         public HM3Engine()
         {
+            m_MenuItems = new List<Control>();
             Active = false;
+        }
+
+        private void InitMenuItems()
+        {
+            MainApp.MainWindow.Dispatcher.Invoke((Action) (() =>
+            {
+                var s_EnableCheats = new MenuItem()
+                {
+                    Header = "Enable Cheats",
+                    IsCheckable = true,
+                    IsChecked = false
+                };
+
+                s_EnableCheats.Click += OnEnableCheats;
+
+                var s_UnlimitedSaves = new MenuItem()
+                {
+                    Header = "Unlimited Saves",
+                    IsCheckable = true,
+                    IsChecked = false
+                };
+
+                s_UnlimitedSaves.Click += OnUnlimitedSaves;
+
+                m_MenuItems.Clear();
+                m_MenuItems.Add(s_EnableCheats);
+                m_MenuItems.Add(s_UnlimitedSaves);
+            }));
+        }
+
+        private void OnEnableCheats(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
+        {
+            var s_MenuItem = p_Sender as MenuItem;
+
+            if (s_MenuItem == null) 
+                return;
+
+            SendMessage("EC", s_MenuItem.IsChecked ? "true" : "false");
+        }
+
+        private void OnUnlimitedSaves(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
+        {
+            var s_MenuItem = p_Sender as MenuItem;
+
+            if (s_MenuItem == null)
+                return;
+
+            SendMessage("US", s_MenuItem.IsChecked ? "true" : "false");
         }
 
         public void Update()
@@ -191,7 +245,8 @@ namespace Statman.Engines
                         Control.SetCurrentLevelScene(CurrentLevelScene);
 
                         // Set our control in the main window.
-                        MainApp.MainWindow.SetEngineControl(Control);
+                        InitMenuItems();
+                        MainApp.MainWindow.SetEngineControl(Control, m_MenuItems);
                     }
                 }
                 catch (Exception)
@@ -243,6 +298,16 @@ namespace Statman.Engines
                     break;
                 }
             }
+        }
+
+        public void SendMessage(string p_Type, string p_Contents)
+        {
+            MainApp.Pipeman.PushMessage(new PipeMessage()
+            {
+                Module = Name, 
+                Type = p_Type, 
+                Content = p_Contents
+            });
         }
 
         public void Dispose()

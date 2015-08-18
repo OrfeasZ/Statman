@@ -16,8 +16,9 @@ char __fastcall HM3Hooks::c_LoadScene(void* th, int, const char* scene)
 
 	char s_Return = LoadScene(th, scene);
 
-	// Enable cheats.
-	*(bool*) (0x008ABA89) = true;
+	// Cheats
+	if (g_Module)
+		*(bool*) (0x008ABA89) = g_Module->CheatsEnabled();
 
 	return s_Return;
 }

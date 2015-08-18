@@ -112,8 +112,6 @@ void Pipeman::Update()
 			char* s_HandshakeBuffer = new char[s_HandshakeLength];
 			DWORD s_HandshakeBufferLength;
 
-			Log("Read handshake length %d.\n", s_HandshakeLength);
-
 			// Read the handshake length.
 			if (!ReadFile(m_Pipe, s_HandshakeBuffer, s_HandshakeLength, &s_HandshakeBufferLength, NULL) || s_HandshakeBufferLength != s_HandshakeLength)
 			{
@@ -175,6 +173,8 @@ void Pipeman::Update()
 				m_Pipe = NULL;
 				continue;
 			}
+
+			Log("Connected to main pipe!\n");
 		}
 
 		if (m_Pipe == NULL)
@@ -185,8 +185,6 @@ void Pipeman::Update()
 
 		if (!m_QueuedData.empty())
 		{
-			Log("Sending pipe data.\n");
-
 			std::string s_Data;
 
 			// Write data length.
@@ -209,8 +207,6 @@ void Pipeman::Update()
 				
 				continue;
 			}
-
-			Log("Sent pipe data.\n");
 
 			m_QueuedData.pop();
 		}

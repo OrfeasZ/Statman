@@ -10,7 +10,9 @@ HM3Module::HM3Module() :
 	m_Pipeman(nullptr),
 	m_Hooks(nullptr),
 	m_Pointers(nullptr),
-	m_Functions(nullptr)
+	m_Functions(nullptr),
+	m_CheatsEnabled(false),
+	m_UnlimitedSaves(false)
 {
 	if (!CheckInstance())
 		return;
@@ -43,6 +45,7 @@ HM3Module::HM3Module() :
 
 	// Setup Pipeman.
 	m_Pipeman = new Pipeman("\\\\.\\pipe\\Statman_IPC", "H3");
+	m_Pipeman->SetMessageCallback(std::bind(&HM3Module::OnMessage, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 HM3Module::~HM3Module()
@@ -76,6 +79,23 @@ bool HM3Module::CheckInstance()
 
 void HM3Module::PerformPatches()
 {
-	// Enable cheats.
-	*(bool*) (0x008ABA89) = true;
+	// Nothing here.
+}
+
+void HM3Module::OnMessage(const std::string& p_Type, const std::string& p_Content)
+{
+	if (p_Type == "EC")
+	{
+		// Enable cheats.
+		m_CheatsEnabled = p_Content == "true";
+		*(bool*) (0x008ABA89) = m_CheatsEnabled;
+		return;
+	}
+
+	if (p_Type == "US")
+	{
+		// Unlimited saves.
+		m_UnlimitedSaves = p_Content == "true";
+		return;
+	}
 }
