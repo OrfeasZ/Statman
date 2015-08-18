@@ -6,12 +6,22 @@
 #define Log(...)
 #endif
 
-Pipeman::Pipeman(const std::string& p_PipeName) : 
+Pipeman::Pipeman(const std::string& p_PipeName, const std::string& p_Module) : 
 	m_Running(true),
 	m_PipeName(p_PipeName),
+	m_Module(p_Module),
 	m_Pipe(NULL),
+	m_PendingMessageLength(0),
+	m_MessageCallback(nullptr),
 	m_Thread(&Pipeman::Update, this)
 {
+	if (m_Module.size() == 0)
+		m_Module = "__";
+	else if (m_Module.size() == 1)
+		m_Module = m_Module + "_";
+	else
+		m_Module = m_Module.substr(0, 2);
+
 	InitializeCriticalSection(&m_CriticalSection);
 }
 
@@ -21,25 +31,22 @@ Pipeman::~Pipeman()
 	DeleteCriticalSection(&m_CriticalSection);
 }
 
+void Pipeman::SetMessageCallback(MessageCallback_t p_Callback)
+{
+	m_MessageCallback = p_Callback;
+}
+
 void Pipeman::Disconnect()
 {
 	m_Running = false;
 }
 
-void Pipeman::SendPipeMessage(const std::string& p_Module, const std::string& p_Type, const std::string& p_Content)
+void Pipeman::SendPipeMessage(const std::string& p_Type, const std::string& p_Content)
 {
 	EnterCriticalSection(&m_CriticalSection);
 
-	std::string s_Module(p_Module);
 	std::string s_Type(p_Type);
-
-	if (s_Module.size() == 0)
-		s_Module = "__";
-	else if (s_Module.size() == 1)
-		s_Module = s_Module + "_";
-	else
-		s_Module = s_Module.substr(0, 2);
-
+	
 	if (s_Type.size() == 0)
 		s_Type = "__";
 	else if (s_Type.size() == 1)
@@ -47,7 +54,7 @@ void Pipeman::SendPipeMessage(const std::string& p_Module, const std::string& p_
 	else
 		s_Type = s_Type.substr(0, 2);
 
-	std::string s_Data = s_Module + s_Type;
+	std::string s_Data = m_Module + s_Type;
 	s_Data.append(p_Content.data(), p_Content.size());
 
 	m_QueuedData.push(s_Data);
@@ -66,6 +73,8 @@ void Pipeman::Update()
 
 		if (m_Pipe == NULL)
 		{
+			m_PendingMessageLength = 0;
+
 			// Connect to the handshake pipe.
 			m_Pipe = CreateFileA(m_PipeName.c_str(),
 				GENERIC_WRITE | GENERIC_READ,
@@ -207,6 +216,75 @@ void Pipeman::Update()
 		}
 
 		LeaveCriticalSection(&m_CriticalSection);
+
+		// See if there's any data to read.
+		DWORD s_PendingBytes;
+		if (!PeekNamedPipe(m_Pipe, NULL, NULL, NULL, &s_PendingBytes, NULL))
+		{
+			Log("Failed to peek pipe.\n");
+
+			CloseHandle(m_Pipe);
+			m_Pipe = NULL;
+
+			continue;
+		}
+
+		if (s_PendingBytes <= 0)
+			continue;
+
+		if (m_PendingMessageLength == 0)
+		{
+			// Read message length.
+			char s_MessageLengthBuffer[4];
+			DWORD s_MessageLengthBufferLength;
+
+			// Read the handshake length.
+			if (!ReadFile(m_Pipe, s_MessageLengthBuffer, 4, &s_MessageLengthBufferLength, NULL) || s_MessageLengthBufferLength != 4)
+			{
+				Log("Failed to read message length %d.\n", s_MessageLengthBufferLength);
+
+				CloseHandle(m_Pipe);
+				m_Pipe = NULL;
+
+				continue;
+			}
+
+			m_PendingMessageLength = *(uint32_t*) &s_MessageLengthBuffer[0];
+			continue;
+		}
+
+		if (m_PendingMessageLength > 0 && s_PendingBytes < m_PendingMessageLength)
+			continue;
+
+		// Read message.
+		char* s_MessageBuffer = new char[m_PendingMessageLength];
+		DWORD s_MessageBufferLength;
+
+		// Read the handshake length.
+		if (!ReadFile(m_Pipe, s_MessageBuffer, m_PendingMessageLength, &s_MessageBufferLength, NULL) || s_MessageBufferLength != m_PendingMessageLength)
+		{
+			Log("Failed to read message %d.\n", s_MessageBufferLength);
+			delete [] s_MessageBuffer;
+
+			CloseHandle(m_Pipe);
+			m_Pipe = NULL;
+
+			continue;
+		}
+
+		// Parse the message.
+		std::string s_Message(s_MessageBuffer, m_PendingMessageLength);
+
+		std::string s_Module = s_Message.substr(0, 2);
+		std::string s_Type = s_Message.substr(2, 2);
+		std::string s_Content = s_Message.substr(4, m_PendingMessageLength - 4);
+
+		m_PendingMessageLength = 0;
+		delete [] s_MessageBuffer;
+
+		// Received a new message!
+		if (s_Module == m_Module && m_MessageCallback)
+			m_MessageCallback(s_Type, s_Content);
 	}
 
 	if (m_Pipe)

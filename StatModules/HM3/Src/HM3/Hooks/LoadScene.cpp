@@ -10,7 +10,7 @@ char __fastcall HM3Hooks::c_LoadScene(void* th, int, const char* scene)
 {
 	// Send Pipeman message.
 	if (g_Module && g_Module->Pipe())
-		g_Module->Pipe()->SendPipeMessage("H3", "CS", scene);
+		g_Module->Pipe()->SendPipeMessage("CS", scene);
 
 	Log("Loading scene: %s\n", scene);
 

@@ -42,7 +42,7 @@ HM3Module::HM3Module() :
 	m_Hooks = new HM3Hooks();
 
 	// Setup Pipeman.
-	m_Pipeman = new Pipeman("\\\\.\\pipe\\Statman_IPC");
+	m_Pipeman = new Pipeman("\\\\.\\pipe\\Statman_IPC", "H3");
 }
 
 HM3Module::~HM3Module()
