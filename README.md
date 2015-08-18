@@ -14,7 +14,7 @@ Live Statistics Tracking for Hitman Games
 
 ### Screenshots
 
-![Screenshot1](http://i.nofate.me/p4KDJ4AJ.png) ![Screenshot2](http://i.nofate.me/qjgtWj1P.png)
+![Screenshots](http://i.nofate.me/RSK7Ewkd.png)
 
 ### Download
 
