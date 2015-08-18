@@ -91,6 +91,8 @@
     <ClInclude Include="Src\HM3\HM3Functions.h" />
     <ClInclude Include="Src\HM3\HM3Hooks.h" />
     <ClInclude Include="Src\HM3\HM3Pointers.h" />
+    <ClInclude Include="Src\HM3\Structs\GUIElement.h" />
+    <ClInclude Include="Src\HM3\Structs\LimitSavesElement.h" />
     <ClInclude Include="Src\stdafx.h" />
     <ClInclude Include="Src\HM3\Structs\HM3NPC.h" />
     <ClInclude Include="Src\HM3\Structs\HM3Stats.h" />
@@ -106,6 +108,7 @@
     <ClCompile Include="Src\HM3\HM3Pointers.cpp" />
     <ClCompile Include="Src\HM3\Hooks\EndLevel.cpp" />
     <ClCompile Include="Src\HM3\Hooks\LoadScene.cpp" />
+    <ClCompile Include="Src\HM3\Hooks\LimitedLives_SelectedGUIElement.cpp" />
     <ClCompile Include="Src\HM3\Hooks\UnknownUpdateFunc01.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

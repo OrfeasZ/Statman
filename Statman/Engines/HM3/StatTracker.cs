@@ -163,20 +163,20 @@ namespace Statman.Engines.HM3
         private uint CalculateRating1(Stats p_Stats)
         {
             var s_Rating1 = 0.0;
-            byte[] s_UnknownValue;
+            byte[] s_Difficulty;
 
             try
             {
-                var s_UnknownPtrData = m_Engine.Reader.Read(m_Engine.Reader.Process.MainModule.BaseAddress + 0x41F83C, 4);
+                var s_DifficultyPtrData = m_Engine.Reader.Read(m_Engine.Reader.Process.MainModule.BaseAddress + 0x41F83C, 4);
 
-                if (s_UnknownPtrData == null)
+                if (s_DifficultyPtrData == null)
                     return 0;
 
-                var s_UnknownPtr = BitConverter.ToUInt32(s_UnknownPtrData, 0);
+                var s_UnknownPtr = BitConverter.ToUInt32(s_DifficultyPtrData, 0);
 
-                s_UnknownValue = m_Engine.Reader.Read(s_UnknownPtr + 0x6664, 1);
+                s_Difficulty = m_Engine.Reader.Read(s_UnknownPtr + 0x6664, 1);
 
-                if (s_UnknownValue == null)
+                if (s_Difficulty == null)
                     return 0;
             }
             catch (Exception)
@@ -194,7 +194,7 @@ namespace Statman.Engines.HM3
 
             // Bodies Found
             int s_BodiesFound;
-            if (s_UnknownValue[0] <= 1)
+            if (s_Difficulty[0] <= 1)
                 s_BodiesFound = p_Stats.m_BodiesFound >= 34 ? 33 : p_Stats.m_BodiesFound;
             else
                 s_BodiesFound = (p_Stats.m_BodiesFound + p_Stats.m_TargetBodiesFound) >= 34 ? 33 : (p_Stats.m_BodiesFound + p_Stats.m_TargetBodiesFound);
@@ -214,7 +214,7 @@ namespace Statman.Engines.HM3
             s_Rating1 += m_Multipliers[s_CameraCaught] * 10.0;
 
             // Items Left
-            if (s_UnknownValue[0] == 3)
+            if (s_Difficulty[0] == 3)
             {
                 if (p_Stats.m_CustomWeaponsLeftOnLevel)
                     s_Rating1 += 5.0;

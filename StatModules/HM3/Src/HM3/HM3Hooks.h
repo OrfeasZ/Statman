@@ -3,6 +3,7 @@
 #include <stdafx.h>
 
 class UnknownClass01;
+class LimitSavesElement;
 
 class HM3Hooks
 {
@@ -25,4 +26,8 @@ public:
 	typedef int (__thiscall* EndLevel_t)(UnknownClass01* th);
 	static EndLevel_t EndLevel;
 	static int __fastcall c_EndLevel(UnknownClass01* th, int);
+
+	typedef void (__thiscall* LimitedLives_SelectedGUIElement_t)(LimitSavesElement* th, void* a2, void* a3, void* a4);
+	static LimitedLives_SelectedGUIElement_t LimitedLives_SelectedGUIElement;
+	static void __fastcall c_LimitedLives_SelectedGUIElement(LimitSavesElement* th, int, void* a2, void* a3, void* a4);
 };

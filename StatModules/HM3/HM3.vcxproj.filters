@@ -45,6 +45,12 @@
     <ClInclude Include="Src\HM3\HM3Module.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\HM3\Structs\LimitSavesElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\HM3\Structs\GUIElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\HM3\HM3Functions.cpp">
@@ -69,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\HM3\Hooks\EndLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\HM3\Hooks\LimitedLives_SelectedGUIElement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

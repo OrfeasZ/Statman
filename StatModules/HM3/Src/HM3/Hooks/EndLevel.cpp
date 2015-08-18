@@ -2,6 +2,7 @@
 
 #include <HM3/HM3Module.h>
 #include <HM3/HM3Pointers.h>
+
 #include <HM3/Structs/HM3Stats.h>
 
 HM3Hooks::EndLevel_t HM3Hooks::EndLevel = nullptr;
