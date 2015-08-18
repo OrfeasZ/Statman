@@ -9,25 +9,28 @@ namespace Statman
         public static MainLoop Loop { get; private set; }
         public static EngineManager EngineManager { get; private set; }
         public static MainWindow MainWindow { get; set; }
-        public static Pipeman Pipe { get; private set; }
+        public static PipemanServer Pipeman { get; private set; }
 
         static MainApp()
         {
-            // Initialize the named pipe server.
-            Pipe = new Pipeman("Statman_IPC");
-
             // Initialize our main loop at 30Hz.
             Loop = new MainLoop(30);
 
             // Initialize the engine manager.
             EngineManager = new EngineManager();
             RegisterEngines();
+
+            // Initialize the named pipe server.
+            Pipeman = new PipemanServer("Statman_IPC");
+            Pipeman.ClientMessage += (p_Connection, p_Message) => EngineManager.OnMessage(p_Message);
+            Pipeman.Start();
         }
 
         public static void Close()
         {
             Loop.Dispose();
             EngineManager.Dispose();
+            Pipeman.Stop();
         }
 
         public static void RegisterEngines()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Statman.Engines;
+using Statman.Network;
 
 namespace Statman
 {
@@ -40,18 +41,16 @@ namespace Statman
                 MainApp.MainWindow.ResetEngineControls();
         }
 
-        public void OnMessage(string p_Message)
+        public void OnMessage(PipeMessage p_Message)
         {
-            var s_Parts = p_Message.Split('|');
-
-            if (s_Parts.Length != 3)
+            if (p_Message == null)
                 return;
 
             IEngine s_Engine;
-            if (!m_Engines.TryGetValue(s_Parts[0], out s_Engine))
+            if (!m_Engines.TryGetValue(p_Message.Module, out s_Engine))
                 return;
 
-            s_Engine.OnMessage(s_Parts[1], s_Parts[2]);
+            s_Engine.OnMessage(p_Message.Type, p_Message.Content);
         }
 
         public void Dispose()

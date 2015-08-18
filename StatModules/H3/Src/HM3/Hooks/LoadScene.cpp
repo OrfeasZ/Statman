@@ -8,13 +8,9 @@ HM3Hooks::LoadScene_t HM3Hooks::LoadScene = nullptr;
 
 char __fastcall HM3Hooks::c_LoadScene(void* th, int, const char* scene)
 {
-	// Create pipeman message.
-	char s_SceneMsg[256];
-	sprintf(s_SceneMsg, "H3|CS|%s", scene);
-
-	// Send message.
+	// Send Pipeman message.
 	if (g_Module && g_Module->Pipe())
-		g_Module->Pipe()->SendData(std::string(s_SceneMsg));
+		g_Module->Pipe()->SendPipeMessage("H3", "CS", scene);
 
 	Log("Loading scene: %s\n", scene);
 

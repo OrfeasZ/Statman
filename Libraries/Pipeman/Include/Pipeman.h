@@ -15,13 +15,14 @@ public:
 	~Pipeman();
 
 public:
-	void SendData(const std::string& p_Data);
+	void SendPipeMessage(const std::string& p_Module, const std::string& p_Type, const std::string& p_Content);
 	void Disconnect();
 
 private:
 	void Update();
 
 private:
+	HANDLE m_Pipe;
 	std::thread m_Thread;
 	std::string m_PipeName;
 	CRITICAL_SECTION m_CriticalSection;

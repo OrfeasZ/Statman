@@ -88,7 +88,14 @@
     <Compile Include="Engines\IEngine.cs" />
     <Compile Include="MainApp.cs" />
     <Compile Include="MainLoop.cs" />
-    <Compile Include="Network\Pipeman.cs" />
+    <Compile Include="Network\IO\PipeStreamReader.cs" />
+    <Compile Include="Network\IO\PipeStreamWrapper.cs" />
+    <Compile Include="Network\IO\PipeStreamWriter.cs" />
+    <Compile Include="Network\PipeConnection.cs" />
+    <Compile Include="Network\PipemanServer.cs" />
+    <Compile Include="Network\PipemanClient.cs" />
+    <Compile Include="Network\PipeMessage.cs" />
+    <Compile Include="Network\Threading\Worker.cs" />
     <Compile Include="Util\Injection\CustomMarshal.cs" />
     <Compile Include="Util\Injection\CustomMarshalAsAttribute.cs" />
     <Compile Include="Util\Injection\CustomMarshalAttribute.cs" />
