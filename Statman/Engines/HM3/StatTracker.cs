@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace Statman.Engines.H3
+namespace Statman.Engines.HM3
 {
     class StatTracker
     {
@@ -69,9 +68,9 @@ namespace Statman.Engines.H3
 
         public Stats CurrentStats { get; private set; }
 
-        private readonly H3Engine m_Engine;
+        private readonly HM3Engine m_Engine;
 
-        public StatTracker(H3Engine p_Engine)
+        public StatTracker(HM3Engine p_Engine)
         {
             m_Engine = p_Engine;
         }

@@ -1,14 +1,14 @@
 ﻿using System;
 
-namespace Statman.Engines.H3
+namespace Statman.Engines.HM3
 {
     class TimeTracker
     {
         public double CurrentTime { get; private set; }
 
-        private readonly H3Engine m_Engine;
+        private readonly HM3Engine m_Engine;
 
-        public TimeTracker(H3Engine p_Engine)
+        public TimeTracker(HM3Engine p_Engine)
         {
             m_Engine = p_Engine;
         }

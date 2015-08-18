@@ -21,9 +21,9 @@ HM3Module::HM3Module() :
 	freopen("CON", "w", stdout);
 #endif
 
-	Log("Initializing Statman H3 stat module...\n");
+	Log("Initializing Statman HM3 stat module...\n");
 
-	SetEnvironmentVariable("Statman_H3", "\x01\x00");
+	SetEnvironmentVariable("Statman_HM3", "\x01\x00");
 
 	Log("Waiting for the game to be ready...\n");
 
@@ -68,7 +68,7 @@ HM3Module::~HM3Module()
 bool HM3Module::CheckInstance()
 {
 	char s_Buffer[2];
-	if (GetEnvironmentVariableA("Statman_H3", s_Buffer, 2) && s_Buffer[0] == 0x01)
+	if (GetEnvironmentVariableA("Statman_HM3", s_Buffer, 2) && s_Buffer[0] == 0x01)
 		return false;
 
 	return true;

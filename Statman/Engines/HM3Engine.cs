@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Statman.Engines.H3;
-using Statman.Engines.H3.Controls;
+using Statman.Engines.HM3;
+using Statman.Engines.HM3.Controls;
 using Statman.Util;
 using Statman.Util.Injection;
 
 namespace Statman.Engines
 {
-    class H3Engine : IEngine
+    class HM3Engine : IEngine
     {
         private static readonly Dictionary<string, Tuple<string, string, bool>> m_SceneNames = new Dictionary
             <string, Tuple<string, string, bool>>()
@@ -118,7 +118,7 @@ namespace Statman.Engines
 
         private uint m_SkipUpdates;
 
-        public H3Engine()
+        public HM3Engine()
         {
             Active = false;
         }
@@ -170,7 +170,7 @@ namespace Statman.Engines
 
                         // Create our injector and inject our stat module.
                         m_Injector = new Injector(m_GameProcess, false);
-                        m_Injector.InjectLibrary("H3.dll");
+                        m_Injector.InjectLibrary("HM3.dll");
 
                         // Setup our main control.
                         MainApp.MainWindow.Dispatcher.Invoke((Action) (() =>

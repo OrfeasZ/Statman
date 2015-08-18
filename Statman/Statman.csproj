@@ -78,13 +78,13 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="EngineManager.cs" />
-    <Compile Include="Engines\H3Engine.cs" />
-    <Compile Include="Engines\H3\Controls\MainControl.xaml.cs">
+    <Compile Include="Engines\HM3Engine.cs" />
+    <Compile Include="Engines\HM3\Controls\MainControl.xaml.cs">
       <DependentUpon>MainControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Engines\H3\StatTracker.cs" />
-    <Compile Include="Engines\H3\Stats.cs" />
-    <Compile Include="Engines\H3\TimeTracker.cs" />
+    <Compile Include="Engines\HM3\StatTracker.cs" />
+    <Compile Include="Engines\HM3\Stats.cs" />
+    <Compile Include="Engines\HM3\TimeTracker.cs" />
     <Compile Include="Engines\IEngine.cs" />
     <Compile Include="MainApp.cs" />
     <Compile Include="MainLoop.cs" />
@@ -102,7 +102,7 @@
     <Compile Include="Util\Injection\Imports.cs" />
     <Compile Include="Util\Injection\Injector.cs" />
     <Compile Include="Util\ProcessMemoryReader.cs" />
-    <Page Include="Engines\H3\Controls\MainControl.xaml">
+    <Page Include="Engines\HM3\Controls\MainControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

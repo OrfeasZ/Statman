@@ -1,5 +1,10 @@
 #include <Pipeman.h>
 
+#ifdef _DEBUG
+#define Log(...) printf(__VA_ARGS__)
+#else
+#define Log(...)
+#endif
 
 Pipeman::Pipeman(const std::string& p_PipeName) : 
 	m_Running(true),
@@ -52,6 +57,9 @@ void Pipeman::SendPipeMessage(const std::string& p_Module, const std::string& p_
 
 void Pipeman::Update()
 {
+	// Workaround for early init.
+	Sleep(2000);
+
 	while (m_Running)
 	{
 		Sleep(5);
@@ -69,6 +77,7 @@ void Pipeman::Update()
 
 			if (m_Pipe == NULL || m_Pipe == INVALID_HANDLE_VALUE || GetLastError() == ERROR_PIPE_BUSY)
 			{
+				Log("Failed to connect to handshake pipe %d %d.\n", GetLastError(), m_Pipe);
 				SetLastError(0);
 				m_Pipe = NULL;
 				continue;
@@ -76,12 +85,15 @@ void Pipeman::Update()
 
 			SetLastError(0);
 
+			Log("Connected to handshake pipe!\n");
+
 			char s_HandshakeLengthBuffer[4];
 			DWORD s_HandshakeLengthBufferLength;
 
 			// Read the handshake length.
 			if (!ReadFile(m_Pipe, s_HandshakeLengthBuffer, 4, &s_HandshakeLengthBufferLength, NULL) || s_HandshakeLengthBufferLength != 4)
 			{
+				Log("Failed to read handshake length %d.\n", s_HandshakeLengthBufferLength);
 				m_Pipe = NULL;
 				continue;
 			}
@@ -91,9 +103,12 @@ void Pipeman::Update()
 			char* s_HandshakeBuffer = new char[s_HandshakeLength];
 			DWORD s_HandshakeBufferLength;
 
+			Log("Read handshake length %d.\n", s_HandshakeLength);
+
 			// Read the handshake length.
 			if (!ReadFile(m_Pipe, s_HandshakeBuffer, s_HandshakeLength, &s_HandshakeBufferLength, NULL) || s_HandshakeBufferLength != s_HandshakeLength)
 			{
+				Log("Failed to read handshake %d.\n", s_HandshakeBufferLength);
 				delete [] s_HandshakeBuffer;
 				m_Pipe = NULL;
 				continue;
@@ -112,10 +127,14 @@ void Pipeman::Update()
 			std::string s_Type = s_Handshake.substr(2, 2);
 			std::string s_Content = s_Handshake.substr(4, s_HandshakeLength - 4);
 
+			Log("Read handshake %s, %s, %s.\n", s_Module.c_str(), s_Type.c_str(), s_Content.c_str());
+
 			if (s_Module != "SM" || s_Type != "HS")
 				continue;
 
 			std::string s_MainPipe = "\\\\.\\pipe\\" + s_Content;
+
+			Log("Connecting to main pipe %s.\n", s_MainPipe.c_str());
 
 			// Connect to the main pipe.
 			m_Pipe = CreateFileA(s_MainPipe.c_str(),
@@ -141,6 +160,8 @@ void Pipeman::Update()
 
 			if (m_Pipe == NULL || m_Pipe == INVALID_HANDLE_VALUE || GetLastError() == ERROR_PIPE_BUSY)
 			{
+				Log("Failed to connect to main pipe %d %d.\n", GetLastError(), m_Pipe);
+
 				SetLastError(0);
 				m_Pipe = NULL;
 				continue;
@@ -155,6 +176,8 @@ void Pipeman::Update()
 
 		if (!m_QueuedData.empty())
 		{
+			Log("Sending pipe data.\n");
+
 			std::string s_Data;
 
 			// Write data length.
@@ -168,14 +191,27 @@ void Pipeman::Update()
 			DWORD s_Written;
 			if (!WriteFile(m_Pipe, s_Data.data(), s_Data.size(), &s_Written, NULL))
 			{
+				Log("Failed to send pipe data.\n");
+
+				CloseHandle(m_Pipe);
 				m_Pipe = NULL;
+
 				LeaveCriticalSection(&m_CriticalSection);
+				
 				continue;
 			}
+
+			Log("Sent pipe data.\n");
 
 			m_QueuedData.pop();
 		}
 
 		LeaveCriticalSection(&m_CriticalSection);
+	}
+
+	if (m_Pipe)
+	{
+		CloseHandle(m_Pipe);
+		m_Pipe = NULL;
 	}
 }

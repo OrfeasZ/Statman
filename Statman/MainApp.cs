@@ -1,4 +1,6 @@
-﻿using Statman.Engines;
+﻿using System;
+using System.Threading;
+using Statman.Engines;
 using Statman.Network;
 using Statman.Windows;
 
@@ -28,15 +30,24 @@ namespace Statman
 
         public static void Close()
         {
+            var s_ForceQuitThread = new Thread(ForceQuit);
+            s_ForceQuitThread.Start();
+
             Loop.Dispose();
             EngineManager.Dispose();
             Pipeman.Stop();
         }
 
+        private static void ForceQuit()
+        {
+            Thread.Sleep(1000);
+            Environment.Exit(0);
+        }
+
         public static void RegisterEngines()
         {
             // Register all supported/required engines.
-            EngineManager.RegisterEngine(new H3Engine());
+            EngineManager.RegisterEngine(new HM3Engine());
         }
     }
 }

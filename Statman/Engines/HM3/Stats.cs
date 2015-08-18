@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Statman.Engines.H3
+namespace Statman.Engines.HM3
 {
     [StructLayout(LayoutKind.Explicit, Pack = 4)]
     struct Stats

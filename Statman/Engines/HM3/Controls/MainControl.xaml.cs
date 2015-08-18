@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Statman.Engines.H3.Controls
+namespace Statman.Engines.HM3.Controls
 {
     public partial class MainControl : UserControl
     {
