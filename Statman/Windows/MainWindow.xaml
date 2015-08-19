@@ -10,10 +10,10 @@
                     MinWidth="363"
                     MaxWidth="363"
                     WindowStartupLocation="CenterScreen" 
-                    Closing="Window_Closing" ResizeMode="NoResize" WindowStyle="None" Loaded="AnimationWindow_Loaded">
+                    Closing="Window_Closing" ResizeMode="NoResize" WindowStyle="None" Loaded="AnimationWindow_Loaded" Icon="/Statman;component/Icon-256px.ico">
     <Grid Background="{DynamicResource BackgroundBrush}">
         <Image Margin="10,10,10,0" Source="{DynamicResource LogoImage}" Height="63" VerticalAlignment="Top"/>
-        <Label x:Name="WaitingLabel" Content="Waiting for game..." Margin="10,0,10,10" Height="26" VerticalAlignment="Bottom"
+        <Label x:Name="StatusLabel" Content="Checking for Updates..." Margin="10,0,10,10" Height="26" VerticalAlignment="Bottom"
                HorizontalContentAlignment="Center" Foreground="{DynamicResource LabelBrush}"/>
         <Grid Margin="10,81,10,10" x:Name="ContentGrid"/>
     </Grid>

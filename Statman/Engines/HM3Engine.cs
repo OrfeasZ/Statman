@@ -131,7 +131,7 @@ namespace Statman.Engines
 
         private void InitMenuItems()
         {
-            MainApp.MainWindow.Dispatcher.Invoke((Action) (() =>
+            MainApp.MainWindow.Dispatcher.Invoke(() =>
             {
                 var s_EnableCheats = new MenuItem()
                 {
@@ -154,7 +154,7 @@ namespace Statman.Engines
                 m_MenuItems.Clear();
                 m_MenuItems.Add(s_EnableCheats);
                 m_MenuItems.Add(s_UnlimitedSaves);
-            }));
+            });
         }
 
         private void OnEnableCheats(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
@@ -227,10 +227,10 @@ namespace Statman.Engines
                         m_Injector.InjectLibrary("HM3.dll");
 
                         // Setup our main control.
-                        MainApp.MainWindow.Dispatcher.Invoke((Action) (() =>
+                        MainApp.MainWindow.Dispatcher.Invoke(() =>
                         {
                             Control = new MainControl();
-                        }));
+                        });
 
                         // Setup our engine-specific classes.
                         StatTracker = new StatTracker(this);

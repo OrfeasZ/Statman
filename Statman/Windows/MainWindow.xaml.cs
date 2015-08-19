@@ -49,7 +49,7 @@ namespace Statman.Windows
 
         public void SetEngineControl(UserControl p_Control, List<Control> p_EngineMenuItems = null)
         {
-            Dispatcher.Invoke((Action) (() =>
+            Dispatcher.Invoke(() =>
             {
                 m_HasEngineControl = true;
                 m_EngineMenuItems = p_EngineMenuItems;
@@ -57,7 +57,7 @@ namespace Statman.Windows
                 ContentGrid.Children.Clear();
                 ContentGrid.Children.Add(p_Control);
 
-                WaitingLabel.Visibility = Visibility.Hidden;
+                StatusLabel.Visibility = Visibility.Hidden;
                 ContentGrid.Visibility = Visibility.Visible;
 
                 OldSize = m_BaseSize;
@@ -65,12 +65,12 @@ namespace Statman.Windows
 
                 ApplyResizeAnimation();
                 UpdateContextMenu();
-            }));
+            });
         }
 
         public void ResetEngineControls()
         {
-            Dispatcher.Invoke((Action) (() =>
+            Dispatcher.Invoke(() =>
             {
                 if (!m_HasEngineControl)
                     return;
@@ -82,13 +82,21 @@ namespace Statman.Windows
                 ContentGrid.Children.Clear();
 
                 ContentGrid.Visibility = Visibility.Hidden;
-                WaitingLabel.Visibility = Visibility.Visible;
+                StatusLabel.Visibility = Visibility.Visible;
 
                 NewSize = m_BaseSize;
 
                 ApplyResizeAnimation();
                 UpdateContextMenu();
-            }));
+            });
+        }
+
+        public void SetStatusLabel(string p_Text)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                StatusLabel.Content = p_Text;
+            });
         }
 
         private void InitContextMenuItems()
@@ -127,7 +135,7 @@ namespace Statman.Windows
 
         private void OnCheckForUpdates(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
         {
-            MessageBox.Show("Checking for updates.");
+            MainApp.CheckForUpdates = true;
         }
 
         private void OnExit(object p_Sender, RoutedEventArgs p_RoutedEventArgs)

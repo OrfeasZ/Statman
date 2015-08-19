@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
+using System.Windows;
 using Statman.Util;
+using Statman.Windows;
 
 namespace Statman
 {
@@ -62,6 +65,28 @@ namespace Statman
 
             while (m_Running)
             {
+                if (MainApp.CheckForUpdates)
+                {
+                    MainApp.CheckForUpdates = false;
+
+                    // Check for updates.
+                    MainApp.MainWindow.SetStatusLabel("Checking for updates...");
+
+                    string s_CurrentVersion, s_LatestVersion, s_ReleaseURL;
+                    bool s_PreRelease;
+
+                    if (UpdateChecker.HasNewerVersion(out s_CurrentVersion, out s_LatestVersion, out s_ReleaseURL,
+                        out s_PreRelease))
+                    {
+                        MainApp.MainWindow.Dispatcher.Invoke(() =>
+                        {
+                            new UpdateWindow(s_CurrentVersion, s_LatestVersion, s_ReleaseURL, s_PreRelease).Show();
+                        });
+                    }
+
+                    MainApp.MainWindow.SetStatusLabel("Waiting for game...");
+                }
+
                 m_Timer.Reset();
 
                 if (Update != null)

@@ -12,9 +12,13 @@ namespace Statman
         public static EngineManager EngineManager { get; private set; }
         public static MainWindow MainWindow { get; set; }
         public static PipemanServer Pipeman { get; private set; }
+        public static bool CheckForUpdates { get; set; }
 
         static MainApp()
         {
+            // Check for updates on start.
+            CheckForUpdates = true;
+
             // Initialize our main loop at 30Hz.
             Loop = new MainLoop(30);
 

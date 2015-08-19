@@ -13,18 +13,18 @@ namespace Statman.Engines.HM3.Controls
 
         public void SetCurrentLevel(string p_Level)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke(() =>
             {
                 CurrentLevelLabel.Content = p_Level.Replace("_", "__");
-            }));
+            });
         }
 
         public void SetCurrentLevelScene(string p_Scene)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke(() =>
             {
                 CurrentLevelSceneLabel.Content = p_Scene.Replace("_", "__");
-            }));
+            });
         }
 
         public void SetCurrentTime(double p_Time)
@@ -34,51 +34,51 @@ namespace Statman.Engines.HM3.Controls
 
         public void SetCurrentTime(long p_Time)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke(() =>
             {
                 var s_TimeStamp = TimeSpan.FromMilliseconds(p_Time);
                 CurrentTimeLabel.Content = s_TimeStamp.ToString("hh\\:mm\\:ss\\.fff");
-            }));
+            });
         }
 
         public void SetRating(string p_Rating)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke(() =>
             {
                 RatingLabel.Content = p_Rating.Replace("_", "__");
-            }));
+            });
         }
 
         public void SetRatingPerfect(bool p_Perfect)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke(() =>
             {
                 if (p_Perfect)
                     RatingLabel.Foreground = (Brush) FindResource("LightLabelBrush");
                 else
                     RatingLabel.Foreground = (Brush) FindResource("AlertLabelBrush");
-            }));
+            });
         }
 
         public void SetShotsFired(int p_Value)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke(() =>
             {
                 ShotsFiredLabel.Content = p_Value.ToString();
-            }));
+            });
         }
 
         public void SetHeadshots(int p_Value)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke(() =>
             {
                 HeadshotsLabel.Content = p_Value.ToString();
-            }));
+            });
         }
 
         public void SetAccidents(int p_Value)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke((() =>
             {
                 AccidentsLabel.Content = p_Value.ToString();
             }));
@@ -86,7 +86,7 @@ namespace Statman.Engines.HM3.Controls
 
         public void SetCloseCombatKills(int p_Value)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke((() =>
             {
                 CloseCombatKillsLabel.Content = p_Value.ToString();
             }));
@@ -94,7 +94,7 @@ namespace Statman.Engines.HM3.Controls
 
         public void SetBodiesFound(int p_Value)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke((() =>
             {
                 BodiesFoundLabel.Content = p_Value.ToString();
             }));
@@ -102,7 +102,7 @@ namespace Statman.Engines.HM3.Controls
 
         public void SetCameraCaught(int p_Value)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke((() =>
             {
                 CameraCaughtLabel.Content = p_Value.ToString();
             }));
@@ -110,7 +110,7 @@ namespace Statman.Engines.HM3.Controls
 
         public void SetEnemiesKilled(int p_Value)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke((() =>
             {
                 EnemiesKilledLabel.Content = p_Value.ToString();
             }));
@@ -118,7 +118,7 @@ namespace Statman.Engines.HM3.Controls
 
         public void SetEnemiesWounded(int p_Value)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke((() =>
             {
                 EnemiesWoundedLabel.Content = p_Value.ToString();
             }));
@@ -126,7 +126,7 @@ namespace Statman.Engines.HM3.Controls
 
         public void SetPolicemenKilled(int p_Value)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke((() =>
             {
                 PolicemenKilledLabel.Content = p_Value.ToString();
             }));
@@ -134,7 +134,7 @@ namespace Statman.Engines.HM3.Controls
 
         public void SetPolicemenWounded(int p_Value)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke((() =>
             {
                 PolicemenWoundedLabel.Content = p_Value.ToString();
             }));
@@ -142,7 +142,7 @@ namespace Statman.Engines.HM3.Controls
 
         public void SetInnocentsKilled(int p_Value)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke((() =>
             {
                 InnocentsKilledLabel.Content = p_Value.ToString();
             }));
@@ -150,7 +150,7 @@ namespace Statman.Engines.HM3.Controls
 
         public void SetInnocentsWounded(int p_Value)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke((() =>
             {
                 InnocentsWoundedLabel.Content = p_Value.ToString();
             }));
@@ -158,7 +158,7 @@ namespace Statman.Engines.HM3.Controls
 
         public void SetWitnesses(int p_Value)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke((() =>
             {
                 WitnessesLabel.Content = p_Value.ToString();
             }));
@@ -166,7 +166,7 @@ namespace Statman.Engines.HM3.Controls
 
         public void SetTargetsKilled(int p_Value)
         {
-            Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke((() =>
             {
                 TargetsKilledLabel.Content = p_Value.ToString();
             }));
