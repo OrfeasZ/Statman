@@ -6,7 +6,9 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Shapes;
+using Statman.Util;
 
 namespace Statman.Windows
 {
@@ -17,10 +19,13 @@ namespace Statman.Windows
 
         private readonly List<Control> m_DefaultMenuItems;
         private readonly ObservableCollection<Control> m_ContextMenuItems;
-        private List<Control> m_EngineMenuItems; 
+        private List<Control> m_EngineMenuItems;
+
+        private bool m_DarkTheme;
 
         public MainWindow()
         {
+            m_DarkTheme = false;
             m_DefaultMenuItems = new List<Control>();
             m_ContextMenuItems = new ObservableCollection<Control>();
 
@@ -112,7 +117,12 @@ namespace Statman.Windows
 
         private void OnToggleTheme(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
         {
-            MessageBox.Show("Toggling theme.");
+            if (m_DarkTheme)
+                ThemeManager.SetCurrentTheme(this, new Uri("/Statman;component/Themes/DefaultTheme.xaml", UriKind.Relative));  
+            else
+                ThemeManager.SetCurrentTheme(this, new Uri("/Statman;component/Themes/DarkTheme.xaml", UriKind.Relative));
+
+            m_DarkTheme = !m_DarkTheme;
         }
 
         private void OnCheckForUpdates(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
@@ -145,11 +155,20 @@ namespace Statman.Windows
         {
             base.OnApplyTemplate();
 
+            ThemeManager.SetCurrentTheme(this, new Uri("/Statman;component/Themes/DefaultTheme.xaml", UriKind.Relative));  
+
             UpdateContextMenu();
     
             // Setup our custom context menu.
             var s_TitleBar = GetChildControl<Rectangle>("PART_TitleBar");
             s_TitleBar.ContextMenu = new ContextMenu { ItemsSource = m_ContextMenuItems };
+            s_TitleBar.MouseLeftButtonDown += TitleBarOnMouseUp;
+        }
+
+        private void TitleBarOnMouseUp(object p_Sender, MouseButtonEventArgs p_MouseButtonEventArgs)
+        {
+            if (p_MouseButtonEventArgs.ClickCount == 2)
+                OnToggleTheme(null, null);
         }
     }
 }

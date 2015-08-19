@@ -54,9 +54,9 @@ namespace Statman.Engines.HM3.Controls
             Dispatcher.Invoke((Action)(() =>
             {
                 if (p_Perfect)
-                    RatingLabel.Foreground = new SolidColorBrush(new Color() { A = 255, R = 160, G = 160, B = 160 });
+                    RatingLabel.Foreground = (Brush) FindResource("LightLabelBrush");
                 else
-                    RatingLabel.Foreground = new SolidColorBrush(new Color() { A = 255, R = 220, G = 64, B = 64 });
+                    RatingLabel.Foreground = (Brush) FindResource("AlertLabelBrush");
             }));
         }
 

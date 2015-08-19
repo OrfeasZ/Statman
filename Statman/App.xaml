@@ -6,10 +6,8 @@
     <Application.Resources>
         <Style TargetType="{x:Type UserControl}">
             <Style.Triggers>
-                <Trigger Property="componentModel:DesignerProperties.IsInDesignMode"
-                 Value="true">
-                    <Setter Property="Background"
-                    Value="White" />
+                <Trigger Property="componentModel:DesignerProperties.IsInDesignMode" Value="true">
+                    <Setter Property="Background" Value="White" />
                 </Trigger>
             </Style.Triggers>
         </Style>

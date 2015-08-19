@@ -6,44 +6,44 @@
              mc:Ignorable="d" 
              Height="425" Width="332">
     <Grid>
-        <Label x:Name="CurrentLevelLabel" Content="No Level" Margin="10,10,10,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center"/>
-        <Label x:Name="CurrentLevelSceneLabel" Content="No Level" Margin="10,31,10,0" VerticalAlignment="Top" FontSize="10" HorizontalContentAlignment="Center"/>
-        <Label x:Name="CurrentTimeLabel" Content="00:00:00.000" Margin="10,54,10,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="#FF1B892F"/>
-        <Label x:Name="RatingLabel" Content="Silent Assassin" Margin="10,0,10,10" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="#FFA0A0A0" Height="34" VerticalAlignment="Bottom"/>
+        <Label Foreground="{DynamicResource LabelBrush}" x:Name="CurrentLevelLabel" Content="No Level" Margin="10,10,10,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+        <Label Foreground="{DynamicResource LabelBrush}" x:Name="CurrentLevelSceneLabel" Content="No Level" Margin="10,31,10,0" VerticalAlignment="Top" FontSize="10" HorizontalContentAlignment="Center"/>
+        <Label Foreground="{DynamicResource TimerBrush}" x:Name="CurrentTimeLabel" Content="00:00:00.000" Margin="10,54,10,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+        <Label Foreground="{DynamicResource LightLabelBrush}" x:Name="RatingLabel" Content="Silent Assassin" Margin="10,0,10,10" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Height="34" VerticalAlignment="Bottom"/>
         <Grid Margin="10,96,10,49">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Content="Shots Fired" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center"/>
-            <Label x:Name="ShotsFiredLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,16,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Headshots" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,38,0,0"/>
-            <Label x:Name="HeadshotsLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,54,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Accidents" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,77,0,0"/>
-            <Label x:Name="AccidentsLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,93,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Bodies Found" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,116,0,0"/>
-            <Label x:Name="BodiesFoundLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,132,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Caught on Camera" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,155,0,0"/>
-            <Label x:Name="CameraCaughtLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,171,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Witnesses" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,194,0,0"/>
-            <Label x:Name="WitnessesLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,210,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Content="CQC Kills" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,233,0,0"/>
-            <Label x:Name="CloseCombatKillsLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,249,0,0" FontSize="14" FontWeight="Bold"/>
-            
-            <Label Content="Enemies Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center"/>
-            <Label x:Name="EnemiesKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,16,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Enemies Wounded" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,38,0,0"/>
-            <Label x:Name="EnemiesWoundedLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,54,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Policemen Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,77,0,0"/>
-            <Label x:Name="PolicemenKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,93,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Policemen Wounded" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,116,0,0"/>
-            <Label x:Name="PolicemenWoundedLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,132,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Innocents Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,155,0,0"/>
-            <Label x:Name="InnocentsKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,171,0,-12" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Innocents Wounded" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,194,0,0"/>
-            <Label x:Name="InnocentsWoundedLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,210,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Targets Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,233,0,0"/>
-            <Label x:Name="TargetsKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,249,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Shots Fired" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="ShotsFiredLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,16,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Headshots" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,38,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="HeadshotsLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,54,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Accidents" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,77,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="AccidentsLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,93,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Bodies Found" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,116,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="BodiesFoundLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,132,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Caught on Camera" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,155,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="CameraCaughtLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,171,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Witnesses" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,194,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="WitnessesLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,210,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="CQC Kills" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,233,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="CloseCombatKillsLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,249,0,0" FontSize="14" FontWeight="Bold"/>
+
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Enemies Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="EnemiesKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,16,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Enemies Wounded" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,38,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="EnemiesWoundedLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,54,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Policemen Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,77,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="PolicemenKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,93,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Policemen Wounded" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,116,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="PolicemenWoundedLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,132,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Innocents Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,155,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="InnocentsKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,171,0,-12" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Innocents Wounded" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,194,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="InnocentsWoundedLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,210,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Targets Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,233,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="TargetsKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,249,0,0" FontSize="14" FontWeight="Bold"/>
             
         </Grid>
     </Grid>

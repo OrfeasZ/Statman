@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <SolidColorBrush x:Key="LabelBrush" Color="#FF000000"/>
+    <SolidColorBrush x:Key="TimerBrush" Color="#FF1B892F"/>
+    <SolidColorBrush x:Key="LightLabelBrush" Color="#FFA0A0A0"/>
+    <SolidColorBrush x:Key="AlertLabelBrush" Color="#FFDC4040"/>
+    <SolidColorBrush x:Key="BackgroundBrush" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="BorderBrush" Color="#FF808080"/>
+
+    <ImageSource x:Key="LogoImage">../Resources/Logo-324px.png</ImageSource>
+</ResourceDictionary>
