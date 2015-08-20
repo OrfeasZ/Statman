@@ -54,42 +54,10 @@ namespace Statman.Engines.HM3.Controls
             Dispatcher.Invoke(() =>
             {
                 if (p_Perfect)
-                    RatingLabel.Foreground = (Brush) FindResource("LightLabelBrush");
+                    RatingLabel.Foreground = (Brush) FindResource("LabelBrush");
                 else
                     RatingLabel.Foreground = (Brush) FindResource("AlertLabelBrush");
             });
-        }
-
-        public void SetShotsFired(int p_Value)
-        {
-            Dispatcher.Invoke(() =>
-            {
-                ShotsFiredLabel.Content = p_Value.ToString();
-            });
-        }
-
-        public void SetHeadshots(int p_Value)
-        {
-            Dispatcher.Invoke(() =>
-            {
-                HeadshotsLabel.Content = p_Value.ToString();
-            });
-        }
-
-        public void SetAccidents(int p_Value)
-        {
-            Dispatcher.Invoke((() =>
-            {
-                AccidentsLabel.Content = p_Value.ToString();
-            }));
-        }
-
-        public void SetCloseCombatKills(int p_Value)
-        {
-            Dispatcher.Invoke((() =>
-            {
-                CloseCombatKillsLabel.Content = p_Value.ToString();
-            }));
         }
 
         public void SetBodiesFound(int p_Value)
@@ -104,7 +72,7 @@ namespace Statman.Engines.HM3.Controls
         {
             Dispatcher.Invoke((() =>
             {
-                CameraCaughtLabel.Content = p_Value.ToString();
+                CameraCaughtLabel.Content = p_Value > 0 ? "Yes" : "No";
             }));
         }
 
@@ -164,11 +132,49 @@ namespace Statman.Engines.HM3.Controls
             }));
         }
 
-        public void SetTargetsKilled(int p_Value)
+        public void SetCoversBlown(int p_Value)
         {
             Dispatcher.Invoke((() =>
             {
-                TargetsKilledLabel.Content = p_Value.ToString();
+                CoversBlownLabel.Content = p_Value.ToString();
+            }));
+        }
+
+        public void SetFriskFailed(int p_Value)
+        {
+            Dispatcher.Invoke((() =>
+            {
+                FriskFailedLabel.Content = p_Value > 0 ? "Yes" : "No";
+            }));
+        }
+
+        public void SetItemsLeft(int p_Weapons, bool p_Suit)
+        {
+            Dispatcher.Invoke((() =>
+            {
+                if (p_Weapons == 0 && !p_Suit)
+                    ItemsLeftLabel.Content = "No";
+                else if (p_Weapons > 0 && !p_Suit)
+                    ItemsLeftLabel.Content = "Weapons";
+                else if (p_Weapons == 0)
+                    ItemsLeftLabel.Content = "Suit";
+                else 
+                    ItemsLeftLabel.Content = "Weapons & Suit";
+            }));
+        }
+
+        public void SetDifficulty(int p_Value)
+        {
+            Dispatcher.Invoke((() =>
+            {
+                if (p_Value == 0)
+                    DifficultyLabel.Content = "Rookie";
+                else if (p_Value == 1)
+                    DifficultyLabel.Content = "Normal";
+                else if (p_Value == 2)
+                    DifficultyLabel.Content = "Expert";
+                else if (p_Value == 3)
+                    DifficultyLabel.Content = "Professional";
             }));
         }
     }

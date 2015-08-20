@@ -223,7 +223,7 @@ namespace Statman.Engines.HM3
 
         [MarshalAs(UnmanagedType.I4)]
         [FieldOffset(0x00D8)]
-        public int m_Unknown06;
+        public int m_UnconsciousBodiesFound;
 
         [MarshalAs(UnmanagedType.I4)]
         [FieldOffset(0x00DC)]
@@ -249,9 +249,9 @@ namespace Statman.Engines.HM3
         [FieldOffset(0x00F0)]
         public int m_Unknown08;
 
-        [MarshalAs(UnmanagedType.Bool)]
+        [MarshalAs(UnmanagedType.I4)]
         [FieldOffset(0x00F4)]
-        public bool m_CustomWeaponsLeftOnLevel;
+        public int m_CustomWeaponsLeftOnLevel;
 
         [MarshalAs(UnmanagedType.Bool)]
         [FieldOffset(0x00F8)]

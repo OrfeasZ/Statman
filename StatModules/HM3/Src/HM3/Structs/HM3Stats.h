@@ -59,7 +59,7 @@ public:
 	int32_t m_GhostFailed; // 0x00CC 
 	int32_t m_BodiesFound; // 0x00D0 
 	int32_t m_TargetBodiesFound; // 0x00D4 
-	int32_t m_Unknown06; // 0x00D8 
+	int32_t m_UnconsciousBodiesFound; // 0x00D8 
 	int32_t m_CoverBlown; // 0x00DC 
 	int32_t m_Unknown07; // 0x00E0 
 	int32_t m_Notoriety; // 0x00E4 

@@ -4,47 +4,44 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Height="425" Width="332">
+             Height="409" Width="332">
     <Grid>
         <Label Foreground="{DynamicResource LabelBrush}" x:Name="CurrentLevelLabel" Content="No Level" Margin="10,10,10,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center"/>
         <Label Foreground="{DynamicResource LabelBrush}" x:Name="CurrentLevelSceneLabel" Content="No Level" Margin="10,31,10,0" VerticalAlignment="Top" FontSize="10" HorizontalContentAlignment="Center"/>
         <Label Foreground="{DynamicResource TimerBrush}" x:Name="CurrentTimeLabel" Content="00:00:00.000" Margin="10,54,10,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Center"/>
-        <Label Foreground="{DynamicResource LightLabelBrush}" x:Name="RatingLabel" Content="Silent Assassin" Margin="10,0,10,10" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Height="34" VerticalAlignment="Bottom"/>
-        <Grid Margin="10,96,10,49">
+        <Grid Margin="10,96,10,68">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Shots Fired" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="ShotsFiredLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,16,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Headshots" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,38,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="HeadshotsLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,54,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Accidents" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,77,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="AccidentsLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,93,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Bodies Found" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,116,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="BodiesFoundLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,132,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Caught on Camera" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,155,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="CameraCaughtLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,171,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Witnesses" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,194,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="WitnessesLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,210,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="CQC Kills" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,233,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="CloseCombatKillsLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,249,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Witnesses" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,1,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="WitnessesLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,17,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Bodies Found" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,39,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="BodiesFoundLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,55,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Covers Blown" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,78,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="CoversBlownLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,94,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Caught on Camera" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,117,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="CameraCaughtLabel" Content="No" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,133,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Frisk Failed" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,156,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="FriskFailedLabel" Content="No" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,172,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Items Left on Level" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,195,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="ItemsLeftLabel" Content="No" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,211,0,0" FontSize="14" FontWeight="Bold"/>
 
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Enemies Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="EnemiesKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,16,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Enemies Wounded" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,38,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="EnemiesWoundedLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,54,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Policemen Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,77,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="PolicemenKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,93,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Policemen Wounded" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,116,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="PolicemenWoundedLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,132,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Innocents Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,155,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="InnocentsKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,171,0,-12" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Innocents Wounded" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,194,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="InnocentsWoundedLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,210,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Targets Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,233,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="TargetsKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,249,0,0" FontSize="14" FontWeight="Bold"/>
-            
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Enemies Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,1,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="EnemiesKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,17,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Enemies Wounded" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,39,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="EnemiesWoundedLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,55,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Policemen Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,78,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="PolicemenKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,94,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Policemen Wounded" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,117,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="PolicemenWoundedLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,133,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Innocents Killed" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,156,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="InnocentsKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,172,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Innocents Wounded" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,195,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="InnocentsWoundedLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,211,0,0" FontSize="14" FontWeight="Bold"/>
+
         </Grid>
+        <Label Foreground="{DynamicResource LabelBrush}" x:Name="RatingLabel" Content="Silent Assassin" Margin="10,0,10,34" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Height="34" VerticalAlignment="Bottom"/>
+        <Label Foreground="{DynamicResource LightLabelBrush}" x:Name="DifficultyLabel" Content="Rookie" Margin="10,0,10,10" FontSize="16" HorizontalContentAlignment="Center" Height="34" VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>

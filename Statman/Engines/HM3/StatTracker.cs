@@ -68,6 +68,8 @@ namespace Statman.Engines.HM3
 
         public Stats CurrentStats { get; private set; }
 
+        public int Difficulty { get; private set; }
+
         private readonly HM3Engine m_Engine;
 
         public StatTracker(HM3Engine p_Engine)
@@ -101,6 +103,28 @@ namespace Statman.Engines.HM3
         {
             CurrentStats = p_Stats;
 
+            // Get difficulty.
+            try
+            {
+                var s_DifficultyPtrData = m_Engine.Reader.Read(m_Engine.Reader.Process.MainModule.BaseAddress + 0x41F83C, 4);
+
+                if (s_DifficultyPtrData != null)
+                {
+                    var s_UnknownPtr = BitConverter.ToUInt32(s_DifficultyPtrData, 0);
+                    
+                    var s_Difficulty = m_Engine.Reader.Read(s_UnknownPtr + 0x6664, 1);
+
+                    if (s_Difficulty != null)
+                        Difficulty = s_Difficulty[0];
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            // Update UI difficulty.
+            m_Engine.Control.SetDifficulty(Difficulty);
+
             // Calculate rating.
             var s_Rating0 = CalculateRating0(p_Stats);
             var s_Rating1 = CalculateRating1(p_Stats);
@@ -110,11 +134,12 @@ namespace Statman.Engines.HM3
             m_Engine.Control.SetRating(m_Ratings[s_Rating0 + "x" + s_Rating1]);
 
             // Update UI stats.
-            m_Engine.Control.SetShotsFired(p_Stats.m_ShotsFired);
-            m_Engine.Control.SetHeadshots(p_Stats.m_Headshots);
-            m_Engine.Control.SetAccidents(p_Stats.m_AccidentKills);
-            m_Engine.Control.SetCloseCombatKills(p_Stats.m_CloseCombatKills);
-            m_Engine.Control.SetBodiesFound(p_Stats.m_BodiesFound);
+            var s_BodiesFound = p_Stats.m_BodiesFound + p_Stats.m_UnconsciousBodiesFound;
+
+            if (Difficulty > 1)
+                s_BodiesFound += p_Stats.m_TargetBodiesFound;
+
+            m_Engine.Control.SetBodiesFound(s_BodiesFound);
             m_Engine.Control.SetCameraCaught(p_Stats.m_CameraCaught);
             m_Engine.Control.SetEnemiesKilled(p_Stats.m_EnemiesKilled);
             m_Engine.Control.SetEnemiesWounded(p_Stats.m_EnemiesWounded);
@@ -123,7 +148,13 @@ namespace Statman.Engines.HM3
             m_Engine.Control.SetInnocentsKilled(p_Stats.m_InnocentsKilled);
             m_Engine.Control.SetInnocentsWounded(p_Stats.m_InnocentsWounded);
             m_Engine.Control.SetWitnesses(p_Stats.m_Witnesses);
-            m_Engine.Control.SetTargetsKilled(p_Stats.m_TargetsKilled);
+            m_Engine.Control.SetFriskFailed(p_Stats.m_FriskFailed);
+            m_Engine.Control.SetCoversBlown(p_Stats.m_CoverBlown);
+
+            if (Difficulty == 3)
+                m_Engine.Control.SetItemsLeft(p_Stats.m_CustomWeaponsLeftOnLevel, p_Stats.m_SuitLeftOnLevel);
+            else
+                m_Engine.Control.SetItemsLeft(0, false);
         }
 
         private uint CalculateRating0(Stats p_Stats)
@@ -163,26 +194,6 @@ namespace Statman.Engines.HM3
         private uint CalculateRating1(Stats p_Stats)
         {
             var s_Rating1 = 0.0;
-            byte[] s_Difficulty;
-
-            try
-            {
-                var s_DifficultyPtrData = m_Engine.Reader.Read(m_Engine.Reader.Process.MainModule.BaseAddress + 0x41F83C, 4);
-
-                if (s_DifficultyPtrData == null)
-                    return 0;
-
-                var s_UnknownPtr = BitConverter.ToUInt32(s_DifficultyPtrData, 0);
-
-                s_Difficulty = m_Engine.Reader.Read(s_UnknownPtr + 0x6664, 1);
-
-                if (s_Difficulty == null)
-                    return 0;
-            }
-            catch (Exception)
-            {
-                return 0;
-            }
 
             // Frisk Failed
             var s_FriskFailed = p_Stats.m_FriskFailed >= 34 ? 33 : p_Stats.m_FriskFailed;
@@ -194,29 +205,29 @@ namespace Statman.Engines.HM3
 
             // Bodies Found
             int s_BodiesFound;
-            if (s_Difficulty[0] <= 1)
+            if (Difficulty <= 1)
                 s_BodiesFound = p_Stats.m_BodiesFound >= 34 ? 33 : p_Stats.m_BodiesFound;
             else
                 s_BodiesFound = (p_Stats.m_BodiesFound + p_Stats.m_TargetBodiesFound) >= 34 ? 33 : (p_Stats.m_BodiesFound + p_Stats.m_TargetBodiesFound);
 
             s_Rating1 += m_Multipliers[s_BodiesFound] * 6.0;
 
-            // Unknown06
-            var s_Unknown06 = p_Stats.m_Unknown06 >= 34 ? 33 : p_Stats.m_Unknown06;
-            s_Rating1 += m_Multipliers[s_Unknown06] * 6.0;
+            // Unconscious Bodies Found
+            var s_UnconsciousBodiesFound = p_Stats.m_UnconsciousBodiesFound >= 34 ? 33 : p_Stats.m_UnconsciousBodiesFound;
+            s_Rating1 += m_Multipliers[s_UnconsciousBodiesFound] * 6.0;
 
             // Witnesses
             var s_Witnesses = p_Stats.m_Witnesses >= 34 ? 33 : p_Stats.m_Witnesses;
             s_Rating1 += m_Multipliers[s_Witnesses] * 8.0;
 
-            // CameraCaught
+            // Caught on Camera
             var s_CameraCaught = p_Stats.m_CameraCaught >= 34 ? 33 : p_Stats.m_CameraCaught;
             s_Rating1 += m_Multipliers[s_CameraCaught] * 10.0;
 
             // Items Left
-            if (s_Difficulty[0] == 3)
+            if (Difficulty == 3)
             {
-                if (p_Stats.m_CustomWeaponsLeftOnLevel)
+                if (p_Stats.m_CustomWeaponsLeftOnLevel > 0)
                     s_Rating1 += 5.0;
 
                 if (p_Stats.m_SuitLeftOnLevel)

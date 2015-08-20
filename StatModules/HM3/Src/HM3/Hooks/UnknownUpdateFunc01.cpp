@@ -8,6 +8,8 @@
 #include <HM3/Structs/HM3Stats.h>
 #include <HM3/Structs/UnknownClass01.h>
 #include <HM3/Structs/UnknownClass02.h>
+#include <HM3/Structs/UnknownClass03.h>
+#include <HM3/Structs/UnknownClass04.h>
 
 HM3Hooks::UnknownUpdateFunc01_t HM3Hooks::UnknownUpdateFunc01 = nullptr;
 
@@ -35,9 +37,31 @@ char __fastcall HM3Hooks::c_UnknownUpdateFunc01(UnknownClass01* th, int)
 			++s_Witnesses;
 	}
 
+	int s_WeaponsInHand = 0;
+
+	UnknownClass03* s_Class03 = *(UnknownClass03**) 0x0081F83C;
+
+	if (s_Class03 && th->m_Unknown03)
+	{
+		g_Module->Functions()->UnknownFunction01(th->m_Unknown03, s_Class03->m_Unknown02);
+		s_WeaponsInHand += g_Module->Functions()->UnknownFunction02(th->m_Unknown03);
+	}
+
+	if (s_Class03 && th->m_Unknown04)
+	{
+		g_Module->Functions()->UnknownFunction01(th->m_Unknown04, s_Class03->m_Unknown02);
+		s_WeaponsInHand += g_Module->Functions()->UnknownFunction02(th->m_Unknown04);
+	}
+
 	// Update stats.
 	if (g_Module->Pointers()->m_Stats)
+	{
 		g_Module->Pointers()->m_Stats->m_Witnesses = s_Witnesses;
+		g_Module->Pointers()->m_Stats->m_CustomWeaponsLeftOnLevel = th->m_WeaponsLeftOnLevel - s_WeaponsInHand - g_Module->Functions()->GetNPCWeaponCount();
+
+		if (s_Class03 && s_Class03->m_Unknown01)
+			g_Module->Pointers()->m_Stats->m_SuitLeftOnLevel = s_Class03->m_Unknown01->m_Unknown01 != s_Class03->m_Unknown01->m_Unknown02;
+	}
 
 	return UnknownUpdateFunc01(th);
 }
