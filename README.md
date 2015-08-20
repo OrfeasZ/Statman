@@ -12,33 +12,33 @@ Statman is currently in early stages of development, so there could still be iss
 
  - Hitman: Blood Money (HM3)
    - Live tracking of the following statistics:
-     - Shots Fired
-     - Headshots
-     - Accidents
-     - Bodies Found
-     - Caught on Camera
      - Witnesses
-     - CQC Kills
+     - Bodies Found
+     - Covers Blown
+     - Caught on Camera
+     - Frisk Failed
+     - Items Left on Level
      - Enemies Killed
      - Enemies Wounded
      - Policemen Killed
      - Policemen Wounded
      - Innocents Killed
      - Innocents Wounded
-     - Targets Killed
    - Live tracking of in-game level time
    - Live tracking of the current level and state
    - Live tracking of the current level rating
+   - Live tracking of the current difficulty setting
    - Ability to enable and disable cheats
    - Ability to enable unlimited saving/loading for all difficulties
 
 ### Screenshots
 
-![Screenshots](http://i.imgur.com/1No13IK.png)
+![Screenshots](http://i.imgur.com/rOowYzX.png)
 
 ### Download
 
- - [Version 1.2.0.0](https://github.com/OrfeasZ/Statman/releases/download/v1.2.0.0/Statman_1.2.0.0.zip) (Latest)
+ - [Version 1.3.0.0](https://github.com/OrfeasZ/Statman/releases/download/v1.3.0.0/Statman_1.3.0.0.zip) (Latest)
+ - [Version 1.2.0.0](https://github.com/OrfeasZ/Statman/releases/download/v1.2.0.0/Statman_1.2.0.0.zip)
  - [Version 1.1.0.0](https://github.com/OrfeasZ/Statman/releases/download/v1.1.0.0/Statman_1.1.0.0.zip)
  - [Version 1.0.0.0](https://github.com/OrfeasZ/Statman/releases/download/v1.0.0.0/Statman_1.0.0.0.zip)
 
