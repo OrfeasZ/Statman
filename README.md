@@ -37,7 +37,8 @@ Statman is currently in early stages of development, so there could still be iss
 
 ### Download
 
- - [Version 1.3.1.0](https://github.com/OrfeasZ/Statman/releases/download/v1.3.1.0/Statman_1.3.1.0.zip) (Latest)
+ - [Version 1.3.2.0](https://github.com/OrfeasZ/Statman/releases/download/v1.3.2.0/Statman_1.3.2.0.zip) (Latest)
+ - [Version 1.3.1.0](https://github.com/OrfeasZ/Statman/releases/download/v1.3.1.0/Statman_1.3.1.0.zip)
  - [Version 1.3.0.0](https://github.com/OrfeasZ/Statman/releases/download/v1.3.0.0/Statman_1.3.0.0.zip)
  - [Version 1.2.0.0](https://github.com/OrfeasZ/Statman/releases/download/v1.2.0.0/Statman_1.2.0.0.zip)
  - [Version 1.1.0.0](https://github.com/OrfeasZ/Statman/releases/download/v1.1.0.0/Statman_1.1.0.0.zip)
