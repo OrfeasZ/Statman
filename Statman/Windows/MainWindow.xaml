@@ -11,6 +11,33 @@
                     MaxWidth="363"
                     WindowStartupLocation="CenterScreen" 
                     Closing="Window_Closing" ResizeMode="NoResize" WindowStyle="None" Loaded="AnimationWindow_Loaded" Icon="/Statman;component/Icon-256px.ico">
+    <Window.Resources>
+        <Storyboard x:Key="SizeUp">
+            <DoubleAnimation Storyboard.TargetProperty="Height" Duration="0:0:.35" To="50">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetProperty="Width" Duration="0:0:.35" To="50">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="SizeDown">
+            <DoubleAnimation Storyboard.TargetProperty="Height" Duration="0:0:.35" To="50">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetProperty="Width" Duration="0:0:.35" To="50">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </Window.Resources>
     <Grid Background="{DynamicResource BackgroundBrush}">
         <Image Margin="10,10,10,0" Source="{DynamicResource LogoImage}" Height="63" VerticalAlignment="Top"/>
         <Label x:Name="StatusLabel" Content="Checking for Updates..." Margin="10,0,10,10" Height="26" VerticalAlignment="Bottom"

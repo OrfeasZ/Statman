@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -25,9 +26,21 @@ namespace Statman.Windows
 
         private Border m_Contents;
 
+        private Storyboard m_SizeUpStoryboard;
+        private Storyboard m_SizeDownStoryboard;
+
         static AnimatedWindow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(AnimatedWindow), new FrameworkPropertyMetadata(typeof(AnimatedWindow)));
+        }
+
+        protected void OnLoaded()
+        {
+            m_SizeUpStoryboard = FindResource("SizeUp") as Storyboard;
+            m_SizeDownStoryboard = FindResource("SizeDown") as Storyboard;
+
+            Storyboard.SetTarget(m_SizeUpStoryboard, this);
+            Storyboard.SetTarget(m_SizeDownStoryboard, this);
         }
 
         public override void OnApplyTemplate()
@@ -40,40 +53,23 @@ namespace Statman.Windows
         {
             var s_InitialPosition = new Point(Left, Top);
 
-            var s_WidthEasingMode = NewSize.Width > OldSize.Width ? EasingMode.EaseOut : EasingMode.EaseIn;
-            var s_HeightEasingMode = NewSize.Height > OldSize.Height ? EasingMode.EaseOut : EasingMode.EaseIn;
-
-            var s_WidthAnimation = new DoubleAnimation(OldSize.Width, NewSize.Width, TimeSpan.FromMilliseconds(350))
-            {
-                EasingFunction = new SineEase() { EasingMode = s_WidthEasingMode }
-            };
-
-            var s_HeightAnimation = new DoubleAnimation(OldSize.Height, NewSize.Height, TimeSpan.FromMilliseconds(350))
-            {
-                EasingFunction = new SineEase() { EasingMode = s_HeightEasingMode }
-            };
-
-            Storyboard.SetTargetProperty(s_WidthAnimation, new PropertyPath(WidthProperty));
-            Storyboard.SetTarget(s_WidthAnimation, m_Contents);
-
-            Storyboard.SetTargetProperty(s_HeightAnimation, new PropertyPath(HeightProperty));
-            Storyboard.SetTarget(s_HeightAnimation, m_Contents);
-
-            var s_Storyboard = new Storyboard();
-            
-            s_Storyboard.Children.Add(s_WidthAnimation);
-            s_Storyboard.Children.Add(s_HeightAnimation);
-
-            if (NewSize.Width > OldSize.Width)
-                Width = NewSize.Width;
-
-            if (NewSize.Height > OldSize.Height)
-                Height = NewSize.Height;
-
             Left = s_InitialPosition.X;
             Top = s_InitialPosition.Y;
+            
+            if (NewSize.Width > OldSize.Width || NewSize.Height > OldSize.Height)
+            {
+                (m_SizeUpStoryboard.Children[0] as DoubleAnimation).To = NewSize.Height;
+                (m_SizeUpStoryboard.Children[1] as DoubleAnimation).To = NewSize.Width;
 
-            s_Storyboard.Begin();
+                m_SizeUpStoryboard.Begin();
+            }
+            else
+            {
+                (m_SizeDownStoryboard.Children[0] as DoubleAnimation).To = NewSize.Height;
+                (m_SizeDownStoryboard.Children[1] as DoubleAnimation).To = NewSize.Width;
+
+                m_SizeDownStoryboard.Begin();
+            }
         }
     }
 }

@@ -33,6 +33,8 @@ namespace Statman.Windows
             InitializeComponent();
 
             m_HasEngineControl = false;
+            AllowsTransparency = false;
+
             MainApp.MainWindow = this;
             MainApp.Loop.Start();
         }
@@ -45,6 +47,7 @@ namespace Statman.Windows
         private void AnimationWindow_Loaded(object p_Sender, RoutedEventArgs p_Args)
         {
             m_BaseSize = new Size(Width, Height);
+            OnLoaded();
         }
 
         public void SetEngineControl(UserControl p_Control, List<Control> p_EngineMenuItems = null)
