@@ -188,7 +188,7 @@ void Pipeman::Update()
 			std::string s_Data;
 
 			// Write data length.
-			uint32_t s_DataLength = m_QueuedData.front().size();
+			uint32_t s_DataLength = (uint32_t) m_QueuedData.front().size();
 			s_Data.append((char*) &s_DataLength, 4);
 
 			// Write data.
@@ -196,7 +196,7 @@ void Pipeman::Update()
 
 			// And then write to the pipe.
 			DWORD s_Written;
-			if (!WriteFile(m_Pipe, s_Data.data(), s_Data.size(), &s_Written, NULL))
+			if (!WriteFile(m_Pipe, s_Data.data(), (DWORD) s_Data.size(), &s_Written, NULL))
 			{
 				Log("Failed to send pipe data.\n");
 
