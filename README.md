@@ -42,7 +42,8 @@ This is currently a "custom" mode which makes the game not consider the location
 
 ### Download
 
- - [Version 1.3.2.0](https://github.com/OrfeasZ/Statman/releases/download/v1.3.2.0/Statman_1.3.2.0.zip) (Latest)
+ - [Version 1.3.3.0](https://github.com/OrfeasZ/Statman/releases/download/v1.3.3.0/Statman_1.3.3.0.zip) (Latest)
+ - [Version 1.3.2.0](https://github.com/OrfeasZ/Statman/releases/download/v1.3.2.0/Statman_1.3.2.0.zip)
  - [Version 1.3.1.0](https://github.com/OrfeasZ/Statman/releases/download/v1.3.1.0/Statman_1.3.1.0.zip)
  - [Version 1.3.0.0](https://github.com/OrfeasZ/Statman/releases/download/v1.3.0.0/Statman_1.3.0.0.zip)
  - [Version 1.2.0.0](https://github.com/OrfeasZ/Statman/releases/download/v1.2.0.0/Statman_1.2.0.0.zip)
