@@ -151,9 +151,19 @@ namespace Statman.Engines
 
                 s_UnlimitedSaves.Click += OnUnlimitedSaves;
 
+                var s_Hitman2016 = new MenuItem()
+                {
+                    Header = "Hitman 2016 Mode",
+                    IsCheckable = true,
+                    IsChecked = false
+                };
+
+                s_Hitman2016.Click += OnHitman2016Mode;
+
                 m_MenuItems.Clear();
                 m_MenuItems.Add(s_EnableCheats);
                 m_MenuItems.Add(s_UnlimitedSaves);
+                m_MenuItems.Add(s_Hitman2016);
             });
         }
 
@@ -175,6 +185,16 @@ namespace Statman.Engines
                 return;
 
             SendMessage("US", s_MenuItem.IsChecked ? "true" : "false");
+        }
+
+        private void OnHitman2016Mode(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
+        {
+            var s_MenuItem = p_Sender as MenuItem;
+
+            if (s_MenuItem == null)
+                return;
+
+            SendMessage("H2", s_MenuItem.IsChecked ? "true" : "false");
         }
 
         public void Update()

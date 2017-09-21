@@ -3,7 +3,9 @@
 #include <stdafx.h>
 
 class UnknownClass01;
+class UnknownClass02;
 class LimitSavesElement;
+struct DetectionIterator;
 
 class HM3Hooks
 {
@@ -30,4 +32,8 @@ public:
 	typedef void (__thiscall* LimitedLives_SelectedGUIElement_t)(LimitSavesElement* th, void* a2, void* a3, void* a4);
 	static LimitedLives_SelectedGUIElement_t LimitedLives_SelectedGUIElement;
 	static void __fastcall c_LimitedLives_SelectedGUIElement(LimitSavesElement* th, int, void* a2, void* a3, void* a4);
+
+	typedef int(__thiscall* UnknownClass02_NextDetectionNPC_t)(UnknownClass02* th, DetectionIterator* a2);
+	static UnknownClass02_NextDetectionNPC_t UnknownClass02_NextDetectionNPC;
+	static int __fastcall c_UnknownClass02_NextDetectionNPC(UnknownClass02* th, int, DetectionIterator* a2);
 };

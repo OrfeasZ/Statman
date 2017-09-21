@@ -159,3 +159,4 @@ $RECYCLE.BIN/
 # Pipeman dependencies.
 External/include/Pipeman.h
 External/lib/Pipeman.lib
+/.vs/*

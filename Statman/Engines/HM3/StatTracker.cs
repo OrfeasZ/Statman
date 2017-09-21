@@ -150,6 +150,8 @@ namespace Statman.Engines.HM3
             m_Engine.Control.SetWitnesses(p_Stats.m_Witnesses);
             m_Engine.Control.SetFriskFailed(p_Stats.m_FriskFailed);
             m_Engine.Control.SetCoversBlown(p_Stats.m_CoverBlown);
+            m_Engine.Control.SetAccidents(p_Stats.m_AccidentKills);
+            m_Engine.Control.SetShotsHit(p_Stats.m_ShotsHit);
 
             if (Difficulty == 3)
                 m_Engine.Control.SetItemsLeft(p_Stats.m_CustomWeaponsLeftOnLevel, p_Stats.m_SuitLeftOnLevel);

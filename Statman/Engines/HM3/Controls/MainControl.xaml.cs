@@ -148,6 +148,22 @@ namespace Statman.Engines.HM3.Controls
             }));
         }
 
+        public void SetAccidents(int p_Value)
+        {
+            Dispatcher.Invoke((() =>
+            {
+                AccidentsLabel.Content = p_Value;
+            }));
+        }
+
+        public void SetShotsHit(int p_Value)
+        {
+            Dispatcher.Invoke((() =>
+            {
+                ShotsHitLabel.Content = p_Value;
+            }));
+        }
+
         public void SetItemsLeft(int p_Weapons, bool p_Suit)
         {
             Dispatcher.Invoke((() =>

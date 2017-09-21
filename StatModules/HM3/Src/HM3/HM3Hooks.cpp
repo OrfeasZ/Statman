@@ -18,4 +18,6 @@ void HM3Hooks::Install()
 	UnknownUpdateFunc01 = (UnknownUpdateFunc01_t) DetourFunction((PBYTE) 0x006AF230, (PBYTE) c_UnknownUpdateFunc01);
 	EndLevel = (EndLevel_t) DetourFunction((PBYTE) 0x006AEC80, (PBYTE) c_EndLevel);
 	LimitedLives_SelectedGUIElement = (LimitedLives_SelectedGUIElement_t) DetourFunction((PBYTE) 0x00677660, (PBYTE) c_LimitedLives_SelectedGUIElement);
+	//UnknownClass02_NextDetectionNPC = (UnknownClass02_NextDetectionNPC_t) DetourFunction((PBYTE) 0x0042E810, (PBYTE) c_UnknownClass02_NextDetectionNPC);
+	//UnknownClass02_NextDetectionNPC = (UnknownClass02_NextDetectionNPC_t) DetourFunction((PBYTE) 0x0042E850, (PBYTE) c_UnknownClass02_NextDetectionNPC);
 }

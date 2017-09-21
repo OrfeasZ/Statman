@@ -18,6 +18,7 @@ char __fastcall HM3Hooks::c_UnknownUpdateFunc01(UnknownClass01* th, int)
 	if (!g_Module || !g_Module->Pointers() || !g_Module->Functions())
 		return UnknownUpdateFunc01(th);
 
+	// VTable: 0x00755ADC
 	UnknownClass02* s_Class02 = (UnknownClass02*) ((char*) th + sizeof(UnknownClass01));
 
 	// Calculate Stats
@@ -25,6 +26,8 @@ char __fastcall HM3Hooks::c_UnknownUpdateFunc01(UnknownClass01* th, int)
 
 	DetectionIterator s_DetectionIt;
 	s_Class02->InitDetectionIterator(&s_DetectionIt);
+
+	Log("Class2: %p\n", s_Class02);
 
 	for (int s_NPCID = s_Class02->NextDetectionNPC(&s_DetectionIt); s_DetectionIt.m_Unk01 > 0; s_NPCID = s_Class02->NextDetectionNPC(&s_DetectionIt))
 	{
@@ -61,6 +64,9 @@ char __fastcall HM3Hooks::c_UnknownUpdateFunc01(UnknownClass01* th, int)
 
 		if (s_Class03 && s_Class03->m_Unknown01)
 			g_Module->Pointers()->m_Stats->m_SuitLeftOnLevel = s_Class03->m_Unknown01->m_Unknown01 != s_Class03->m_Unknown01->m_Unknown02;
+
+		if (g_Module && g_Module->Hitman2016Mode())
+			g_Module->Pointers()->m_Stats->m_SuitLeftOnLevel = false;
 	}
 
 	return UnknownUpdateFunc01(th);

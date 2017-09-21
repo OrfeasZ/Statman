@@ -5,6 +5,7 @@
 #include "HM3Functions.h"
 
 #include <Pipeman.h>
+#include <functional>
 
 HM3Module::HM3Module() :
 	m_Pipeman(nullptr),
@@ -12,7 +13,8 @@ HM3Module::HM3Module() :
 	m_Pointers(nullptr),
 	m_Functions(nullptr),
 	m_CheatsEnabled(false),
-	m_UnlimitedSaves(false)
+	m_UnlimitedSaves(false),
+	m_Hitman2016Mode(false)
 {
 	if (!CheckInstance())
 		return;
@@ -96,6 +98,13 @@ void HM3Module::OnMessage(const std::string& p_Type, const std::string& p_Conten
 	{
 		// Unlimited saves.
 		m_UnlimitedSaves = p_Content == "true";
+		return;
+	}
+
+	if (p_Type == "H2")
+	{
+		// Unlimited saves.
+		m_Hitman2016Mode = p_Content == "true";
 		return;
 	}
 }

@@ -24,6 +24,7 @@ public:
 public:
 	bool CheatsEnabled() const { return m_CheatsEnabled; }
 	bool UnlimitedSaves() const { return m_UnlimitedSaves; }
+	bool Hitman2016Mode() const { return m_Hitman2016Mode; }
 
 protected:
 	bool CheckInstance();
@@ -39,4 +40,5 @@ protected:
 protected:
 	bool m_CheatsEnabled;
 	bool m_UnlimitedSaves;
+	bool m_Hitman2016Mode;
 };

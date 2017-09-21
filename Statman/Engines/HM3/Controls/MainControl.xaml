@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Height="409" Width="332">
+             Height="459" Width="332">
     <Grid>
         <Label Foreground="{DynamicResource LabelBrush}" x:Name="CurrentLevelLabel" Content="No Level" Margin="10,10,10,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center"/>
         <Label Foreground="{DynamicResource LabelBrush}" x:Name="CurrentLevelSceneLabel" Content="No Level" Margin="10,31,10,0" VerticalAlignment="Top" FontSize="10" HorizontalContentAlignment="Center"/>
@@ -39,6 +39,10 @@
             <Label Foreground="{DynamicResource LabelBrush}" x:Name="InnocentsKilledLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,172,0,0" FontSize="14" FontWeight="Bold"/>
             <Label Foreground="{DynamicResource LabelBrush}" Content="Innocents Wounded" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,195,0,0"/>
             <Label Foreground="{DynamicResource LabelBrush}" x:Name="InnocentsWoundedLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,211,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Accidents" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,235,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="AccidentsLabel" Content="0" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,251,0,0" FontSize="14" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource LabelBrush}" Content="Shots Hit" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,235,0,0"/>
+            <Label Foreground="{DynamicResource LabelBrush}" x:Name="ShotsHitLabel" Content="0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,251,0,0" FontSize="14" FontWeight="Bold"/>
 
         </Grid>
         <Label Foreground="{DynamicResource LabelBrush}" x:Name="RatingLabel" Content="Silent Assassin" Margin="10,0,10,34" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Height="34" VerticalAlignment="Bottom"/>
