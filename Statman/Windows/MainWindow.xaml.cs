@@ -16,7 +16,7 @@ namespace Statman.Windows
     {
         private Size m_BaseSize;
         private bool m_HasEngineControl;
-
+        
         private readonly List<Control> m_DefaultMenuItems;
         private readonly ObservableCollection<Control> m_ContextMenuItems;
         private List<Control> m_EngineMenuItems;
@@ -46,6 +46,9 @@ namespace Statman.Windows
 
         private void AnimationWindow_Loaded(object p_Sender, RoutedEventArgs p_Args)
         {
+            if (MainApp.Arguments != null && MainApp.Arguments.Length > 0 && MainApp.Arguments[0] == "-dark")
+                OnToggleTheme(null, null);
+
             m_BaseSize = new Size(Width, Height);
             OnLoaded();
         }
