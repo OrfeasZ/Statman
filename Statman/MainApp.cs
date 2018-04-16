@@ -13,7 +13,6 @@ namespace Statman
         public static MainWindow MainWindow { get; set; }
         public static PipemanServer Pipeman { get; private set; }
         public static bool CheckForUpdates { get; set; }
-        public static string[] Arguments { get; set; }
 
         static MainApp()
         {

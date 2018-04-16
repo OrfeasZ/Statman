@@ -11,14 +11,12 @@ namespace Statman
     public partial class App : Application, ISingleInstanceApp
     {
         [STAThread]
-        public static void Main(params string[] args)
+        public static void Main()
         {
             // Only allow a single instance of Statman
             // to run at any given point in time.
             if (!SingleInstance<App>.InitializeAsFirstInstance("Statman_4e29fa")) 
                 return;
-
-            MainApp.Arguments = args;
 
             var s_Application = new App();
 
