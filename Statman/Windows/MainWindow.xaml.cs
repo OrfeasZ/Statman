@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,7 +26,9 @@ namespace Statman.Windows
 
         public MainWindow()
         {
-            m_DarkTheme = false;
+            string[] arguments = Environment.GetCommandLineArgs().Skip(1).ToArray();
+            m_DarkTheme = arguments.Length > 0 ? arguments[0] == "-dark" : false;
+
             m_DefaultMenuItems = new List<Control>();
             m_ContextMenuItems = new ObservableCollection<Control>();
 
@@ -112,7 +115,7 @@ namespace Statman.Windows
 
             var s_ToggleTheme = new MenuItem() { Header = "Toggle Theme" };
             s_ToggleTheme.Click += OnToggleTheme;
-            
+
             var s_CheckForUpdates = new MenuItem() { Header = "Check for Updates" };
             s_CheckForUpdates.Click += OnCheckForUpdates;
 
@@ -129,7 +132,7 @@ namespace Statman.Windows
         private void OnToggleTheme(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
         {
             if (m_DarkTheme)
-                ThemeManager.SetCurrentTheme(this, new Uri("/Statman;component/Themes/DefaultTheme.xaml", UriKind.Relative));  
+                ThemeManager.SetCurrentTheme(this, new Uri("/Statman;component/Themes/DefaultTheme.xaml", UriKind.Relative));
             else
                 ThemeManager.SetCurrentTheme(this, new Uri("/Statman;component/Themes/DarkTheme.xaml", UriKind.Relative));
 
@@ -166,10 +169,13 @@ namespace Statman.Windows
         {
             base.OnApplyTemplate();
 
-            ThemeManager.SetCurrentTheme(this, new Uri("/Statman;component/Themes/DefaultTheme.xaml", UriKind.Relative));  
+            if (!m_DarkTheme)
+                ThemeManager.SetCurrentTheme(this, new Uri("/Statman;component/Themes/DefaultTheme.xaml", UriKind.Relative));
+            else
+                ThemeManager.SetCurrentTheme(this, new Uri("/Statman;component/Themes/DarkTheme.xaml", UriKind.Relative));
 
             UpdateContextMenu();
-    
+
             // Setup our custom context menu.
             var s_TitleBar = GetChildControl<Rectangle>("PART_TitleBar");
             s_TitleBar.ContextMenu = new ContextMenu { ItemsSource = m_ContextMenuItems };
