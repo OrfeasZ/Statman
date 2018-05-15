@@ -1,12 +1,11 @@
-﻿#if AMD64
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using Statman.Engines.HM5;
 using Statman.Engines.HM5.Controls;
+using Statman.Network;
 using Statman.Util;
 using Statman.Util.Injection;
 
@@ -23,17 +22,65 @@ namespace Statman.Engines
         public string CurrentLevel { get; private set; }
         public bool InGame { get; private set; }
 
+        public StatTracker StatTracker { get; private set; }
+
         private Process m_GameProcess;
-        //private Injector m_Injector;
+        private Injector m_Injector;
+
+        private readonly List<Control> m_MenuItems;
 
         public HM5Engine()
         {
+            m_MenuItems = new List<Control>();
             Active = false;
         }
 
         public void Dispose()
         {
+            SendMessage("XX");
 
+            if (Reader != null)
+            {
+                Reader.CloseHandle();
+                Reader = null;
+            }
+
+            if (m_Injector != null)
+            {
+                m_Injector.Dispose();
+                m_Injector = null;
+            }
+        }
+
+        private void InitMenuItems()
+        {
+            /*MainApp.MainWindow.Dispatcher.Invoke(() =>
+            {
+                var s_GetStats = new MenuItem()
+                {
+                    Header = "Get Stats",
+                };
+
+                s_GetStats.Click += GetStatsOnClick;
+
+                m_MenuItems.Clear();
+                m_MenuItems.Add(s_GetStats);
+            });*/
+        }
+
+        private void GetStatsOnClick(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
+        {
+            SendMessage("GS");
+        }
+
+        public void SendMessage(string p_Type, string p_Contents = "")
+        {
+            MainApp.Pipeman.PushMessage(new PipeMessage()
+            {
+                Module = Name,
+                Type = p_Type,
+                Content = p_Contents
+            });
         }
 
         public void Update()
@@ -49,11 +96,11 @@ namespace Statman.Engines
                     Reader = null;
                 }
 
-                /*if (m_Injector != null)
+                if (m_Injector != null)
                 {
                     m_Injector.Dispose();
                     m_Injector = null;
-                }*/
+                }
 
                 var s_Processes = Process.GetProcessesByName("HITMAN");
 
@@ -70,12 +117,11 @@ namespace Statman.Engines
                 {
                     if (Reader.OpenProcess())
                     {
-                        m_SkipUpdates = 0;
                         Active = true;
 
                         // Create our injector and inject our stat module.
-                        m_Injector = new Injector(m_GameProcess, false);
-                        m_Injector.InjectLibrary("HM3.dll");
+                        /*m_Injector = new Injector(m_GameProcess, true);
+                        m_Injector.InjectLibrary("HM5.dll");*/
 
                         // Setup our main control.
                         MainApp.MainWindow.Dispatcher.Invoke(() =>
@@ -85,13 +131,7 @@ namespace Statman.Engines
 
                         // Setup our engine-specific classes.
                         StatTracker = new StatTracker(this);
-                        TimeTracker = new TimeTracker(this);
-
-                        // Update level labels.
-                        CurrentLevel = "No Level";
-                        CurrentLevelScene = "No Level";
-                        InGame = false;
-
+                        
                         // Set our control in the main window.
                         InitMenuItems();
                         MainApp.MainWindow.SetEngineControl(Control, m_MenuItems);
@@ -108,20 +148,12 @@ namespace Statman.Engines
                 return;
 
             // Update our trackers.
-            TimeTracker.Update();
             StatTracker.Update();
-
-            // Set game time.
-            if (StatTracker.CurrentStats.m_Time > 0 || !InGame)
-                Control.SetCurrentTime(StatTracker.CurrentStats.m_Time);
-            else
-                Control.SetCurrentTime(TimeTracker.CurrentTime);
         }
 
         public void OnMessage(string p_Type, string p_Data)
         {
-            throw new NotImplementedException();
+
         }
     }
 }
-#endif

@@ -27,7 +27,10 @@ Pipeman::Pipeman(const std::string& p_PipeName, const std::string& p_Module) :
 
 Pipeman::~Pipeman()
 {
+	// Wait for disconnect.
 	Disconnect();
+	m_Thread.join();
+
 	DeleteCriticalSection(&m_CriticalSection);
 }
 
@@ -86,7 +89,7 @@ void Pipeman::Update()
 
 			if (m_Pipe == NULL || m_Pipe == INVALID_HANDLE_VALUE || GetLastError() == ERROR_PIPE_BUSY)
 			{
-				Log("Failed to connect to handshake pipe %d %d.\n", GetLastError(), m_Pipe);
+				//Log("Failed to connect to handshake pipe %d %d.\n", GetLastError(), m_Pipe);
 				SetLastError(0);
 				m_Pipe = NULL;
 				continue;

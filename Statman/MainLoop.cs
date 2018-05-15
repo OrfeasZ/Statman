@@ -29,8 +29,7 @@ namespace Statman
         {
             m_Running = false;
 
-            if (m_Thread != null)
-                m_Thread.Join();
+            m_Thread?.Join();
         }
 
         public void Start()

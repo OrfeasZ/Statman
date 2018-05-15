@@ -51,11 +51,8 @@ namespace Statman
         public static void RegisterEngines()
         {
             // Register all supported/required engines.
-#if AMD64
             EngineManager.RegisterEngine(new HM5Engine());
-#else
             EngineManager.RegisterEngine(new HM3Engine());
-#endif
         }
     }
 }

@@ -68,6 +68,8 @@ HM3Module::~HM3Module()
 	m_Hooks = nullptr;
 	m_Pointers = nullptr;
 	m_Functions = nullptr;
+
+	SetEnvironmentVariable("Statman_HM3", "\x00");
 }
 
 bool HM3Module::CheckInstance()

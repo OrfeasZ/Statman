@@ -320,7 +320,7 @@ namespace Statman.Engines
             }
         }
 
-        public void SendMessage(string p_Type, string p_Contents)
+        public void SendMessage(string p_Type, string p_Contents = "")
         {
             MainApp.Pipeman.PushMessage(new PipeMessage()
             {
@@ -332,6 +332,8 @@ namespace Statman.Engines
 
         public void Dispose()
         {
+            SendMessage("XX");
+
             if (Reader != null)
             {
                 Reader.CloseHandle();

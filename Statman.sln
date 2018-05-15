@@ -1,11 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Statman", "Statman\Statman.csproj", "{4591C6E1-EB82-4541-8172-E13B8B42714D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8883C6D6-7617-4348-9EF9-FEB10EEC973F} = {8883C6D6-7617-4348-9EF9-FEB10EEC973F}
+		{F1E23CF2-73DA-4A62-B395-ABF96F99B39C} = {F1E23CF2-73DA-4A62-B395-ABF96F99B39C}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StatModules", "StatModules", "{D6C3F035-AD14-4900-9535-2969187B3EE9}"
@@ -19,6 +20,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pipeman", "Libraries\Pipeman\Pipeman.vcxproj", "{0C56D79B-3F95-4EDF-BEE1-1C74E259B81E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HM5", "StatModules\HM5\HM5.vcxproj", "{F1E23CF2-73DA-4A62-B395-ABF96F99B39C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0C56D79B-3F95-4EDF-BEE1-1C74E259B81E} = {0C56D79B-3F95-4EDF-BEE1-1C74E259B81E}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -29,16 +35,16 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4591C6E1-EB82-4541-8172-E13B8B42714D}.Debug|x64.ActiveCfg = Debug|x64
 		{4591C6E1-EB82-4541-8172-E13B8B42714D}.Debug|x64.Build.0 = Debug|x64
-		{4591C6E1-EB82-4541-8172-E13B8B42714D}.Debug|x86.ActiveCfg = Debug|x86
-		{4591C6E1-EB82-4541-8172-E13B8B42714D}.Debug|x86.Build.0 = Debug|x86
+		{4591C6E1-EB82-4541-8172-E13B8B42714D}.Debug|x86.ActiveCfg = Debug|x64
 		{4591C6E1-EB82-4541-8172-E13B8B42714D}.Release|x64.ActiveCfg = Release|x64
 		{4591C6E1-EB82-4541-8172-E13B8B42714D}.Release|x64.Build.0 = Release|x64
-		{4591C6E1-EB82-4541-8172-E13B8B42714D}.Release|x86.ActiveCfg = Release|x86
-		{4591C6E1-EB82-4541-8172-E13B8B42714D}.Release|x86.Build.0 = Release|x86
+		{4591C6E1-EB82-4541-8172-E13B8B42714D}.Release|x86.ActiveCfg = Release|x64
 		{8883C6D6-7617-4348-9EF9-FEB10EEC973F}.Debug|x64.ActiveCfg = Debug|Win32
+		{8883C6D6-7617-4348-9EF9-FEB10EEC973F}.Debug|x64.Build.0 = Debug|Win32
 		{8883C6D6-7617-4348-9EF9-FEB10EEC973F}.Debug|x86.ActiveCfg = Debug|Win32
 		{8883C6D6-7617-4348-9EF9-FEB10EEC973F}.Debug|x86.Build.0 = Debug|Win32
 		{8883C6D6-7617-4348-9EF9-FEB10EEC973F}.Release|x64.ActiveCfg = Release|Win32
+		{8883C6D6-7617-4348-9EF9-FEB10EEC973F}.Release|x64.Build.0 = Release|Win32
 		{8883C6D6-7617-4348-9EF9-FEB10EEC973F}.Release|x86.ActiveCfg = Release|Win32
 		{8883C6D6-7617-4348-9EF9-FEB10EEC973F}.Release|x86.Build.0 = Release|Win32
 		{0C56D79B-3F95-4EDF-BEE1-1C74E259B81E}.Debug|x64.ActiveCfg = Debug|x64
@@ -49,6 +55,14 @@ Global
 		{0C56D79B-3F95-4EDF-BEE1-1C74E259B81E}.Release|x64.Build.0 = Release|x64
 		{0C56D79B-3F95-4EDF-BEE1-1C74E259B81E}.Release|x86.ActiveCfg = Release|Win32
 		{0C56D79B-3F95-4EDF-BEE1-1C74E259B81E}.Release|x86.Build.0 = Release|Win32
+		{F1E23CF2-73DA-4A62-B395-ABF96F99B39C}.Debug|x64.ActiveCfg = Debug|x64
+		{F1E23CF2-73DA-4A62-B395-ABF96F99B39C}.Debug|x64.Build.0 = Debug|x64
+		{F1E23CF2-73DA-4A62-B395-ABF96F99B39C}.Debug|x86.ActiveCfg = Debug|Win32
+		{F1E23CF2-73DA-4A62-B395-ABF96F99B39C}.Debug|x86.Build.0 = Debug|Win32
+		{F1E23CF2-73DA-4A62-B395-ABF96F99B39C}.Release|x64.ActiveCfg = Release|x64
+		{F1E23CF2-73DA-4A62-B395-ABF96F99B39C}.Release|x64.Build.0 = Release|x64
+		{F1E23CF2-73DA-4A62-B395-ABF96F99B39C}.Release|x86.ActiveCfg = Release|Win32
+		{F1E23CF2-73DA-4A62-B395-ABF96F99B39C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,5 +70,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{8883C6D6-7617-4348-9EF9-FEB10EEC973F} = {D6C3F035-AD14-4900-9535-2969187B3EE9}
 		{0C56D79B-3F95-4EDF-BEE1-1C74E259B81E} = {AF71E834-7961-4865-A96C-85B582C8DEB2}
+		{F1E23CF2-73DA-4A62-B395-ABF96F99B39C} = {D6C3F035-AD14-4900-9535-2969187B3EE9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0A9BF6B5-A48A-47F7-AC17-3824E076BBBA}
 	EndGlobalSection
 EndGlobal

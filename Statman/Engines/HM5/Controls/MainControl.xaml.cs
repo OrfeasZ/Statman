@@ -18,15 +18,7 @@ namespace Statman.Engines.HM5.Controls
                 CurrentLevelLabel.Content = p_Level.Replace("_", "__");
             });
         }
-
-        public void SetCurrentLevelScene(string p_Scene)
-        {
-            Dispatcher.Invoke(() =>
-            {
-                CurrentLevelSceneLabel.Content = p_Scene.Replace("_", "__");
-            });
-        }
-
+        
         public void SetCurrentTime(double p_Time)
         {
             SetCurrentTime((long)(p_Time * 1000.0));
@@ -59,123 +51,101 @@ namespace Statman.Engines.HM5.Controls
                     RatingLabel.Foreground = (Brush) FindResource("AlertLabelBrush");
             });
         }
-
-        public void SetBodiesFound(int p_Value)
+        
+        public void SetDisguiseBroken(bool p_Value)
         {
-            Dispatcher.Invoke((() =>
+            Dispatcher.Invoke(() =>
             {
-                BodiesFoundLabel.Content = p_Value.ToString();
-            }));
+                DisguiseBrokenLabel.Content = p_Value ? "Yes" : "No";
+            });
         }
-
-        public void SetCameraCaught(int p_Value)
+        
+        public void SetDisguiseSuspicious(bool p_Value)
         {
-            Dispatcher.Invoke((() =>
+            Dispatcher.Invoke(() =>
             {
-                CameraCaughtLabel.Content = p_Value > 0 ? "Yes" : "No";
-            }));
+                DisguiseSuspiciousLabel.Content = p_Value ? "Yes" : "No";
+            });
         }
-
-        public void SetEnemiesKilled(int p_Value)
+        
+        public void SetTrespassing(bool p_Value)
         {
-            Dispatcher.Invoke((() =>
+            Dispatcher.Invoke(() =>
             {
-                EnemiesKilledLabel.Content = p_Value.ToString();
-            }));
+                TrespassingLabel.Content = p_Value ? "Yes" : "No";
+            });
         }
-
-        public void SetEnemiesWounded(int p_Value)
+        
+        public void SetDeepTrespassing(bool p_Value)
         {
-            Dispatcher.Invoke((() =>
+            Dispatcher.Invoke(() =>
             {
-                EnemiesWoundedLabel.Content = p_Value.ToString();
-            }));
+                DeepTrespassingLabel.Content = p_Value ? "Yes" : "No";
+            });
         }
-
-        public void SetPolicemenKilled(int p_Value)
+        
+        public void SetSpottedTrespassing(bool p_Value)
         {
-            Dispatcher.Invoke((() =>
+            Dispatcher.Invoke(() =>
             {
-                PolicemenKilledLabel.Content = p_Value.ToString();
-            }));
+                SpottedTrespassingLabel.Content = p_Value ? "Yes" : "No";
+            });
         }
-
-        public void SetPolicemenWounded(int p_Value)
+        
+        public void SetBodyFoundPacify(bool p_Value)
         {
-            Dispatcher.Invoke((() =>
+            Dispatcher.Invoke(() =>
             {
-                PolicemenWoundedLabel.Content = p_Value.ToString();
-            }));
+                BodyFoundPacifyLabel.Content = p_Value ? "Yes" : "No";
+            });
         }
-
-        public void SetInnocentsKilled(int p_Value)
+        
+        public void SetBodyFoundMurder(bool p_Value)
         {
-            Dispatcher.Invoke((() =>
+            Dispatcher.Invoke(() =>
             {
-                InnocentsKilledLabel.Content = p_Value.ToString();
-            }));
+                BodyFoundMurderLabel.Content = p_Value ? "Yes" : "No";
+            });
         }
-
-        public void SetInnocentsWounded(int p_Value)
+        
+        public void SetBodyFoundAccident(bool p_Value)
         {
-            Dispatcher.Invoke((() =>
+            Dispatcher.Invoke(() =>
             {
-                InnocentsWoundedLabel.Content = p_Value.ToString();
-            }));
+                BodyFoundAccidentLabel.Content = p_Value ? "Yes" : "No";
+            });
         }
-
-        public void SetWitnesses(int p_Value)
+        
+        public void SetBloodPoolFound(bool p_Value)
         {
-            Dispatcher.Invoke((() =>
+            Dispatcher.Invoke(() =>
             {
-                WitnessesLabel.Content = p_Value.ToString();
-            }));
+                BloodPoolFoundLabel.Content = p_Value ? "Yes" : "No";
+            });
         }
-
-        public void SetCoversBlown(int p_Value)
+        
+        public void SetSpottedEnteringCloset(bool p_Value)
         {
-            Dispatcher.Invoke((() =>
+            Dispatcher.Invoke(() =>
             {
-                CoversBlownLabel.Content = p_Value.ToString();
-            }));
+                SpottedEnteringClosetLabel.Content = p_Value ? "Yes" : "No";
+            });
         }
-
-        public void SetFriskFailed(int p_Value)
+        
+        public void SetDeadBodySeenMurder(bool p_Value)
         {
-            Dispatcher.Invoke((() =>
+            Dispatcher.Invoke(() =>
             {
-                FriskFailedLabel.Content = p_Value > 0 ? "Yes" : "No";
-            }));
+                DeadBodySeenMurderLabel.Content = p_Value ? "Yes" : "No";
+            });
         }
-
-        public void SetItemsLeft(int p_Weapons, bool p_Suit)
+        
+        public void SetDeadBodySeenAccident(bool p_Value)
         {
-            Dispatcher.Invoke((() =>
+            Dispatcher.Invoke(() =>
             {
-                if (p_Weapons == 0 && !p_Suit)
-                    ItemsLeftLabel.Content = "No";
-                else if (p_Weapons > 0 && !p_Suit)
-                    ItemsLeftLabel.Content = "Weapons";
-                else if (p_Weapons == 0)
-                    ItemsLeftLabel.Content = "Suit";
-                else 
-                    ItemsLeftLabel.Content = "Weapons & Suit";
-            }));
-        }
-
-        public void SetDifficulty(int p_Value)
-        {
-            Dispatcher.Invoke((() =>
-            {
-                if (p_Value == 0)
-                    DifficultyLabel.Content = "Rookie";
-                else if (p_Value == 1)
-                    DifficultyLabel.Content = "Normal";
-                else if (p_Value == 2)
-                    DifficultyLabel.Content = "Expert";
-                else if (p_Value == 3)
-                    DifficultyLabel.Content = "Professional";
-            }));
+                DeadBodySeenAccidentLabel.Content = p_Value ? "Yes" : "No";
+            });
         }
     }
 }

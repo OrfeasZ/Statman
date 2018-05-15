@@ -1,8 +1,8 @@
 #include <stdafx.h>
 
-#include <HM3/HM3Module.h>
+#include <HM5/HM5Module.h>
 
-HM3Module* g_Module = nullptr;
+HM5Module* g_Module = nullptr;
 
 void OnAttach();
 
@@ -18,5 +18,5 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 
 void OnAttach()
 {
-	g_Module = new HM3Module();
+	g_Module = new HM5Module();
 }
