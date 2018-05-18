@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdafx.h>
+#include <Hooks.h>
 
 class UnknownClass01;
 class UnknownClass02;
@@ -15,25 +16,15 @@ public:
 
 protected:
 	void Install();
+	void Uninstall();
 
 public:
-	typedef char (__thiscall* LoadScene_t)(void* th, const char* scene);
-	static LoadScene_t LoadScene;
-	static char __fastcall c_LoadScene(void* th, int, const char* scene);
+	DECLARE_THISCALL_HOOK(char, LoadScene, void* th, const char* scene);
+	DECLARE_THISCALL_HOOK(char, UnknownUpdateFunc01, UnknownClass01* th);
+	DECLARE_THISCALL_HOOK(int, EndLevel, UnknownClass01* th);
+	DECLARE_THISCALL_HOOK(void, LimitedLives_SelectedGUIElement, LimitSavesElement* th, void* a2, void* a3, void* a4);
+	DECLARE_THISCALL_HOOK(int, UnknownClass02_NextDetectionNPC, UnknownClass02* th, DetectionIterator* a2);
 
-	typedef char (__thiscall* UnknownUpdateFunc01_t)(UnknownClass01* th);
-	static UnknownUpdateFunc01_t UnknownUpdateFunc01;
-	static char __fastcall c_UnknownUpdateFunc01(UnknownClass01* th, int);
-
-	typedef int (__thiscall* EndLevel_t)(UnknownClass01* th);
-	static EndLevel_t EndLevel;
-	static int __fastcall c_EndLevel(UnknownClass01* th, int);
-
-	typedef void (__thiscall* LimitedLives_SelectedGUIElement_t)(LimitSavesElement* th, void* a2, void* a3, void* a4);
-	static LimitedLives_SelectedGUIElement_t LimitedLives_SelectedGUIElement;
-	static void __fastcall c_LimitedLives_SelectedGUIElement(LimitSavesElement* th, int, void* a2, void* a3, void* a4);
-
-	typedef int(__thiscall* UnknownClass02_NextDetectionNPC_t)(UnknownClass02* th, DetectionIterator* a2);
-	static UnknownClass02_NextDetectionNPC_t UnknownClass02_NextDetectionNPC;
-	static int __fastcall c_UnknownClass02_NextDetectionNPC(UnknownClass02* th, int, DetectionIterator* a2);
+private:
+	bool m_Installed;
 };

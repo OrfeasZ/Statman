@@ -170,7 +170,7 @@ void Pipeman::Update()
 
 			if (m_Pipe == NULL || m_Pipe == INVALID_HANDLE_VALUE || GetLastError() == ERROR_PIPE_BUSY)
 			{
-				Log("Failed to connect to main pipe %d %d.\n", GetLastError(), m_Pipe);
+				Log("Failed to connect to main pipe %d %p.\n", GetLastError(), m_Pipe);
 
 				SetLastError(0);
 				m_Pipe = NULL;
