@@ -5,10 +5,18 @@
 #define DECLARE_OFFSET_HOOK(name, offset) \
 	{ \
 		m_ ## name = reinterpret_cast<void*>(offset); \
-		if (MH_CreateHook(m_ ## name, &c_ ## name, reinterpret_cast<LPVOID*>(&o_ ## name)) != MH_OK || MH_EnableHook(m_ ## name) != MH_OK) { \
-			Log("Failed to detour function '" #name "'.\n"); \
+		MH_STATUS s_Result = MH_CreateHook(m_ ## name, &c_ ## name, reinterpret_cast<LPVOID*>(&o_ ## name)); \
+		\
+		if (s_Result != MH_OK) { \
+			Log("Failed to create hook for function '" #name "' with status %d.\n", s_Result); \
 		} else { \
-			Log("Successfully detoured '" #name "' at %p.\n", m_ ## name); \
+			s_Result = MH_EnableHook(m_ ## name); \
+			\
+			if (s_Result != MH_OK) { \
+				Log("Failed to install hook for '" #name "' with status %d.\n", s_Result); \
+			} else { \
+				Log("Successfully detoured '" #name "' at %p.\n", m_ ## name); \
+			} \
 		} \
 	}
 

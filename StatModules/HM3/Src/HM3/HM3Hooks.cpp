@@ -16,6 +16,12 @@ void HM3Hooks::Install()
 	if (m_Installed)
 		return;
 
+	if (MH_Initialize() != MH_OK)
+	{
+		Log("Failed to initialize MinHook.\n");
+		return;
+	}
+
 	m_Installed = true;
 
 	DECLARE_OFFSET_HOOK(LoadScene, 0x0045A440);
@@ -37,4 +43,7 @@ void HM3Hooks::Uninstall()
 	REMOVE_HOOK(EndLevel);
 	REMOVE_HOOK(LimitedLives_SelectedGUIElement);
 	//REMOVE_HOOK(UnknownClass02_NextDetectionNPC);
+
+	if (MH_Uninitialize() != MH_OK)
+		Log("Failed to uninitialize MinHook.\n");
 }
