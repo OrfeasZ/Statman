@@ -34,18 +34,10 @@ namespace Statman
 
         public static void Close()
         {
-            var s_ForceQuitThread = new Thread(ForceQuit);
-            s_ForceQuitThread.Start();
-
             Loop.Dispose();
             EngineManager.Dispose();
+            Thread.Sleep(250);
             Pipeman.Stop();
-        }
-
-        private static void ForceQuit()
-        {
-            Thread.Sleep(1000);
-            Environment.Exit(0);
         }
 
         public static void RegisterEngines()

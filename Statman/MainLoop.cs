@@ -28,7 +28,7 @@ namespace Statman
         public void Dispose()
         {
             m_Running = false;
-
+            m_Thread?.Abort();
             m_Thread?.Join();
         }
 
@@ -71,11 +71,7 @@ namespace Statman
                     // Check for updates.
                     MainApp.MainWindow.SetStatusLabel("Checking for updates...");
 
-                    string s_CurrentVersion, s_LatestVersion, s_ReleaseURL;
-                    bool s_PreRelease;
-
-                    if (UpdateChecker.HasNewerVersion(out s_CurrentVersion, out s_LatestVersion, out s_ReleaseURL,
-                        out s_PreRelease))
+                    if (UpdateChecker.HasNewerVersion(out var s_CurrentVersion, out var s_LatestVersion, out var s_ReleaseURL, out var s_PreRelease))
                     {
                         MainApp.MainWindow.Dispatcher.Invoke(() =>
                         {
@@ -88,8 +84,7 @@ namespace Statman
 
                 m_Timer.Reset();
 
-                if (Update != null)
-                    Update.Invoke(this, null);
+                Update?.Invoke(this, null);
 
                 var s_Ticks = m_Timer.Ticks;
 

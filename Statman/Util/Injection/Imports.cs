@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Statman.Util.Injection
 {
@@ -116,6 +117,14 @@ namespace Statman.Util.Injection
         Timeout = 0x00000102,
         Failed = 0xFFFFFFFF,
         Infinite = 0xFFFFFFFF
+    }
+
+    public enum ModuleFilterFlags : uint
+    {
+        ListModulesDefault = 0x0,
+        ListModules32Bit = 0x01,
+        ListModules64Bit = 0x02,
+        ListModulesAll = 0x03,
     }
 
     /// <summary>
@@ -286,6 +295,86 @@ namespace Statman.Util.Injection
         public int dwThreadId;
     }
 
+    public struct MODULEINFO
+    {
+        public IntPtr lpBaseOfDll;
+        public uint SizeOfImage;
+        public IntPtr EntryPoint;
+    }
+
+    [StructLayout(LayoutKind.Sequential, Pack = 0)]
+    public struct IO_STATUS_BLOCK
+    {
+        public uint status;
+        public IntPtr information;
+    }
+
+    [StructLayout(LayoutKind.Sequential, Pack = 0)]
+    public struct OBJECT_ATTRIBUTES
+    {
+        public Int32 Length;
+        public IntPtr RootDirectory;
+        public IntPtr ObjectName;
+        public uint Attributes;
+        public IntPtr SecurityDescriptor;
+        public IntPtr SecurityQualityOfService;
+
+    }
+
+    [StructLayout(LayoutKind.Sequential, Pack = 0)]
+    public struct UNICODE_STRING
+    {
+        public ushort Length;
+        public ushort MaximumLength;
+        public IntPtr Buffer;
+
+    }
+
+    public enum FILE_INFORMATION_CLASS
+    {
+        FileDirectoryInformation = 1,     // 1
+        FileFullDirectoryInformation,     // 2
+        FileBothDirectoryInformation,     // 3
+        FileBasicInformation,         // 4
+        FileStandardInformation,      // 5
+        FileInternalInformation,      // 6
+        FileEaInformation,        // 7
+        FileAccessInformation,        // 8
+        FileNameInformation,          // 9
+        FileRenameInformation,        // 10
+        FileLinkInformation,          // 11
+        FileNamesInformation,         // 12
+        FileDispositionInformation,       // 13
+        FilePositionInformation,      // 14
+        FileFullEaInformation,        // 15
+        FileModeInformation = 16,     // 16
+        FileAlignmentInformation,     // 17
+        FileAllInformation,           // 18
+        FileAllocationInformation,    // 19
+        FileEndOfFileInformation,     // 20
+        FileAlternateNameInformation,     // 21
+        FileStreamInformation,        // 22
+        FilePipeInformation,          // 23
+        FilePipeLocalInformation,     // 24
+        FilePipeRemoteInformation,    // 25
+        FileMailslotQueryInformation,     // 26
+        FileMailslotSetInformation,       // 27
+        FileCompressionInformation,       // 28
+        FileObjectIdInformation,      // 29
+        FileCompletionInformation,    // 30
+        FileMoveClusterInformation,       // 31
+        FileQuotaInformation,         // 32
+        FileReparsePointInformation,      // 33
+        FileNetworkOpenInformation,       // 34
+        FileAttributeTagInformation,      // 35
+        FileTrackingInformation,      // 36
+        FileIdBothDirectoryInformation,   // 37
+        FileIdFullDirectoryInformation,   // 38
+        FileValidDataLengthInformation,   // 39
+        FileShortNameInformation,     // 40
+        FileHardLinkInformation = 46    // 46    
+    }
+
     /// <summary>
     /// Static class containing all Win32 Import functions
     /// </summary>
@@ -339,7 +428,9 @@ namespace Statman.Util.Injection
             ref STARTUPINFO lpStartupInfo,
             out PROCESS_INFORMATION lpProcessInformation);
 
-
+        [DllImport("kernel32.dll", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsWow64Process([In] IntPtr process, [Out] out bool wow64Process);
 
         #endregion
 
@@ -401,6 +492,20 @@ namespace Statman.Util.Injection
         /// <returns></returns>
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
+
+        [DllImport("psapi.dll")]
+        public static extern bool EnumProcessModulesEx(IntPtr hProcess, [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U4)] [In][Out] IntPtr[] lphModule, int cb, [MarshalAs(UnmanagedType.U4)] out int lpcbNeeded, uint dwFilterFlag);
+
+        [DllImport("psapi.dll")]
+        public static extern uint GetModuleFileNameEx(IntPtr hProcess, IntPtr hModule, [Out] StringBuilder lpBaseName, [In] [MarshalAs(UnmanagedType.U4)] uint nSize);
+
+        [DllImport("psapi.dll", SetLastError = true)]
+        public static extern bool GetModuleInformation(IntPtr hProcess, IntPtr hModule, out MODULEINFO lpmodinfo, uint cb);
+
+
+        [DllImport("psapi.dll", SetLastError = true)]
+        public static extern uint GetMappedFileName(IntPtr m_hProcess, IntPtr lpv, StringBuilder
+            lpFilename, uint nSize);
 
 
         #endregion
@@ -601,5 +706,35 @@ namespace Statman.Util.Injection
 
         #region Window
         #endregion
+
+        [DllImport("ntdll.dll", ExactSpelling = true, SetLastError = true)]
+        public static extern int NtCreateFile(
+            out Microsoft.Win32.SafeHandles.SafeFileHandle handle,
+            System.IO.FileAccess access,
+            ref OBJECT_ATTRIBUTES objectAttributes,
+            ref IO_STATUS_BLOCK ioStatus,
+            ref long allocSize,
+            uint fileAttributes,
+            System.IO.FileShare share,
+            uint createDisposition,
+            uint createOptions,
+            IntPtr eaBuffer,
+            uint eaLength);
+
+        [DllImport("ntdll.dll", SetLastError = true)]
+        public static extern IntPtr NtQueryInformationFile(IntPtr fileHandle, ref IO_STATUS_BLOCK IoStatusBlock, IntPtr pInfoBlock, uint length, FILE_INFORMATION_CLASS fileInformation);
+
+        [DllImport("kernel32.dll")]
+        // static extern uint GetLogicalDriveStrings(uint nBufferLength, 
+        //    [Out] StringBuilder lpBuffer); --- Don't do this!
+
+        // if we were to use the StringBuilder, only the first string would be returned
+        // so, since arrays are reference types, we can pass an array of chars
+        // just initialize it prior to call the function as
+        // char[] lpBuffer = new char[nBufferLength];
+        public static extern int GetLogicalDriveStrings(uint nBufferLength, [Out] char[] lpBuffer);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern int QueryDosDevice(string lpDeviceName, IntPtr lpTargetPath, uint ucchMax);
     }
 }

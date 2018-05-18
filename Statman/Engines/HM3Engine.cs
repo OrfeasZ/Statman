@@ -243,7 +243,7 @@ namespace Statman.Engines
                         Active = true;
 
                         // Create our injector and inject our stat module.
-                        m_Injector = new Injector(m_GameProcess, false);
+                        m_Injector = new Injector(m_GameProcess, true);
                         m_Injector.InjectLibrary("HM3.dll");
 
                         // Setup our main control.
