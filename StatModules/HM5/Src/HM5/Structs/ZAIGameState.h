@@ -128,6 +128,9 @@ public:
 	float m_fDisguiseAttentionMaxPan; // 236
 	PAD(40); // 240
 
+	// Closet, Broken, Trespassing, Deep Trespassing, Accident Body Found is Murdered
+	// Non-target kills, no noticed kills, no accident bodies found, no suspicious disguise, no camera
+
 	union
 	{
 		uint8_t unionInt00; // 280

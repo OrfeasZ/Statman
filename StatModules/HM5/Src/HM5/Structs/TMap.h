@@ -54,6 +54,19 @@ struct STypeFunctions
 
 struct STypeID;
 
+enum class ETypeInfoFlags
+{
+	TIF_Entity = 0x01,
+	TIF_Resource = 0x02,
+	TIF_Class = 0x04,
+	TIF_Enum = 0x08,
+	TIF_Unk00 = 0x10,
+	TIF_Array = 0x20,
+	TIF_Unk01 = 0x40,
+	TIF_Map = 0x200,
+	TIF_Builtin = 0x400
+};
+
 class IType
 {
 public:
@@ -89,6 +102,11 @@ public:
 };
 
 class ZVariant :
+	public ZObjectRef
+{
+};
+
+class ZVariantRef :
 	public ZObjectRef
 {
 };

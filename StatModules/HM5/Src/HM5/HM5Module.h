@@ -14,7 +14,7 @@ public:
 	~HM5Module();
 
 public:
-	Pipeman * Pipe() const { return m_Pipeman; }
+	Pipeman* Pipe() const { return m_Pipeman; }
 	HM5Pointers* Pointers() const { return m_Pointers; }
 	
 protected:

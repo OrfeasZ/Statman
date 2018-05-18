@@ -24,6 +24,7 @@ HM5Module::HM5Module() :
 	{
 		AllocConsole();
 		AttachConsole(GetCurrentProcessId());
+		SetConsoleTitleA("Statman - Debug Console");
 		freopen("CON", "w", stdout);
 	}
 #endif
@@ -35,8 +36,8 @@ HM5Module::HM5Module() :
 	Log("Waiting for the game to be ready...\n");
 
 	// Make sure the game is fully loaded.
-	//while (GetModuleHandleA("dxgi") == NULL && GetModuleHandleA("dxgi.dll") == NULL)
-	//	Sleep(5);
+	while (GetModuleHandleA("dxgi") == NULL && GetModuleHandleA("dxgi.dll") == NULL)
+		Sleep(5);
 
 	// Patch required data.
 	PerformPatches();
@@ -77,6 +78,7 @@ bool HM5Module::CheckInstance()
 void HM5Module::PerformPatches()
 {
 	// Nothing here.
+	// Interesting function: ZCompiledBehaviorTree::InitializeBehavior
 }
 
 void HM5Module::OnMessage(const std::string& p_Type, const std::string& p_Content)
