@@ -1,6 +1,8 @@
 #include "HM5Module.h"
 
 #include "HM5Pointers.h"
+#include "HM5Hooks.h"
+#include "HM5PinHandler.h"
 
 #include <Pipeman.h>
 #include <functional>
@@ -10,7 +12,9 @@
 
 HM5Module::HM5Module() :
 	m_Pipeman(nullptr),
-	m_Pointers(nullptr)
+	m_Pointers(nullptr),
+	m_PinHandler(nullptr),
+	m_Hooks(nullptr)
 {
 	if (!CheckInstance())
 	{
@@ -44,6 +48,8 @@ HM5Module::HM5Module() :
 
 	// Setup pointers, functions, and hooks.
 	m_Pointers = new HM5Pointers();
+	m_Hooks = new HM5Hooks();
+	m_PinHandler = new HM5PinHandler();
 
 	// Setup Pipeman.
 	m_Pipeman = new Pipeman("\\\\.\\pipe\\Statman_IPC", "H5");
@@ -58,8 +64,16 @@ HM5Module::~HM5Module()
 	if (m_Pointers)
 		delete m_Pointers;
 
+	if (m_Hooks)
+		delete m_Hooks;
+
+	if (m_PinHandler)
+		delete m_PinHandler;
+
 	m_Pipeman = nullptr;
 	m_Pointers = nullptr;
+	m_Hooks = nullptr;
+	m_PinHandler = nullptr;
 
 	Log("Resetting stat module environment variable.\n");
 

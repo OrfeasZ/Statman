@@ -1103,6 +1103,7 @@ std::unordered_map<int32_t, std::string> HM5PinHandler::m_PinRegistry
 	{ 1894516874, "OpenCalled" },
 	{ -91776405, "OpenMap" },
 	{ -1426447763, "Opened" },
+	{ -2119750791, "Out" },
 	{ -368595208, "Out00" },
 	{ -1660903826, "Out01" },
 	{ 67751892, "Out02" },

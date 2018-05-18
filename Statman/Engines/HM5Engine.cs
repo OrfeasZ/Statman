@@ -120,8 +120,8 @@ namespace Statman.Engines
                         Active = true;
 
                         // Create our injector and inject our stat module.
-                        /*m_Injector = new Injector(m_GameProcess, true);
-                        m_Injector.InjectLibrary("HM5.dll");*/
+                        m_Injector = new Injector(m_GameProcess, true);
+                        m_Injector.InjectLibrary("HM5.dll");
 
                         // Setup our main control.
                         MainApp.MainWindow.Dispatcher.Invoke(() =>
