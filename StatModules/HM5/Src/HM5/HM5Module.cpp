@@ -8,7 +8,7 @@
 #include <functional>
 
 #include <HM5/Structs/ZAIGameState.h>
-#include <HM5/Structs/TMap.h>
+#include <HM5/Structs/ZGameStats.h>
 
 HM5Module::HM5Module() :
 	m_Pipeman(nullptr),

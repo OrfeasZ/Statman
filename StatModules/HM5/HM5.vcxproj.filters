@@ -39,6 +39,21 @@
     <ClInclude Include="Src\HM5\HM5Hooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\HM5\Structs\ZEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\HM5\Structs\Reflection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\HM5\Structs\ZString.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\HM5\Structs\ZObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\HM5\Structs\ZGameStats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Entry.cpp">

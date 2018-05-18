@@ -2,24 +2,11 @@
 
 #include <stdafx.h>
 
-class ZEntityType;
-class ZActor;
+#include "ZEntity.h"
 
-struct ZEntityRef
-{
-	ZEntityType** m_pObj;
-};
-
-template <typename T>
-class TEntityRef
+class SClosestActorInfo
 {
 public:
-	ZEntityRef m_entityRef;
-	T* m_pInterfaceRef;
-};
-
-struct SClosestActorInfo
-{
 	TEntityRef<ZActor> m_pMaxFacingAlertableActor; // 0
 	TEntityRef<ZActor> m_pClosestAlertableActor;  // 16
 	TEntityRef<ZActor> m_pClosestAlertableGuard; // 32
@@ -77,9 +64,10 @@ enum class EGameTension : int32_t
 	EGT_Combat
 };
 
-struct STokenID
+class STokenID
 {
-	uint32_t m_iValue;
+public:
+	uint32_t m_nValue;
 	bool m_bValid;
 };
 
