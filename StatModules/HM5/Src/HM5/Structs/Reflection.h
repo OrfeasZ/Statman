@@ -4,18 +4,19 @@
 
 class STypeID;
 class ZString;
+class IType;
 
-enum class ETypeInfoFlags
+enum ETypeInfoFlags : uint16_t
 {
 	TIF_Entity = 0x01,
 	TIF_Resource = 0x02,
 	TIF_Class = 0x04,
 	TIF_Enum = 0x08,
-	TIF_Unk00 = 0x10,
+	TIF_Container = 0x10,
 	TIF_Array = 0x20,
-	TIF_Unk01 = 0x40,
+	TIF_FixedArray = 0x40,
 	TIF_Map = 0x200,
-	TIF_Builtin = 0x400
+	TIF_Primitive = 0x400
 };
 
 class STypeFunctions
@@ -36,7 +37,53 @@ public:
 class IType
 {
 public:
-	STypeFunctions * m_pTypeFunctions;
+	inline bool isEntity() const
+	{
+		return m_nTypeInfoFlags & TIF_Entity;
+	}
+
+	inline bool isResource() const
+	{
+		return m_nTypeInfoFlags & TIF_Resource;
+	}
+
+	inline bool isClass() const
+	{
+		return m_nTypeInfoFlags & TIF_Class;
+	}
+
+	inline bool isEnum() const
+	{
+		return m_nTypeInfoFlags & TIF_Enum;
+	}
+
+	inline bool isContainer() const
+	{
+		return m_nTypeInfoFlags & TIF_Container;
+	}
+
+	inline bool isArray() const
+	{
+		return m_nTypeInfoFlags & TIF_Array;
+	}
+
+	inline bool isFixedArray() const
+	{
+		return m_nTypeInfoFlags & TIF_FixedArray;
+	}
+
+	inline bool isMap() const
+	{
+		return m_nTypeInfoFlags & TIF_Map;
+	}
+
+	inline bool isPrimitive() const
+	{
+		return m_nTypeInfoFlags & TIF_Primitive;
+	}
+
+public:
+	STypeFunctions* m_pTypeFunctions;
 	uint16_t m_nTypeSize;
 	uint8_t m_nTypeAlignment;
 	uint16_t m_nTypeInfoFlags;
@@ -66,12 +113,21 @@ public:
 	void (*get)(void*, void*, uint64_t);
 };
 
+class ZClassConstructorInfo
+{
+public:
+	uint64_t m_nArgumentCount;
+	void (*UnkFn00)();
+	STypeID* m_pReturnType;
+	STypeID* m_pArgType;
+};
+
 class ZClassConstructor
 {
 public:
 	void (*construct)(void*);
 	PAD(8);
-	void* m_Unk00;
+	ZClassConstructorInfo* m_pInfo;
 };
 
 class ZClassComponent
@@ -84,6 +140,7 @@ public:
 class IClassType :
 	public IType
 {
+public:
 	uint16_t m_nPropertyCount;
 	uint16_t m_nConstructorCount;
 	uint16_t m_nBaseClassCount;

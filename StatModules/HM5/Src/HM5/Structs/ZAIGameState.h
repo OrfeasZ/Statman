@@ -90,11 +90,11 @@ struct ZGameTime
 class ZAIGameState
 {
 public:
-	SClosestActorInfo m_ActorInfo; // 0
+	SClosestActorInfo m_actorInfo; // 0
 	float m_fDisguiseHealth; // 80
 	STokenID m_outfitToken; // 88
 	PAD(32); // 96
-	SActorCounts m_ActorCounts; // 124
+	SActorCounts m_actorCounts; // 124
 	EGameTension m_eGameTensionMax; // 152
 	EGameTension m_eGameTensionGuard; // 156
 	EGameTension m_eGameTensionCivilian; // 160
@@ -209,6 +209,6 @@ class ZGameStatsManager
 {
 public:
 	PAD(128);
-	ZAIGameState m_GameState; // 128
-	ZAIGameState m_OldGameState; // 416
+	ZAIGameState m_gameState; // 128
+	ZAIGameState m_oldGameState; // 416
 };
