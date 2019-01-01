@@ -6,54 +6,24 @@
 
 #include <Pipeman.h>
 #include <functional>
+#include <Utils.h>
 
 #include <HM5/Structs/ZAIGameState.h>
 #include <HM5/Structs/ZGameStats.h>
+#include <HM5/Structs/ZTypeRegistry.h>
+
+#ifdef _DEBUG
+#include "HM5Generator.h"
+#endif
 
 HM5Module::HM5Module() :
 	m_Pipeman(nullptr),
 	m_Pointers(nullptr),
 	m_PinHandler(nullptr),
-	m_Hooks(nullptr)
+	m_Hooks(nullptr),
+	m_ModuleBase(0),
+	m_SizeOfCode(0)
 {
-	if (!CheckInstance())
-	{
-		Log("The current stat module is already loaded. Exiting.\n");
-		return;
-	}
-
-#ifdef _DEBUG
-	char s_Buffer[2];
-	if (!GetEnvironmentVariableA("Statman_HM5", s_Buffer, 2) || s_Buffer[0] != 0x02)
-	{
-		AllocConsole();
-		AttachConsole(GetCurrentProcessId());
-		SetConsoleTitleA("Statman - Debug Console");
-		freopen("CON", "w", stdout);
-	}
-#endif
-
-	Log("Initializing Statman HM5 stat module...\n");
-
-	SetEnvironmentVariable("Statman_HM5", "\x01\x00");
-
-	Log("Waiting for the game to be ready...\n");
-
-	// Make sure the game is fully loaded.
-	while (GetModuleHandleA("dxgi") == NULL && GetModuleHandleA("dxgi.dll") == NULL)
-		Sleep(5);
-
-	// Patch required data.
-	PerformPatches();
-
-	// Setup pointers, functions, and hooks.
-	m_Pointers = new HM5Pointers();
-	m_Hooks = new HM5Hooks();
-	m_PinHandler = new HM5PinHandler();
-
-	// Setup Pipeman.
-	m_Pipeman = new Pipeman("\\\\.\\pipe\\Statman_IPC", "H5");
-	m_Pipeman->SetMessageCallback(std::bind(&HM5Module::OnMessage, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 HM5Module::~HM5Module()
@@ -78,6 +48,71 @@ HM5Module::~HM5Module()
 	Log("Resetting stat module environment variable.\n");
 
 	SetEnvironmentVariable("Statman_HM5", "\x02\x00");
+}
+
+bool HM5Module::Init()
+{
+	if (!CheckInstance())
+	{
+		Log("The current stat module is already loaded. Exiting.\n");
+		return false;
+	}
+
+#ifdef _DEBUG
+	char s_Buffer[2];
+	if (!GetEnvironmentVariableA("Statman_HM5", s_Buffer, 2) || s_Buffer[0] != 0x02)
+	{
+		AllocConsole();
+		AttachConsole(GetCurrentProcessId());
+		SetConsoleTitleA("Statman - Debug Console");
+		freopen("CON", "w", stdout);
+	}
+#endif
+
+	Log("Initializing Statman HM5 stat module...\n");
+
+	SetEnvironmentVariable("Statman_HM5", "\x01\x00");
+
+	Log("Waiting for the game to be ready...\n");
+
+	// Make sure the game is fully loaded.
+	while (GetModuleHandleA("dxgi") == NULL && GetModuleHandleA("dxgi.dll") == NULL)
+		Sleep(5);
+
+	Log("Game is ready. Setting up basic configuration.\n");
+
+	// Get the module base address and size.
+	HMODULE s_Module = GetModuleHandleA(nullptr);
+	m_ModuleBase = reinterpret_cast<uintptr_t>(s_Module) + Utils::GetBaseOfCode(s_Module);
+	m_SizeOfCode = Utils::GetSizeOfCode(s_Module);
+
+	// Patch required data.
+	PerformPatches();
+
+	// Setup pointers, functions, and hooks.
+	m_Pointers = new HM5Pointers();
+	m_Hooks = new HM5Hooks();
+	m_PinHandler = new HM5PinHandler();
+
+	// Wait for late initialization.
+	Log("Waiting for game late initialization...\n");
+
+	while (!(*m_Pointers->g_pTypeRegistry) || (*m_Pointers->g_pTypeRegistry)->m_types.m_nSize < 4300)
+		Sleep(1000);
+
+	Log("Game late initialization finished!\n");
+
+	// Setup Pipeman.
+	m_Pipeman = new Pipeman("\\\\.\\pipe\\Statman_IPC", "H5");
+	m_Pipeman->SetMessageCallback(std::bind(&HM5Module::OnMessage, this, std::placeholders::_1, std::placeholders::_2));
+
+#ifdef _DEBUG
+	// If we're running in debug mode dump all reflection data.
+	HM5Generator s_Generator;
+	s_Generator.Generate();
+#endif
+
+	return true;
 }
 
 bool HM5Module::CheckInstance()

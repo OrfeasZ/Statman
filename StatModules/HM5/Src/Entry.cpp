@@ -19,4 +19,10 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 void OnAttach()
 {
 	g_Module = new HM5Module();
+	
+	if (!g_Module->Init())
+	{
+		delete g_Module;
+		g_Module = nullptr;
+	}
 }
