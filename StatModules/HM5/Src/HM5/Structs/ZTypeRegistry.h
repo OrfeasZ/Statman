@@ -4,6 +4,7 @@
 #include "THashMap.h"
 #include "ZString.h"
 #include "Reflection.h"
+#include "TArray.h"
 
 class ZTypeRegistry
 {
@@ -17,4 +18,5 @@ public:
 public:
 	PAD(56);
 	THashMap<ZString, STypeID*> m_types;
+	TArray<IType*> m_unnamedTypes;
 };

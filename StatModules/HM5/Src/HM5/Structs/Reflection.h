@@ -2,6 +2,8 @@
 
 #include <stdafx.h>
 
+#include "TArray.h"
+
 class STypeID;
 class ZString;
 class IType;
@@ -85,7 +87,7 @@ public:
 public:
 	STypeFunctions* m_pTypeFunctions;
 	uint16_t m_nTypeSize;
-	uint8_t m_nTypeAlignment;
+	uint16_t m_nTypeAlignment;
 	uint16_t m_nTypeInfoFlags;
 	char* m_pTypeName;
 	STypeID* m_pTypeID;
@@ -107,7 +109,7 @@ public:
 	const char* m_pName;
 	uint32_t m_nPropertyID;
 	STypeID* m_pType;
-	void* m_Unk00;
+	uint64_t m_nOffset;
 	uint32_t m_nFlags;
 	void (*set)(void*, void*, uint64_t, bool);
 	void (*get)(void*, void*, uint64_t);
@@ -153,8 +155,31 @@ public:
 	SInputPinEntry* m_pInputs;
 };
 
+class ZEnumEntry
+{
+public:
+	char* m_pName;
+	int32_t m_nValue;
+};
+
+class IEnumType :
+	public IType
+{
+public:
+	TFixedArray<ZEnumEntry> m_entries;
+};
+
 class STypeID
 {
+public:
+	inline IType* typeInfo() const
+	{
+		if (m_nFlags == 1 || (!m_pType && m_pSource))
+			return m_pSource->m_pType;
+
+		return m_pType;
+	}
+
 public:
 	uint16_t m_nFlags;
 	uint16_t m_nTypeNum;
