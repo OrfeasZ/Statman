@@ -4,6 +4,7 @@
 
 class ZGameStats;
 class ZGameStatsManager;
+class ZTypeRegistry;
 
 class HM5Pointers
 {
@@ -12,9 +13,15 @@ public:
 	~HM5Pointers();
 
 protected:
-	void Setup();
+	bool Setup();
 
 public:
+	// _g_pGameStatsSingleton
 	ZGameStats* g_pGameStatsSingleton;
+
+	// _g_pGameStatsManagerSingleton
 	ZGameStatsManager* g_pGameStatsManagerSingleton;
+
+	// _g_pTypeRegistry
+	ZTypeRegistry** g_pTypeRegistry;
 };

@@ -54,7 +54,7 @@ namespace Statman.Engines
 
         private void InitMenuItems()
         {
-            /*MainApp.MainWindow.Dispatcher.Invoke(() =>
+            MainApp.MainWindow.Dispatcher.Invoke(() =>
             {
                 var s_GetStats = new MenuItem()
                 {
@@ -65,7 +65,7 @@ namespace Statman.Engines
 
                 m_MenuItems.Clear();
                 m_MenuItems.Add(s_GetStats);
-            });*/
+            });
         }
 
         private void GetStatsOnClick(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
@@ -102,7 +102,7 @@ namespace Statman.Engines
                     m_Injector = null;
                 }
 
-                var s_Processes = Process.GetProcessesByName("HITMAN");
+                var s_Processes = Process.GetProcessesByName("HITMAN2");
 
                 if (s_Processes.Length == 0)
                     return;

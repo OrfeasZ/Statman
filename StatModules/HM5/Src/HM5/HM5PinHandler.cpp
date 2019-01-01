@@ -16,9 +16,9 @@ bool HM5PinHandler::OnOutputPinSignal(int32_t p_Pin, ZVariantRef* p_Ref)
 	{
 		Log("Unknown Pin [%x]: %s %x %x\n",
 			p_Pin,
-			p_Ref->m_TypeID->m_pType->m_pTypeName,
+			p_Ref->m_TypeID->typeInfo()->m_pTypeName,
 			p_Ref->m_TypeID->m_nTypeNum,
-			p_Ref->m_TypeID->m_pType->m_nTypeInfoFlags
+			p_Ref->m_TypeID->typeInfo()->m_nTypeInfoFlags
 		);
 
 		return true;
@@ -26,9 +26,9 @@ bool HM5PinHandler::OnOutputPinSignal(int32_t p_Pin, ZVariantRef* p_Ref)
 
 	Log("Pin [%s]: %s %x %x\n",
 		it->second.c_str(),
-		p_Ref->m_TypeID->m_pType->m_pTypeName,
+		p_Ref->m_TypeID->typeInfo()->m_pTypeName,
 		p_Ref->m_TypeID->m_nTypeNum,
-		p_Ref->m_TypeID->m_pType->m_nTypeInfoFlags
+		p_Ref->m_TypeID->typeInfo()->m_nTypeInfoFlags
 	);
 
 	return true;

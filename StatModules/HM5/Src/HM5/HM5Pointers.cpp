@@ -1,5 +1,10 @@
 #include "HM5Pointers.h"
 
+#include <HM5/HM5Module.h>
+#include <Utils.h>
+
+#include <Pointers.h>
+
 HM5Pointers::HM5Pointers()
 {
 	Setup();
@@ -10,9 +15,22 @@ HM5Pointers::~HM5Pointers()
 
 }
 
-void HM5Pointers::Setup()
+bool HM5Pointers::Setup()
 {
-	// TODO: Sig-scanning
-	g_pGameStatsSingleton = (ZGameStats*) 0x00000001427708C0;
-	g_pGameStatsManagerSingleton = (ZGameStatsManager*) 0x0000000141E0FC20;
+	Log("Setting up pointers.\n");
+
+	//g_pGameStatsSingleton = (ZGameStats*) 0x00000001427708C0;
+	//g_pGameStatsManagerSingleton = (ZGameStatsManager*) 0x0000000141E0FC20;
+	
+	// 0x0000000140A6AAB7
+	
+	FIND_POINTER_RELATIVE(
+		ZTypeRegistry**,
+		g_pTypeRegistry,
+		"\x48\x8B\x0D\x00\x00\x00\x00\x48\x85\xC9\x75\x00\xE8\x00\x00\x00\x00\x48\x8B\x0D\x00\x00\x00\x00\x48\x8D\x15\x00\x00\x00\x00\x48\x83\xC4\x00\xE9\x00\x00\x00\x00\x48\x8D\x0D\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x83\x3D\x00\x00\x00\x00\x00\x75\x00\x33\xD2",
+		"xxx????xxxx?x????xxx????xxx????xxx?x????xxx????x????xx?????x?xx",
+		3
+	);
+
+	return true;
 }
