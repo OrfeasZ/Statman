@@ -6,15 +6,15 @@ class STypeID;
 
 struct SSerializablePointer
 {
-	void* m_pointer;
-	uint32_t m_address;
+	void* m_pPointer;
+	uint32_t m_nAddress;
 };
 
 class ZObjectRef
 {
 public:
-	STypeID* m_TypeID;
-	SSerializablePointer m_pData;
+	STypeID* m_pTypeID;
+	SSerializablePointer m_data;
 };
 
 class ZVariant :

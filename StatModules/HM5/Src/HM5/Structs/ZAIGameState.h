@@ -60,13 +60,13 @@ public:
 
 struct SActorCounts
 {
-	int enemiesIsAlerted; // 40
-	int enemiesIsAlertedArmed; // 44
-	int enemiesIsEngaged; // 48
-	int lastEnemyKilled; // 52
-	int enemiesInCombat; // 56
-	int alertableActorOnScreen; // 60
-	int alertableGuardOnScreen; // 64
+	int m_nEnemiesIsAlerted; // 40
+	int m_nEnemiesIsAlertedArmed; // 44
+	int m_nEnemiesIsEngaged; // 48
+	int m_nLastEnemyKilled; // 52
+	int m_nEnemiesInCombat; // 56
+	int m_nAlertableActorOnScreen; // 60
+	int m_nAlertableGuardOnScreen; // 64
 };
 
 struct ZGameTime

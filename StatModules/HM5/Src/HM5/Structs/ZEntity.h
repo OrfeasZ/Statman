@@ -26,17 +26,17 @@ class IEntity :
 class ZEntityType
 {
 public:
-	int32_t m_Unk00;
-	void* m_Unk01;
-	void* m_Unk02;
-	void* m_Unk03;
-	void* m_Unk04;
+	int32_t m_unk00;
+	void* m_unk01;
+	void* m_unk02;
+	void* m_unk03;
+	void* m_unk04;
 	void* m_Inputs;
 	void* m_Outputs;
-	int64_t m_Unk05;
-	int64_t m_Unk06;
+	int64_t m_unk05;
+	int64_t m_unk06;
 	uint32_t m_ID;
-	void* m_Unk07;
+	void* m_unk07;
 	ZString m_DebugName;
 	ZString m_TypeName;
 };
@@ -46,8 +46,8 @@ class ZEntityImpl :
 {
 public:
 	ZEntityType* m_Type;
-	uint32_t m_Unk00;
-	uint32_t m_Unk01;
+	uint32_t m_unk00;
+	uint32_t m_unk01;
 };
 
 class ZEntityRef

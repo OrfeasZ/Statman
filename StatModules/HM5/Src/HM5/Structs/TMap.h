@@ -95,7 +95,7 @@ class TBinaryTree
 public:
 	struct SFakeTreeNode
 	{
-		int m_reserved1; // 0x00
+		int m_nReserved; // 0x00
 		TBinaryTreeNode<T>* m_pNULL; // 0x08
 		TBinaryTreeNode<T>* m_pRightRoot; // 0x10
 		TBinaryTreeNode<T>* m_pLeftRoot; // 0x18
