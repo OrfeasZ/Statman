@@ -21,9 +21,12 @@
   <ItemGroup>
     <ClInclude Include="Include\Commons.h" />
     <ClInclude Include="Include\Hooks.h" />
+    <ClInclude Include="Include\Pointers.h" />
+    <ClInclude Include="Include\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Commons.cpp" />
+    <ClCompile Include="Src\Utils.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
