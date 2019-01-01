@@ -24,7 +24,7 @@ void HM5Hooks::Install()
 
 	m_Installed = true;
 
-	DECLARE_OFFSET_HOOK(ZEntityImpl_SignalOutputPin, 0x0000000140C38FD0);
+	//DECLARE_OFFSET_HOOK(ZEntityImpl_SignalOutputPin, 0x0000000140C38FD0);
 }
 
 void HM5Hooks::Uninstall()
@@ -34,7 +34,7 @@ void HM5Hooks::Uninstall()
 
 	m_Installed = false;
 
-	REMOVE_HOOK(ZEntityImpl_SignalOutputPin);
+	//REMOVE_HOOK(ZEntityImpl_SignalOutputPin);
 
 	if (MH_Uninitialize() != MH_OK)
 		Log("Failed to uninitialize MinHook.\n");
