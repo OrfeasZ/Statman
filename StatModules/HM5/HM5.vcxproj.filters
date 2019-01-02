@@ -72,6 +72,15 @@
     <ClInclude Include="Src\HM5\Structs\ZGameTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\HM5\Structs\ZModule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\HM5\Structs\ZScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\HM5\Structs\ZResourceID.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Entry.cpp">
