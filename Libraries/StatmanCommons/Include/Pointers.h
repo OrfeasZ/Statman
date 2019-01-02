@@ -7,10 +7,10 @@
 		\
 		if (s_Addr == 0) \
 		{ \
-			Log("Could not find address for " #field ".\n"); \
+			Log("Could not find address for pointer '" #field "'.\n"); \
 			return false; \
 		} \
 		\
 		field = reinterpret_cast<type>(Utils::GetRelativeAddr(s_Addr, 3)); \
-		Log("Found address for g_pTypeRegistry: %p\n", field); \
+		Log("Found address for pointer '" #field "': 0x%p\n", field); \
 	}

@@ -85,10 +85,10 @@ std::tuple<uintptr_t, uintptr_t> Utils::GetSectionStartAndEnd(HMODULE p_Module, 
 	return std::make_tuple<uintptr_t, uintptr_t>(0, 0);
 }
 
-uintptr_t Utils::GetRelativeAddr(uintptr_t p_Base, uint32_t p_Offset)
+uintptr_t Utils::GetRelativeAddr(uintptr_t p_Base, int32_t p_Offset)
 {
 	uintptr_t s_RelAddrPtr = p_Base + p_Offset;
-	uint32_t s_RelAddr = *reinterpret_cast<uint32_t*>(s_RelAddrPtr);
+	int32_t s_RelAddr = *reinterpret_cast<int32_t*>(s_RelAddrPtr);
 
-	return s_RelAddrPtr + s_RelAddr + sizeof(uint32_t);
+	return s_RelAddrPtr + s_RelAddr + sizeof(int32_t);
 }
