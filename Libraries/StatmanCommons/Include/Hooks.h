@@ -15,7 +15,35 @@
 			if (s_Result != MH_OK) { \
 				Log("Failed to install hook for '" #name "' with status %d.\n", s_Result); \
 			} else { \
-				Log("Successfully detoured '" #name "' at %p.\n", m_ ## name); \
+				Log("Successfully detoured '" #name "' at 0x%p.\n", m_ ## name); \
+			} \
+		} \
+	}
+
+#define DECLARE_PATTERN_HOOK(name, pattern, mask) \
+	{ \
+		uint8_t s_Pattern[] = pattern; \
+		m_ ## name = reinterpret_cast<void*>(Utils::SearchPattern(g_Module->GetModuleBase(), g_Module->GetSizeOfCode(), s_Pattern, mask)); \
+		\
+		if (m_ ## name == nullptr) \
+		{ \
+			Log("Could not find address for function '" #name "'.\n"); \
+			return false; \
+		} \
+		\
+		MH_STATUS s_Result = MH_CreateHook(m_ ## name, &c_ ## name, reinterpret_cast<LPVOID*>(&o_ ## name)); \
+		\
+		if (s_Result != MH_OK) { \
+			Log("Failed to create hook for function '" #name "' with status %d.\n", s_Result); \
+			return false; \
+		} else { \
+			s_Result = MH_EnableHook(m_ ## name); \
+			\
+			if (s_Result != MH_OK) { \
+				Log("Failed to install hook for function '" #name "' with status %d.\n", s_Result); \
+				return false; \
+			} else { \
+				Log("Successfully detoured '" #name "' at 0x%p.\n", m_ ## name); \
 			} \
 		} \
 	}
