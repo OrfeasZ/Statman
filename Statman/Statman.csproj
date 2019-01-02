@@ -100,6 +100,7 @@
       <DependentUpon>MainControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Engines\HM5\StatTracker.cs" />
+    <Compile Include="Engines\HM5\TimeTracker.cs" />
     <Compile Include="Windows\UpdateWindow.xaml.cs">
       <DependentUpon>UpdateWindow.xaml</DependentUpon>
     </Compile>

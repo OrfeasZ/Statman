@@ -23,6 +23,7 @@ namespace Statman.Engines
         public bool InGame { get; private set; }
 
         public StatTracker StatTracker { get; private set; }
+        public TimeTracker TimeTracker { get; private set; }
 
         private Process m_GameProcess;
         private Injector m_Injector;
@@ -131,6 +132,7 @@ namespace Statman.Engines
 
                         // Setup our engine-specific classes.
                         StatTracker = new StatTracker(this);
+                        TimeTracker = new TimeTracker(this);
                         
                         // Set our control in the main window.
                         InitMenuItems();
@@ -148,12 +150,22 @@ namespace Statman.Engines
                 return;
 
             // Update our trackers.
-            StatTracker.Update();
+            //StatTracker.Update();
+            TimeTracker.Update();
+
+            // Set game time.
+            Control.SetGameTime(TimeTracker.GameTime);
+            Control.SetRealTime(TimeTracker.RealTime);
         }
 
         public void OnMessage(string p_Type, string p_Data)
         {
-
+            if (p_Type == "GT")
+            {
+                // Set the ZGameTimeManager address.
+                TimeTracker.SetGameTimeManagerAddr(long.Parse(p_Data));
+                return;
+            }
         }
     }
 }
