@@ -106,6 +106,14 @@ bool HM5Module::Init()
 	m_Pipeman = new Pipeman("\\\\.\\pipe\\Statman_IPC", "H5");
 	m_Pipeman->SetMessageCallback(std::bind(&HM5Module::OnMessage, this, std::placeholders::_1, std::placeholders::_2));
 
+	m_Pipeman->SetConnectedCallback([]()
+	{
+		Log("Connected to Statman via Pipeman!\n");
+		Log("Sending ZGameTimeManager address.\n");
+		std::string s_PointerStr = std::to_string(reinterpret_cast<uintptr_t>(g_Module->Pointers()->g_pGameTimeManagerSingleton));
+		g_Module->Pipe()->SendPipeMessage("GT", s_PointerStr);
+	});
+
 #ifdef _DEBUG
 	// If we're running in debug mode dump all reflection data.
 	HM5Generator s_Generator;
