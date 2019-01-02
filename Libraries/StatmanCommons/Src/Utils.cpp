@@ -1,6 +1,8 @@
 #include <Utils.h>
 
 #include <limits.h>
+#include <sstream>
+#include <iterator>
 
 uintptr_t Utils::SearchPattern(uintptr_t p_BaseAddress, size_t p_ScanSize, uint8_t* p_Pattern, const char* p_Mask)
 {
@@ -91,4 +93,17 @@ uintptr_t Utils::GetRelativeAddr(uintptr_t p_Base, int32_t p_Offset)
 	int32_t s_RelAddr = *reinterpret_cast<int32_t*>(s_RelAddrPtr);
 
 	return s_RelAddrPtr + s_RelAddr + sizeof(int32_t);
+}
+
+std::vector<std::string> Utils::SplitString(const std::string& p_String, char p_Delimiter)
+{
+	std::vector<std::string> s_Parts;
+
+	std::stringstream s_Stream(p_String);
+	std::string s_Part;
+
+	while (std::getline(s_Stream, s_Part, p_Delimiter))
+		s_Parts.push_back(s_Part);
+
+	return s_Parts;
 }
