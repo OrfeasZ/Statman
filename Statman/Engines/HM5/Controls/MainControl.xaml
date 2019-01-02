@@ -4,42 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Height="409" Width="332">
+             Height="149.942" Width="332">
     <Grid>
         <Label Foreground="{DynamicResource LabelBrush}" x:Name="CurrentLevelLabel" Content="No Level" Margin="10,18,10,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center"/>
-        <Label Foreground="{DynamicResource TimerBrush}" x:Name="CurrentTimeLabel" Content="00:00:00.000" Margin="10,54,10,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Center"/>
-        <Grid Margin="10,96,10,68">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Disguise Broken" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,1,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="DisguiseBrokenLabel" Content="No" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,17,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Trespassing" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,39,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="TrespassingLabel" Content="No" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,55,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Spotted Trespassing" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,78,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="SpottedTrespassingLabel" Content="No" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,94,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Murdered Body Found" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,117,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="BodyFoundMurderLabel" Content="No" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,133,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Blood Pool Found" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,156,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="BloodPoolFoundLabel" Content="No" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,172,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Murder Seen" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,195,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="DeadBodySeenMurderLabel" Content="No" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,211,0,0" FontSize="14" FontWeight="Bold"/>
-
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Disguise Suspicious" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,1,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="DisguiseSuspiciousLabel" Content="No" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,17,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Deep Trespassing" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,39,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="DeepTrespassingLabel" Content="No" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,55,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Pacified Body Found" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,78,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="BodyFoundPacifyLabel" Content="No" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,94,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Accident Body Found" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,117,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="BodyFoundAccidentLabel" Content="No" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,133,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Spotted Entering Closet" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,156,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="SpottedEnteringClosetLabel" Content="No" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,172,0,0" FontSize="14" FontWeight="Bold"/>
-            <Label Foreground="{DynamicResource LabelBrush}" Content="Accident Seen" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,195,0,0"/>
-            <Label Foreground="{DynamicResource LabelBrush}" x:Name="DeadBodySeenAccidentLabel" Content="No" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="0,211,0,0" FontSize="14" FontWeight="Bold"/>
-
-        </Grid>
-        <Label Foreground="{DynamicResource LabelBrush}" x:Name="RatingLabel" Content="No Rating Available" Margin="10,0,10,23" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Height="34" VerticalAlignment="Bottom"/>
+        <Label Foreground="{DynamicResource LabelBrush}" x:Name="GameTimeHeaderLabel" Content="Game Time" Margin="10,54,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="14" HorizontalAlignment="Left" Width="156"/>
+        <Label Foreground="{DynamicResource TimerBrush}" x:Name="GameTimeLabel" Content="00:00:00.000" Margin="10,83,0,0" HorizontalContentAlignment="Center" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Width="156" Height="37" VerticalAlignment="Top"/>
+        <Label Foreground="{DynamicResource LabelBrush}" x:Name="RealTimeHeaderLabel" Content="Real Time" Margin="0,54,10,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="14" HorizontalAlignment="Right" Width="156"/>
+        <Label Foreground="{DynamicResource TimerBrush}" x:Name="RealTimeLabel" Content="00:00:00.000" Margin="0,83,10,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right" Width="156"/>
     </Grid>
 </UserControl>
