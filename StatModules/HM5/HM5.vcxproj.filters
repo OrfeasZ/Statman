@@ -69,6 +69,9 @@
     <ClInclude Include="Src\HM5\Structs\TArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\HM5\Structs\ZGameTime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Entry.cpp">
