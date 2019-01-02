@@ -1,5 +1,8 @@
 #include "HM5Hooks.h"
 
+#include <HM5/HM5Module.h>
+#include <Utils.h>
+
 HM5Hooks::HM5Hooks() :
 	m_Installed(false)
 {
@@ -11,20 +14,23 @@ HM5Hooks::~HM5Hooks()
 	Uninstall();
 }
 
-void HM5Hooks::Install()
+bool HM5Hooks::Install()
 {
 	if (m_Installed)
-		return;
+		return true;
 
 	if (MH_Initialize() != MH_OK)
 	{
 		Log("Failed to initialize MinHook.\n");
-		return;
+		return false;
 	}
 
-	m_Installed = true;
+	// 0x000000014E8F26B0
+	DECLARE_PATTERN_HOOK(SignalOutputPin, "\x55\x41\x56\x48\x83\xEC\x00\x48\x8B\x01\x4C\x89\xC5", "xxxxxx?xxxxxx");
 
-	//DECLARE_OFFSET_HOOK(ZEntityImpl_SignalOutputPin, 0x0000000140C38FD0);
+	m_Installed = true;
+	
+	return true;
 }
 
 void HM5Hooks::Uninstall()
@@ -34,7 +40,7 @@ void HM5Hooks::Uninstall()
 
 	m_Installed = false;
 
-	//REMOVE_HOOK(ZEntityImpl_SignalOutputPin);
+	REMOVE_HOOK(SignalOutputPin);
 
 	if (MH_Uninitialize() != MH_OK)
 		Log("Failed to uninitialize MinHook.\n");

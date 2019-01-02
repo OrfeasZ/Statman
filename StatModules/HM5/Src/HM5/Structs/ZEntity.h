@@ -3,49 +3,60 @@
 #include <stdafx.h>
 
 #include "ZString.h"
+#include "TArray.h"
+#include "Reflection.h"
 
 class ZEntityType;
 class ZActor;
 class STypeID;
-
-class IComponentInterface
-{
-public:
-	virtual ~IComponentInterface() = 0;
-	virtual void* Unk00() = 0;
-	virtual int addRef() = 0;
-	virtual int release() = 0;
-	virtual void* Unk01(STypeID*) = 0;
-};
 
 class IEntity : 
 	public IComponentInterface
 {
 };
 
-class ZEntityType
+class ZPinFunctions
+{
+public:
+	void (*trigger)();
+	void (*unk00)();
+	void (*unk01)();
+	void (*unk02)();
+	int32_t m_nPin;
+};
+
+class ZPinData
 {
 public:
 	int32_t m_unk00;
-	void* m_unk01;
-	void* m_unk02;
-	void* m_unk03;
-	void* m_unk04;
-	void* m_Inputs;
-	void* m_Outputs;
-	int64_t m_unk05;
-	int64_t m_unk06;
-	uint32_t m_ID;
-	void* m_unk07;
-	ZString m_DebugName;
-	ZString m_TypeName;
+	IType* m_pType; 
+};
+
+class ZPin
+{
+public:
+	int64_t m_nObjectOffset;
+	ZPinFunctions* m_pPinFunctions;
+	ZPinData* m_pPinData;
+	void* m_unk00;
+	int32_t m_nPin;
+};
+
+class ZEntityType
+{
+public:
+	PAD(0x38);
+	TArray<ZPin>* m_pInputs;
+	TArray<ZPin>* m_pOutputs;
+	int64_t m_nOffsetToEntity;
+	int64_t m_nOffsetToBase;
 };
 
 class ZEntityImpl : 
 	public IEntity
 {
 public:
-	ZEntityType* m_Type;
+	ZEntityType* m_pType;
 	uint32_t m_unk00;
 	uint32_t m_unk01;
 };

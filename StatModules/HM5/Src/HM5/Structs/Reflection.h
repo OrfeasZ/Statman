@@ -7,6 +7,17 @@
 class STypeID;
 class ZString;
 class IType;
+class ZObjectRef;
+
+class IComponentInterface
+{
+public:
+	virtual ~IComponentInterface() = 0;
+	virtual ZObjectRef* getAsObjectRef() = 0;
+	virtual int addRef() = 0;
+	virtual int release() = 0;
+	virtual void* getSubclassStart(STypeID* type) = 0;
+};
 
 enum ETypeInfoFlags : uint16_t
 {

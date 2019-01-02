@@ -69,11 +69,6 @@ struct SActorCounts
 	int m_nAlertableGuardOnScreen; // 64
 };
 
-struct ZGameTime
-{
-	int64_t m_nTicks;
-};
-
 class ZAIGameState
 {
 public:

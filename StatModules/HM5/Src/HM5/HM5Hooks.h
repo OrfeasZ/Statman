@@ -3,7 +3,7 @@
 #include <stdafx.h>
 #include <Hooks.h>
 
-class ZEntityImpl;
+class ZEntityType;
 class ZVariantRef;
 
 class HM5Hooks
@@ -13,11 +13,11 @@ public:
 	~HM5Hooks();
 
 protected:
-	void Install();
+	bool Install();
 	void Uninstall();
 
 public:
-	DECLARE_FASTCALL_HOOK(void, ZEntityImpl_SignalOutputPin, ZEntityImpl* th, int32_t nPinID, ZVariantRef* data);
+	DECLARE_FASTCALL_HOOK(void, SignalOutputPin, ZEntityType** entity, int32_t pin, ZVariantRef* data);
 
 private:
 	bool m_Installed;
