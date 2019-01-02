@@ -7,6 +7,7 @@ class ZGameStatsManager;
 class ZTypeRegistry;
 class ZGameTimeManager;
 class ZHitman5Module;
+class ZGameContext;
 
 class HM5Pointers
 {
@@ -32,4 +33,7 @@ public:
 
 	// _g_pHitman5Module
 	ZHitman5Module** g_pHitman5Module;
+
+	// _g_pGameContextSingleton
+	ZGameContext* g_pGameContextSingleton;
 };

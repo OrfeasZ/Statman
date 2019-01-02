@@ -57,5 +57,14 @@ bool HM5Pointers::Setup()
 		3
 	);
 
+	// 0x0000000142B46020
+	FIND_POINTER_RELATIVE(
+		ZGameContext*,
+		g_pGameContextSingleton,
+		"\x48\x8D\x0D\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x48\x8D\x4C\x24\x20\xE9",
+		"xxx????x????xxxxxx",
+		3
+	);
+
 	return true;
 }

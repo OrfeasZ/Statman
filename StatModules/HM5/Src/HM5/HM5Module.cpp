@@ -17,6 +17,7 @@
 #include <HM5/Structs/ZTypeRegistry.h>
 #include <HM5/Structs/ZScene.h>
 #include <HM5/Structs/ZModule.h>
+#include <HM5/Structs/ZGameContext.h>
 
 #ifdef _DEBUG
 #include "HM5Generator.h"
@@ -182,23 +183,22 @@ void HM5Module::OnMessage(const std::string& p_Type, const std::string& p_Conten
 	{
 		auto s_Parts = Utils::SplitString(p_Content, ',');
 
-		ZSceneData s_Data;
-		s_Data.m_sceneName = ZString(s_Parts[0]);
-		s_Data.m_bStartScene = true;
-		s_Data.m_unk01 = true;
-		s_Data.m_type = ZString(s_Parts[1]);
-		s_Data.m_codeNameHint = ZString(s_Parts[2]);
+		ZSceneData* s_Data = new ZSceneData();
+		s_Data->m_sceneName = ZString(s_Parts[0]);
+		s_Data->m_bStartScene = true;
+		s_Data->m_unk01 = true;
+		s_Data->m_type = ZString(s_Parts[1]);
+		s_Data->m_codeNameHint = ZString(s_Parts[2]);
 
 		for (size_t i = 3; i < s_Parts.size(); ++i)
 		{
-			s_Data.m_sceneBricks.push_back(ZString(s_Parts[i]));
+			s_Data->m_sceneBricks.push_back(ZString(s_Parts[i]));
 		}
 
 		Log("Loading scene '%s'.\n", s_Parts[0].c_str());
 
-		// Currently crashes with ZUIControlEntity being nullptr.
-		auto s_Module = *m_Pointers->g_pHitman5Module;
-		s_Module->m_pEntitySceneContext->LoadScene(s_Data);
+		// This works as long as there's at least two bricks specified. Needs fixing.
+		m_Pointers->g_pGameContextSingleton->SetPendingTransition(*s_Data);
 
 		return;
 	}
