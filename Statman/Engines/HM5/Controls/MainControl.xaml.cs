@@ -11,10 +11,11 @@ namespace Statman.Engines.HM5.Controls
             InitializeComponent();
         }
 
-        public void SetCurrentLevel(string p_Level)
+        public void SetCurrentLevel(string p_GameMode, string p_Level)
         {
             Dispatcher.Invoke(() =>
             {
+                GameModeLabel.Content = p_GameMode.Replace("_", "__").ToUpperInvariant();
                 CurrentLevelLabel.Content = p_Level.Replace("_", "__");
             });
         }

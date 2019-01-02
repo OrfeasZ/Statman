@@ -11,6 +11,8 @@
 #include <HM5/Structs/ZAIGameState.h>
 #include <HM5/Structs/ZGameStats.h>
 #include <HM5/Structs/ZTypeRegistry.h>
+#include <HM5/Structs/ZScene.h>
+#include <HM5/Structs/ZModule.h>
 
 #ifdef _DEBUG
 #include "HM5Generator.h"
@@ -109,9 +111,25 @@ bool HM5Module::Init()
 	m_Pipeman->SetConnectedCallback([]()
 	{
 		Log("Connected to Statman via Pipeman!\n");
+
 		Log("Sending ZGameTimeManager address.\n");
 		std::string s_PointerStr = std::to_string(reinterpret_cast<uintptr_t>(g_Module->Pointers()->g_pGameTimeManagerSingleton));
 		g_Module->Pipe()->SendPipeMessage("GT", s_PointerStr);
+
+		Log("Sending ZEntitySceneContext address.\n");
+		s_PointerStr = std::to_string(reinterpret_cast<uintptr_t>((*g_Module->Pointers()->g_pHitman5Module)->m_pEntitySceneContext));
+		g_Module->Pipe()->SendPipeMessage("SC", s_PointerStr);
+	});
+
+	m_Pipeman->SetDisconnectedCallback([]()
+	{
+		std::thread s_ExitThread([]()
+		{
+			delete g_Module;
+			g_Module = nullptr;
+		});
+
+		s_ExitThread.detach();
 	});
 
 #ifdef _DEBUG

@@ -19,7 +19,6 @@ bool HM5Pointers::Setup()
 {
 	Log("Setting up pointers.\n");
 
-	//g_pGameStatsSingleton = (ZGameStats*) 0x00000001427708C0;
 	//g_pGameStatsManagerSingleton = (ZGameStatsManager*) 0x0000000141E0FC20;
 	
 	// 0x00000001420E7CE8	
@@ -36,6 +35,24 @@ bool HM5Pointers::Setup()
 		ZGameTimeManager**,
 		g_pGameTimeManagerSingleton,
 		"\x48\x8D\x0D\x00\x00\x00\x00\xF3\x0F\x7F\x45\xF7",
+		"xxx????xxxxx",
+		3
+	);
+
+	// 0x0000000142BCAB60
+	FIND_POINTER_RELATIVE(
+		ZGameStats*,
+		g_pGameStatsSingleton,
+		"\x48\x8B\x05\x00\x00\x00\x00\x4C\x8D\x43\x28\x0F\x28\xDE",
+		"xxx????xxxxxxx",
+		3
+	);
+
+	// 0x00000001423A78F8
+	FIND_POINTER_RELATIVE(
+		ZHitman5Module**,
+		g_pHitman5Module,
+		"\x48\x89\x1D\x00\x00\x00\x00\x66\x89\x44\x24\x40",
 		"xxx????xxxxx",
 		3
 	);

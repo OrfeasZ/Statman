@@ -150,12 +150,15 @@ namespace Statman.Engines
                 return;
 
             // Update our trackers.
-            //StatTracker.Update();
+            StatTracker.Update();
             TimeTracker.Update();
 
             // Set game time.
-            Control.SetGameTime(TimeTracker.GameTime);
-            Control.SetRealTime(TimeTracker.RealTime);
+            if (StatTracker.InLevel)
+            {
+                Control.SetGameTime(TimeTracker.GameTime);
+                Control.SetRealTime(TimeTracker.RealTime);
+            }
         }
 
         public void OnMessage(string p_Type, string p_Data)
@@ -164,6 +167,13 @@ namespace Statman.Engines
             {
                 // Set the ZGameTimeManager address.
                 TimeTracker.SetGameTimeManagerAddr(long.Parse(p_Data));
+                return;
+            }
+
+            if (p_Type == "SC")
+            {
+                // Set the ZGameTimeManager address.
+                StatTracker.SetEntitySceneManagerAddr(long.Parse(p_Data));
                 return;
             }
         }
