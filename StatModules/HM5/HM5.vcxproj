@@ -129,6 +129,7 @@
     <ClCompile Include="Src\HM5\HM5PinRegistry.cpp" />
     <ClCompile Include="Src\HM5\HM5Pointers.cpp" />
     <ClCompile Include="Src\HM5\Hooks\Network.cpp" />
+    <ClCompile Include="Src\HM5\Hooks\Scenes.cpp" />
     <ClCompile Include="Src\HM5\Hooks\Scripting.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

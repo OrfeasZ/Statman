@@ -25,6 +25,7 @@ class ZEntitySceneContext :
 	public IEntitySceneContext
 {
 public:
+	virtual ~ZEntitySceneContext() = 0;
 	virtual void unk00() = 0;
 	virtual void unk01() = 0;
 	virtual void unk02() = 0;
@@ -36,8 +37,8 @@ public:
 	virtual void unk08() = 0;
 	virtual void unk09() = 0;
 	virtual void unk10() = 0;
-	virtual void unk11() = 0;
 	virtual void LoadScene(const ZSceneData& data) = 0;
+	virtual void unk11() = 0;
 	virtual void unk12() = 0;
 	virtual void unk13() = 0;
 	virtual void unk14() = 0;
@@ -48,7 +49,6 @@ public:
 	virtual void unk19() = 0;
 	virtual void unk20() = 0;
 	virtual void unk21() = 0;
-	virtual void unk22() = 0;
 
 public:
 	PAD(0x08);

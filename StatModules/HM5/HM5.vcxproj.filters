@@ -113,5 +113,8 @@
     <ClCompile Include="Src\HM5\Hooks\Network.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\HM5\Hooks\Scenes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

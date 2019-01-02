@@ -185,7 +185,7 @@ void HM5Module::OnMessage(const std::string& p_Type, const std::string& p_Conten
 		ZSceneData s_Data;
 		s_Data.m_sceneName = ZString(s_Parts[0]);
 		s_Data.m_bStartScene = true;
-		s_Data.m_unk01 = false;
+		s_Data.m_unk01 = true;
 		s_Data.m_type = ZString(s_Parts[1]);
 		s_Data.m_codeNameHint = ZString(s_Parts[2]);
 
@@ -196,6 +196,7 @@ void HM5Module::OnMessage(const std::string& p_Type, const std::string& p_Conten
 
 		Log("Loading scene '%s'.\n", s_Parts[0].c_str());
 
+		// Currently crashes with ZUIControlEntity being nullptr.
 		auto s_Module = *m_Pointers->g_pHitman5Module;
 		s_Module->m_pEntitySceneContext->LoadScene(s_Data);
 

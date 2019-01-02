@@ -57,6 +57,9 @@ namespace Statman.Engines.HM5
             var s_Len = BitConverter.ToInt32(s_LenData, 0);
             var s_Ptr = BitConverter.ToInt64(s_PtrData, 0);
 
+            if (s_Len <= 0)
+                return "";
+
             var s_StrData = p_Reader.Read(new IntPtr(s_Ptr), s_Len);
 
             if (s_StrData == null)
