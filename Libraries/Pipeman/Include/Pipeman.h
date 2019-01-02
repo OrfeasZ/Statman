@@ -19,6 +19,8 @@ public:
 	typedef std::function<void(const std::string&, const std::string&)> MessageCallback_t;
 
 	void SetMessageCallback(MessageCallback_t p_Callback);
+	void SetConnectedCallback(std::function<void()> p_Callback);
+	void SetDisconnectedCallback(std::function<void()> p_Callback);
 	void SendPipeMessage(const std::string& p_Type, const std::string& p_Content);
 	void Disconnect();
 
@@ -35,4 +37,6 @@ private:
 	std::atomic<bool> m_Running;
 	uint32_t m_PendingMessageLength;
 	MessageCallback_t m_MessageCallback;
+	std::function<void()> m_ConnectedCallback;
+	std::function<void()> m_DisconnectedCallback;
 };
