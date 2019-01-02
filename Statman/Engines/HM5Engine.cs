@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Statman.Engines.HM5;
 using Statman.Engines.HM5.Controls;
+using Statman.Engines.HM5.Windows;
 using Statman.Network;
 using Statman.Util;
 using Statman.Util.Injection;
@@ -64,9 +65,41 @@ namespace Statman.Engines
 
                 s_GetStats.Click += GetStatsOnClick;
 
+                var s_LoadScene = new MenuItem()
+                {
+                    Header = "Load Scene"
+                };
+
+                s_LoadScene.Click += LoadSceneOnClick;
+
                 m_MenuItems.Clear();
                 m_MenuItems.Add(s_GetStats);
+                m_MenuItems.Add(s_LoadScene);
             });
+        }
+
+        private void LoadSceneOnClick(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
+        {
+            var s_Dialog = new SceneLoader();
+
+            if (s_Dialog.ShowDialog() != true)
+                return;
+
+            var s_Message = s_Dialog.Scene;
+
+            s_Message += "," + s_Dialog.SceneType;
+            s_Message += "," + s_Dialog.CodeNameHint;
+
+            if (s_Dialog.Brick1.Length > 0)
+                s_Message += "," + s_Dialog.Brick1;
+
+            if (s_Dialog.Brick2.Length > 0)
+                s_Message += "," + s_Dialog.Brick2;
+
+            if (s_Dialog.Brick3.Length > 0)
+                s_Message += "," + s_Dialog.Brick3;
+
+            SendMessage("LS", s_Message);
         }
 
         private void GetStatsOnClick(object p_Sender, RoutedEventArgs p_RoutedEventArgs)

@@ -102,6 +102,9 @@
     <Compile Include="Engines\HM5\StatTracker.cs" />
     <Compile Include="Engines\HM5\Structs.cs" />
     <Compile Include="Engines\HM5\TimeTracker.cs" />
+    <Compile Include="Engines\HM5\Windows\SceneLoader.xaml.cs">
+      <DependentUpon>SceneLoader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\UpdateWindow.xaml.cs">
       <DependentUpon>UpdateWindow.xaml</DependentUpon>
     </Compile>
@@ -141,6 +144,10 @@
     <Page Include="Engines\HM5\Controls\MainControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Engines\HM5\Windows\SceneLoader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\AnimatedWindow.generic.xaml">
       <SubType>Designer</SubType>

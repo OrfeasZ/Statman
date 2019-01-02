@@ -7,6 +7,10 @@
 #include <Pipeman.h>
 #include <functional>
 #include <Utils.h>
+#include <iostream>
+#include <sstream>
+#include <algorithm>
+#include <iterator>
 
 #include <HM5/Structs/ZAIGameState.h>
 #include <HM5/Structs/ZGameStats.h>
@@ -121,17 +125,6 @@ bool HM5Module::Init()
 		g_Module->Pipe()->SendPipeMessage("SC", s_PointerStr);
 	});
 
-	m_Pipeman->SetDisconnectedCallback([]()
-	{
-		std::thread s_ExitThread([]()
-		{
-			delete g_Module;
-			g_Module = nullptr;
-		});
-
-		s_ExitThread.detach();
-	});
-
 #ifdef _DEBUG
 	// If we're running in debug mode dump all reflection data.
 	HM5Generator s_Generator;
@@ -168,6 +161,43 @@ void HM5Module::OnMessage(const std::string& p_Type, const std::string& p_Conten
 			Log("Got stat pair: %p\n", (*it));
 			Log("Pair key: %s\n", it->m_key.c_str());
 		}
+
+		auto s_Module = *m_Pointers->g_pHitman5Module;
+
+		Log("Scene: %s\n", s_Module->m_pEntitySceneContext->m_sceneData.m_sceneName.c_str());
+		Log("Start Scene: %d\n", s_Module->m_pEntitySceneContext->m_sceneData.m_bStartScene);
+		Log("Scene Unk01: %d\n", s_Module->m_pEntitySceneContext->m_sceneData.m_unk01);
+		Log("Scene Type: %s\n", s_Module->m_pEntitySceneContext->m_sceneData.m_type.c_str());
+		Log("Scene CodeName Hint: %s\n", s_Module->m_pEntitySceneContext->m_sceneData.m_codeNameHint.c_str());
+
+		for (auto it = s_Module->m_pEntitySceneContext->m_sceneData.m_sceneBricks.begin(); it != s_Module->m_pEntitySceneContext->m_sceneData.m_sceneBricks.end(); ++it)
+		{
+			Log("Scene brick: %s\n", it->c_str());
+		}
+
+		return;
+	}
+
+	if (p_Type == "LS")
+	{
+		auto s_Parts = Utils::SplitString(p_Content, ',');
+
+		ZSceneData s_Data;
+		s_Data.m_sceneName = ZString(s_Parts[0]);
+		s_Data.m_bStartScene = true;
+		s_Data.m_unk01 = false;
+		s_Data.m_type = ZString(s_Parts[1]);
+		s_Data.m_codeNameHint = ZString(s_Parts[2]);
+
+		for (size_t i = 3; i < s_Parts.size(); ++i)
+		{
+			s_Data.m_sceneBricks.push_back(ZString(s_Parts[i]));
+		}
+
+		Log("Loading scene '%s'.\n", s_Parts[0].c_str());
+
+		auto s_Module = *m_Pointers->g_pHitman5Module;
+		s_Module->m_pEntitySceneContext->LoadScene(s_Data);
 
 		return;
 	}
