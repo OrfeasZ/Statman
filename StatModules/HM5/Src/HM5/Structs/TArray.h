@@ -6,14 +6,56 @@ template<typename T>
 class TArray
 {
 public:
+	TArray() :
+		m_pBegin(nullptr),
+		m_pEnd(nullptr),
+		m_pAllocationEnd(nullptr)
+	{
+	}
+
+	void push_back(const T& p_Value)
+	{
+		size_t s_Size = size();
+		resize(s_Size + 1);
+		m_pBegin[s_Size] = p_Value;
+	}
+
+	void resize(size_t p_Size)
+	{
+		if (capacity() == p_Size)
+			return;
+
+		if (m_pBegin == nullptr)
+		{
+			m_pBegin = reinterpret_cast<T*>(malloc(sizeof(T) * p_Size));
+			m_pEnd = m_pBegin + p_Size;
+			m_pAllocationEnd = m_pEnd;
+			return;
+		}
+
+		m_pBegin = reinterpret_cast<T*>(realloc(m_pBegin, sizeof(T) * p_Size));
+		m_pEnd = m_pBegin + p_Size;
+		m_pAllocationEnd = m_pEnd;
+	}
+
+	void clear()
+	{
+		if (m_pBegin == nullptr)
+			return;
+
+		free(m_pBegin);
+
+		m_pBegin = m_pEnd = m_pAllocationEnd = nullptr;
+	}
+
 	inline size_t size() const
 	{
-		return (reinterpret_cast<uintptr_t>(m_pEnd) - reinterpret_cast<uintptr_t>(m_pBegin)) / sizeof(uintptr_t);
+		return (reinterpret_cast<uintptr_t>(m_pEnd) - reinterpret_cast<uintptr_t>(m_pBegin)) / sizeof(T);
 	}
 
 	inline size_t capacity() const
 	{
-		return (reinterpret_cast<uintptr_t>(m_pAllocationEnd) - reinterpret_cast<uintptr_t>(m_pBegin)) / sizeof(uintptr_t);
+		return (reinterpret_cast<uintptr_t>(m_pAllocationEnd) - reinterpret_cast<uintptr_t>(m_pBegin)) / sizeof(T);
 	}
 
 	inline T& operator[](size_t p_Index) const
