@@ -132,6 +132,7 @@
     <ClCompile Include="Src\HM5\Hooks\Network.cpp" />
     <ClCompile Include="Src\HM5\Hooks\Scenes.cpp" />
     <ClCompile Include="Src\HM5\Hooks\Scripting.cpp" />
+    <ClCompile Include="Src\HM5\Structs\ZObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

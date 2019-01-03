@@ -5,6 +5,8 @@
 
 #include <Pointers.h>
 
+#include <HM5/Structs/ZObject.h>
+
 HM5Pointers::HM5Pointers()
 {
 	Setup();
@@ -16,6 +18,14 @@ HM5Pointers::~HM5Pointers()
 }
 
 bool HM5Pointers::Setup()
+{
+	if (!SetupPointers())
+		return false;
+
+	return SetupFunctions();
+}
+
+bool HM5Pointers::SetupPointers()
 {
 	Log("Setting up pointers.\n");
 
@@ -65,6 +75,15 @@ bool HM5Pointers::Setup()
 		"xxx????x????xxxxxx",
 		3
 	);
+
+	return true;
+}
+
+bool HM5Pointers::SetupFunctions()
+{
+	Log("Setting up function pointers.\n");
+
+	FIND_FUNCTION_POINTER(ZDynamicObject::ToString, "\x48\x89\x5C\x24\x08\x57\x48\x83\xEC\x00\x48\x89\xD7\x48\x89\xCB\x0F\x57\xC0", "xxxxxxxxx?xxxxxxxxx");
 
 	return true;
 }

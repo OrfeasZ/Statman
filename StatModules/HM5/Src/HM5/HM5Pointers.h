@@ -17,6 +17,8 @@ public:
 
 protected:
 	bool Setup();
+	bool SetupPointers();
+	bool SetupFunctions();
 
 public:
 	// _g_pGameStatsSingleton

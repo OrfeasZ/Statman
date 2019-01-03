@@ -3,18 +3,13 @@
 #include <stdafx.h>
 
 class STypeID;
-
-struct SSerializablePointer
-{
-	void* m_pPointer;
-	uint32_t m_nAddress;
-};
+class ZString;
 
 class ZObjectRef
 {
 public:
 	STypeID* m_pTypeID;
-	SSerializablePointer m_data;
+	void* m_pData;
 };
 
 class ZVariant :
@@ -25,4 +20,12 @@ class ZVariant :
 class ZVariantRef :
 	public ZObjectRef
 {
+};
+
+class ZDynamicObject :
+	public ZVariant
+{
+public:
+	typedef void (__fastcall* ToString_t)(ZDynamicObject* th, ZString* a2);
+	static ToString_t ToString;
 };
