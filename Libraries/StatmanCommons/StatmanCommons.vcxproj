@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Include\Commons.h" />
     <ClInclude Include="Include\Hooks.h" />
+    <ClInclude Include="Include\json.hpp" />
     <ClInclude Include="Include\Pointers.h" />
     <ClInclude Include="Include\Utils.h" />
   </ItemGroup>
