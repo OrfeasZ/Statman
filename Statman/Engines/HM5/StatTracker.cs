@@ -16,6 +16,7 @@ namespace Statman.Engines.HM5
             { "assembly:/_pro/scenes/missions/thefacility/_scene_mission_polarbear_module_002.entity", new Tuple<string, string>("Prologue", "Guided Training") },
             { "assembly:/_pro/scenes/missions/thefacility/_scene_mission_polarbear_module_002_b.entity", new Tuple<string, string>("Prologue", "Freeform Training") },
             { "assembly:/_pro/scenes/missions/thefacility/_scene_mission_polarbear_module_005.entity", new Tuple<string, string>("Prologue", "The Final Test") },
+            { "assembly:/_pro/scenes/missions/paris/_scene_paris.entity", new Tuple<string, string>("Hitman", "Paris") },
             { "assembly:/_pro/scenes/missions/paris/_scene_fashionshowhit_01.entity", new Tuple<string, string>("Hitman", "The Showstopper") },
             { "assembly:/_pro/scenes/missions/coastaltown/mission01.entity", new Tuple<string, string>("Hitman", "World of Tomorrow") },
             { "assembly:/_pro/scenes/missions/marrakesh/_scene_mission_spider.entity", new Tuple<string, string>("Hitman", "A Gilded Cage") },
@@ -33,7 +34,6 @@ namespace Statman.Engines.HM5
             { "assembly:/_pro/scenes/missions/colorado_2/scene_rabies.entity", new Tuple<string, string>("Patient Zero", "The Vector") },
             { "assembly:/_pro/scenes/missions/hokkaido/_scene_flu.entity", new Tuple<string, string>("Patient Zero", "Patient Zero") },
             { "assembly:/_pro/scenes/missions/hawk/scene_hawk.entity", new Tuple<string, string>("Sniper Assassin", "The Last Yardbird") },
-            { "assembly:/_pro/scenes/missions/paris/_scene_paris.entity", new Tuple<string, string>("Holiday Content", "Holiday Hoarders") },
         };
 
         private readonly HM5Engine m_Engine;
