@@ -6,8 +6,16 @@
 class ZRuntimeResourceID
 {
 public:
-	uint32_t m_IDHigh;
-	uint32_t m_IDLow;
+	union
+	{
+		uint64_t m_ID;
+
+		struct
+		{
+			uint32_t m_IDHigh;
+			uint32_t m_IDLow;
+		};
+	};
 };
 
 class ZResourceID

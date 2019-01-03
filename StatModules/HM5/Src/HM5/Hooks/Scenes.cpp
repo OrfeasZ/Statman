@@ -1,4 +1,6 @@
 #include <HM5/HM5Hooks.h>
+#include <HM5/HM5Module.h>
+#include <Pipeman.h>
 
 #include <HM5/Structs/ZScene.h>
 
@@ -18,4 +20,6 @@ DECLARE_FASTCALL_DETOUR(HM5Hooks, void, ZEntitySceneContext_LoadScene, ZEntitySc
 	}
 
 	o_ZEntitySceneContext_LoadScene(th, data);
+
+	g_Module->Pipe()->SendPipeMessage("LS", data.m_sceneName.c_str());
 }

@@ -1479,6 +1479,7 @@ std::unordered_map<int32_t, std::string> HM5PinHandler::m_PinRegistry
 	{ -629426625, "SpawnPhysicsClip" },
 	{ 755042572, "Speaking" },
 	{ 632825129, "SplashAtPos" },
+	{ 2061569261, "Spotted" },
 	{ -1007550032, "SpottedByHitman" },
 	{ 758776178, "SpottedEnteringCloset" },
 	{ -412484405, "SpottedThroughDisguise" },
