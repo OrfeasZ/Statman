@@ -209,6 +209,38 @@ namespace Statman.Engines
                 StatTracker.SetEntitySceneManagerAddr(long.Parse(p_Data));
                 return;
             }
+
+            if (p_Type == "CS")
+            {
+                StatTracker.OnContractStart();
+                return;
+            }
+
+            if (p_Type == "SU")
+            {
+                var s_Parts = p_Data.Split(':');
+
+                if (s_Parts[0] == "Kill")
+                {
+                    var s_Data = s_Parts[1].Split(',');
+                    StatTracker.OnKill(s_Data[0], s_Data[1] == "true", s_Data[2] == "true");
+                }
+                else if (s_Parts[0] == "BodyFound")
+                {
+                    StatTracker.OnBodyFound();
+                }
+                else if (s_Parts[0] == "NoticedKill")
+                {
+                    StatTracker.OnNoticedKill();
+                }
+                else if (s_Parts[0] == "Spotted")
+                {
+                    var s_Data = s_Parts[1].Split(',');
+                    StatTracker.OnSpotted(s_Data);
+                }
+
+                return;
+            }
         }
     }
 }

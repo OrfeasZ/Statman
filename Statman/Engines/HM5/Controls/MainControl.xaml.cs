@@ -48,5 +48,83 @@ namespace Statman.Engines.HM5.Controls
             });
         }
 
+        public void SetSpotted(bool p_Spotted)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if (p_Spotted)
+                {
+                    SpottedLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
+                    SpottedLabel.Content = "Yes";
+                }
+                else
+                {
+                    SpottedLabel.Foreground = (Brush)FindResource("LabelBrush");
+                    SpottedLabel.Content = "No";
+                }
+            });
+        }
+
+        public void SetNoticedKill(bool p_NoticedKill)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if (p_NoticedKill)
+                {
+                    NoticedKillLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
+                    NoticedKillLabel.Content = "Yes";
+                }
+                else
+                {
+                    NoticedKillLabel.Foreground = (Brush)FindResource("LabelBrush");
+                    NoticedKillLabel.Content = "No";
+                }
+            });
+        }
+
+        public void SetBodyFound(bool p_BodyFound)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if (p_BodyFound)
+                {
+                    BodyFoundLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
+                    BodyFoundLabel.Content = "Yes";
+                }
+                else
+                {
+                    BodyFoundLabel.Foreground = (Brush)FindResource("LabelBrush");
+                    BodyFoundLabel.Content = "No";
+                }
+            });
+        }
+
+        public void SetNonTargetKill(bool p_NonTargetKill)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if (p_NonTargetKill)
+                {
+                    NonTargetKillLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
+                    NonTargetKillLabel.Content = "Yes";
+                }
+                else
+                {
+                    NonTargetKillLabel.Foreground = (Brush)FindResource("LabelBrush");
+                    NonTargetKillLabel.Content = "No";
+                }
+            });
+        }
+
+        public void SetRatingPerfect(bool p_Perfect)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if (p_Perfect)
+                    RatingLabel.Foreground = (Brush)FindResource("LabelBrush");
+                else
+                    RatingLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
+            });
+        }
     }
 }

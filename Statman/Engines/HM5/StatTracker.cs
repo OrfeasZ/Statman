@@ -38,11 +38,18 @@ namespace Statman.Engines.HM5
 
         private long m_EntitySceneManagerAddr;
 
+        private HashSet<string> m_Spotters;
+        private bool m_NonTargetKill;
+        private bool m_BodyFound;
+        private bool m_NoticedKill;
+        private bool m_CaughtOnCamera;
+
         public bool InLevel { get; private set; }
 
         public StatTracker(HM5Engine p_Engine)
         {
             m_Engine = p_Engine;
+            m_Spotters = new HashSet<string>();
         }
 
         public bool Update()
@@ -75,6 +82,59 @@ namespace Statman.Engines.HM5
         public void SetEntitySceneManagerAddr(long p_Addr)
         {
             m_EntitySceneManagerAddr = p_Addr;
+        }
+
+        public void OnContractStart()
+        {
+            m_Spotters.Clear();
+            m_BodyFound = false;
+            m_NonTargetKill = false;
+            m_NoticedKill = false;
+            m_CaughtOnCamera = false;
+
+            UpdateRating();
+        }
+
+        public void UpdateRating()
+        {
+            m_Engine.Control.SetSpotted(m_Spotters.Count > 0);
+            m_Engine.Control.SetBodyFound(m_BodyFound);
+            m_Engine.Control.SetNonTargetKill(m_NonTargetKill);
+            m_Engine.Control.SetNoticedKill(m_NoticedKill);
+            // TODO: Caught on camera
+
+            m_Engine.Control.SetRatingPerfect(m_Spotters.Count == 0 && !m_BodyFound && !m_NonTargetKill && !m_NoticedKill);
+        }
+
+        public void OnSpotted(IEnumerable<string> p_Spotters)
+        {
+            foreach (var s_Spotter in p_Spotters)
+                m_Spotters.Add(s_Spotter);
+
+            UpdateRating();
+        }
+
+        public void OnKill(string p_NPCID, bool p_Accident, bool p_Target)
+        {
+            if (p_Target && m_Spotters.Contains(p_NPCID))
+                m_Spotters.Remove(p_NPCID);
+
+            if (!p_Target)
+                m_NonTargetKill = true;
+
+            UpdateRating();
+        }
+
+        public void OnBodyFound()
+        {
+            m_BodyFound = true;
+            UpdateRating();
+        }
+
+        public void OnNoticedKill()
+        {
+            m_NoticedKill = true;
+            UpdateRating();
         }
     }
 }
