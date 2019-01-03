@@ -6,6 +6,9 @@ namespace Statman.Engines.HM5.Controls
 {
     public partial class MainControl : UserControl
     {
+        private long m_LastCooldownMs;
+        private bool m_LastRatingStatus = true;
+
         public MainControl()
         {
             InitializeComponent();
@@ -46,6 +49,30 @@ namespace Statman.Engines.HM5.Controls
                 var s_TimeStamp = TimeSpan.FromMilliseconds(p_Time);
                 RealTimeLabel.Content = s_TimeStamp.ToString("hh\\:mm\\:ss\\.fff");
             });
+        }
+
+        public void SetCooldownTime(long p_Ms)
+        {
+            var s_CurrentMs = StatTracker.KillCooldown - p_Ms;
+
+            if (s_CurrentMs < 0)
+                s_CurrentMs = 0;
+
+            if (s_CurrentMs != m_LastCooldownMs)
+            {
+                m_LastCooldownMs = s_CurrentMs;
+
+                Dispatcher.Invoke(() =>
+                {
+                    var s_TimeStamp = TimeSpan.FromMilliseconds(s_CurrentMs);
+                    KillCooldownLabel.Content = s_TimeStamp.ToString("s\\.fff");
+
+                    if (s_CurrentMs > 0)
+                        KillCooldownLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
+                    else
+                        KillCooldownLabel.Foreground = (Brush)FindResource("LabelBrush");
+                });
+            }
         }
 
         public void SetSpotted(bool p_Spotted)
@@ -118,6 +145,11 @@ namespace Statman.Engines.HM5.Controls
 
         public void SetRatingPerfect(bool p_Perfect)
         {
+            if (p_Perfect == m_LastRatingStatus)
+                return;
+
+            m_LastRatingStatus = p_Perfect;
+
             Dispatcher.Invoke(() =>
             {
                 if (p_Perfect)

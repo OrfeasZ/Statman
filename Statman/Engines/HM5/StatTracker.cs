@@ -8,6 +8,8 @@ namespace Statman.Engines.HM5
 {
     class StatTracker
     {
+        public const long KillCooldown = 2750;
+
         private static readonly Dictionary<string, Tuple<string, string>> m_Scenes = new Dictionary<string, Tuple<string, string>>()
         {
             { "assembly:/_pro/scenes/missions/thefacility/_scene_mission_polarbear_intro_firsttime.entity", new Tuple<string, string>("Prologue", "Arrival") },
@@ -38,11 +40,13 @@ namespace Statman.Engines.HM5
 
         private long m_EntitySceneManagerAddr;
 
-        private HashSet<string> m_Spotters;
+        private readonly HashSet<string> m_Spotters;
         private bool m_NonTargetKill;
         private bool m_BodyFound;
         private bool m_NoticedKill;
         private bool m_CaughtOnCamera;
+
+        private readonly Stopwatch m_KillCooldownStopwatch;
 
         public bool InLevel { get; private set; }
 
@@ -50,12 +54,30 @@ namespace Statman.Engines.HM5
         {
             m_Engine = p_Engine;
             m_Spotters = new HashSet<string>();
+            m_KillCooldownStopwatch = new Stopwatch();
         }
 
         public bool Update()
         {
             if (m_EntitySceneManagerAddr == 0)
                 return false;
+
+            if (m_KillCooldownStopwatch.ElapsedMilliseconds > 0)
+            {
+                m_Engine.Control.SetCooldownTime(m_KillCooldownStopwatch.ElapsedMilliseconds);
+
+                if (m_KillCooldownStopwatch.ElapsedMilliseconds > KillCooldown)
+                    m_KillCooldownStopwatch.Stop();
+            }
+
+            m_Engine.Control.SetRatingPerfect(
+                m_Spotters.Count == 0 &&
+                !m_BodyFound &&
+                !m_NonTargetKill &&
+                !m_NoticedKill &&
+                !m_CaughtOnCamera &&
+                (m_KillCooldownStopwatch.ElapsedMilliseconds == 0 || m_KillCooldownStopwatch.ElapsedMilliseconds > KillCooldown)
+            );
 
             try
             {
@@ -91,6 +113,7 @@ namespace Statman.Engines.HM5
             m_NonTargetKill = false;
             m_NoticedKill = false;
             m_CaughtOnCamera = false;
+            m_KillCooldownStopwatch.Reset();
 
             UpdateRating();
         }
@@ -101,9 +124,16 @@ namespace Statman.Engines.HM5
             m_Engine.Control.SetBodyFound(m_BodyFound);
             m_Engine.Control.SetNonTargetKill(m_NonTargetKill);
             m_Engine.Control.SetNoticedKill(m_NoticedKill);
-            // TODO: Caught on camera
 
-            m_Engine.Control.SetRatingPerfect(m_Spotters.Count == 0 && !m_BodyFound && !m_NonTargetKill && !m_NoticedKill);
+            if (m_KillCooldownStopwatch.ElapsedMilliseconds > 0)
+            {
+                m_Engine.Control.SetCooldownTime(m_KillCooldownStopwatch.ElapsedMilliseconds);
+
+                if (m_KillCooldownStopwatch.ElapsedMilliseconds > KillCooldown)
+                    m_KillCooldownStopwatch.Stop();
+            }
+
+            // TODO: Caught on camera
         }
 
         public void OnSpotted(IEnumerable<string> p_Spotters)
@@ -116,6 +146,8 @@ namespace Statman.Engines.HM5
 
         public void OnKill(string p_NPCID, bool p_Accident, bool p_Target)
         {
+            m_KillCooldownStopwatch.Restart();
+
             if (p_Target && m_Spotters.Contains(p_NPCID))
                 m_Spotters.Remove(p_NPCID);
 
