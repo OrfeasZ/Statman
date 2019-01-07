@@ -124,6 +124,7 @@ namespace Statman.Engines.HM5
             m_Engine.Control.SetBodyFound(m_BodyFound);
             m_Engine.Control.SetNonTargetKill(m_NonTargetKill);
             m_Engine.Control.SetNoticedKill(m_NoticedKill);
+            m_Engine.Control.SetCaughtOnCamera(m_CaughtOnCamera);
 
             if (m_KillCooldownStopwatch.ElapsedMilliseconds > 0)
             {
@@ -132,14 +133,26 @@ namespace Statman.Engines.HM5
                 if (m_KillCooldownStopwatch.ElapsedMilliseconds > KillCooldown)
                     m_KillCooldownStopwatch.Stop();
             }
-
-            // TODO: Caught on camera
         }
 
         public void OnSpotted(IEnumerable<string> p_Spotters)
         {
             foreach (var s_Spotter in p_Spotters)
                 m_Spotters.Add(s_Spotter);
+
+            UpdateRating();
+        }
+        
+        public void OnCaughtOnCamera()
+        {
+            m_CaughtOnCamera = true;
+
+            UpdateRating();
+        }
+
+        public void OnRecordingsDestroyed()
+        {
+            m_CaughtOnCamera = false;
 
             UpdateRating();
         }

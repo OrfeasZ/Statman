@@ -125,6 +125,23 @@ namespace Statman.Engines.HM5.Controls
                 }
             });
         }
+        
+        public void SetCaughtOnCamera(bool p_CaughtOnCamera)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if (p_CaughtOnCamera)
+                {
+                    CaughtOnCameraLabel.Foreground = (Brush) FindResource("AlertLabelBrush");
+                    CaughtOnCameraLabel.Content = "Yes";
+                }
+                else
+                {
+                    CaughtOnCameraLabel.Foreground = (Brush) FindResource("LabelBrush");
+                    CaughtOnCameraLabel.Content = "No";
+                }
+            });
+        }
 
         public void SetNonTargetKill(bool p_NonTargetKill)
         {
