@@ -90,16 +90,14 @@ DECLARE_FASTCALL_DETOUR(HM5Hooks, void, ZAchievementManagerSimple_OnEventSent, Z
 		Log("ZAchievementManagerSimple Event! %s\n", s_JsonEvent.dump(4).c_str());
 		std::string s_Event = s_JsonEvent["Value"]["event"];
         
-        if (s_Event != "CameraDestroyed") 
+        if (s_Event == "spotted")
         {
-            if (s_Event == "spotted")
-            {
-                g_Module->Pipe()->SendPipeMessage("SU", "CaughtOnCamera");
-            }
-            else
-            {
-                g_Module->Pipe()->SendPipeMessage("SU", "RecordingsDestroyed");
-            }
+            g_Module->Pipe()->SendPipeMessage("SU", "CaughtOnCamera");
+        }
+        else if (s_Event != "CameraDestroyed")
+        {
+            // TODO Replace conditional with actual event instead of "not camera destroyed"
+            g_Module->Pipe()->SendPipeMessage("SU", "RecordingsDestroyed");
         }
 	}
 
