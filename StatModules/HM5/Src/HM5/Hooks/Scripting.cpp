@@ -92,9 +92,7 @@ DECLARE_FASTCALL_DETOUR(HM5Hooks, void, ZAchievementManagerSimple_OnEventSent, Z
         
         if (s_Event != "CameraDestroyed") 
         {
-            std::string s_Recorded = s_Event == "spotted" ? "true" : "false";
-
-            if (s_Recorded == "true")
+            if (s_Event == "spotted")
             {
                 g_Module->Pipe()->SendPipeMessage("SU", "CaughtOnCamera");
             }
