@@ -70,7 +70,7 @@ DECLARE_FASTCALL_DETOUR(HM5Hooks, void, ZAchievementManagerSimple_OnEventSent, Z
 
 		g_Module->Pipe()->SendPipeMessage("SU", s_Event);
 	}
-	else if (s_JsonEvent["Name"] == "Spotted")
+	else if (s_JsonEvent["Name"] == "Spotted" || s_JsonEvent["Name"] == "Witnesses")
 	{
 		Log("ZAchievementManagerSimple Event! %s\n", s_JsonEvent.dump(4).c_str());
 		std::string s_Spotters;
