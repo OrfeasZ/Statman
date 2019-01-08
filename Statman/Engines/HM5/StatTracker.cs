@@ -41,6 +41,7 @@ namespace Statman.Engines.HM5
         private long m_EntitySceneManagerAddr;
 
         private readonly HashSet<string> m_Spotters;
+        private readonly HashSet<string> m_Witnesses;
         private bool m_NonTargetKill;
         private bool m_BodyFound;
         private bool m_NoticedKill;
@@ -54,6 +55,7 @@ namespace Statman.Engines.HM5
         {
             m_Engine = p_Engine;
             m_Spotters = new HashSet<string>();
+            m_Witnesses = new HashSet<string>();
             m_KillCooldownStopwatch = new Stopwatch();
         }
 
@@ -72,6 +74,7 @@ namespace Statman.Engines.HM5
 
             m_Engine.Control.SetRatingPerfect(
                 m_Spotters.Count == 0 &&
+                m_Witnesses.Count == 0 &&
                 !m_BodyFound &&
                 !m_NonTargetKill &&
                 !m_NoticedKill &&
@@ -109,6 +112,7 @@ namespace Statman.Engines.HM5
         public void OnContractStart()
         {
             m_Spotters.Clear();
+            m_Witnesses.Clear();
             m_BodyFound = false;
             m_NonTargetKill = false;
             m_NoticedKill = false;
@@ -120,7 +124,7 @@ namespace Statman.Engines.HM5
 
         public void UpdateRating()
         {
-            m_Engine.Control.SetSpotted(m_Spotters.Count > 0);
+            m_Engine.Control.SetSpotted(m_Spotters.Count > 0 || m_Witnesses.Count > 0);
             m_Engine.Control.SetBodyFound(m_BodyFound);
             m_Engine.Control.SetNonTargetKill(m_NonTargetKill);
             m_Engine.Control.SetNoticedKill(m_NoticedKill);
@@ -139,6 +143,14 @@ namespace Statman.Engines.HM5
         {
             foreach (var s_Spotter in p_Spotters)
                 m_Spotters.Add(s_Spotter);
+
+            UpdateRating();
+        }
+
+        public void OnWitnesses(IEnumerable<string> p_Witnesses)
+        {
+            foreach (var s_Witness in p_Witnesses)
+                m_Witnesses.Add(s_Witness);
 
             UpdateRating();
         }

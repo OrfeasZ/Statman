@@ -238,6 +238,11 @@ namespace Statman.Engines
                     var s_Data = s_Parts[1].Split(',');
                     StatTracker.OnSpotted(s_Data);
                 }
+                else if (s_Parts[0] == "Witnesses")
+                {
+                    var s_Data = s_Parts[1].Split(',');
+                    StatTracker.OnWitnesses(s_Data);
+                }
                 else if (s_Parts[0] == "CaughtOnCamera")
                 {
                     StatTracker.OnCaughtOnCamera();
