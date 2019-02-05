@@ -85,13 +85,35 @@ DECLARE_FASTCALL_DETOUR(HM5Hooks, void, ZAchievementManagerSimple_OnEventSent, Z
 
 		g_Module->Pipe()->SendPipeMessage("SU", "Spotted:" + s_Spotters);
 	}
+	else if (s_JsonEvent["Name"] == "Witnesses")
+	{
+		Log("ZAchievementManagerSimple Event! %s\n", s_JsonEvent.dump(4).c_str());
+		std::string s_Witnesses;
+
+		for (auto& s_Witness : s_JsonEvent["Value"])
+		{
+			if (s_Witnesses.size() > 0)
+				s_Witnesses += ",";
+
+			s_Witnesses += s_Witness;
+		}
+
+		g_Module->Pipe()->SendPipeMessage("SU", "Witnesses:" + s_Witnesses);
+	}
 	else if (s_JsonEvent["Name"] == "SecuritySystemRecorder")
 	{
 		Log("ZAchievementManagerSimple Event! %s\n", s_JsonEvent.dump(4).c_str());
-		// TODO: This isn't getting triggered as expected.
+		std::string s_Event = s_JsonEvent["Value"]["event"];
+        
+		if (s_Event == "spotted")
+		{
+			g_Module->Pipe()->SendPipeMessage("SU", "CaughtOnCamera");
+		}
+		else if (s_Event == "destroyed")
+		{
+			g_Module->Pipe()->SendPipeMessage("SU", "RecordingsDestroyed");
+		}
 	}
-
-	//Log("ZAchievementManagerSimple Event! %s\n", s_JsonEvent.dump(4).c_str());
 
 	return o_ZAchievementManagerSimple_OnEventSent(th, eventIndex, event);
 }
