@@ -83,7 +83,7 @@ bool HM5Pointers::SetupFunctions()
 {
 	Log("Setting up function pointers.\n");
 
-	FIND_FUNCTION_POINTER(ZDynamicObject::ToString, "\x48\x89\x5C\x24\x08\x57\x48\x83\xEC\x00\x48\x89\xD7\x48\x89\xCB\x0F\x57\xC0", "xxxxxxxxx?xxxxxxxxx");
+	FIND_FUNCTION_POINTER(ZDynamicObject::ToString, "\x48\x89\x5C\x24\x08\x57\x48\x83\xEC\x00\x48\x8B\xFA\x48\x8B\xD9\x0F\x57\xC0", "xxxxxxxxx?xxxxxxxxx");
 
 	return true;
 }
