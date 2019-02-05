@@ -34,6 +34,7 @@ namespace Statman.Engines.HM5
             { "assembly:/_pro/scenes/missions/colorado_2/scene_rabies.entity", new Tuple<string, string>("Patient Zero", "The Vector") },
             { "assembly:/_pro/scenes/missions/hokkaido/_scene_flu.entity", new Tuple<string, string>("Patient Zero", "Patient Zero") },
             { "assembly:/_pro/scenes/missions/hawk/scene_hawk.entity", new Tuple<string, string>("Sniper Assassin", "The Last Yardbird") },
+            { "assembly:/_pro/scenes/missions/hokkaido/scene_mamushi.entity", new Tuple<string, string>("Hitman 2", "Hokkaido Snow Festival") },
         };
 
         private readonly HM5Engine m_Engine;
