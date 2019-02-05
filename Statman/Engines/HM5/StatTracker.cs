@@ -174,11 +174,15 @@ namespace Statman.Engines.HM5
             if (!p_Accident)
                 m_KillCooldownStopwatch.Restart();
 
-            if (p_Target && m_Spotters.Contains(p_NPCID))
+            if (p_Target)
+            {
                 m_Spotters.Remove(p_NPCID);
-
-            if (!p_Target)
+                m_Witnesses.Remove(p_NPCID);
+            }
+            else
+            {
                 m_NonTargetKill = true;
+            }
 
             UpdateRating();
         }
