@@ -9,7 +9,6 @@
 
 HM5Pointers::HM5Pointers()
 {
-	Setup();
 }
 
 HM5Pointers::~HM5Pointers()
@@ -53,7 +52,7 @@ bool HM5Pointers::SetupPointers()
 	FIND_POINTER_RELATIVE(
 		ZGameStats*,
 		g_pGameStatsSingleton,
-		"\x48\x8B\x05\x00\x00\x00\x00\x4C\x8D\x43\x28\x0F\x28\xDE",
+		"\x48\x8B\x05\x00\x00\x00\x00\x48\x8D\x54\x24\x20\x41\xB8",
 		"xxx????xxxxxxx",
 		3
 	);

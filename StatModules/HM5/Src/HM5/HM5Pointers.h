@@ -15,8 +15,10 @@ public:
 	HM5Pointers();
 	~HM5Pointers();
 
-protected:
+public:
 	bool Setup();
+
+protected:
 	bool SetupPointers();
 	bool SetupFunctions();
 

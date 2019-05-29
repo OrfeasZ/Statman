@@ -101,6 +101,18 @@ bool HM5Module::Init()
 	m_Hooks = new HM5Hooks();
 	m_PinHandler = new HM5PinHandler();
 
+	if (!m_Pointers->Setup())
+	{
+		Log("Failed to setup HM5 pointers. Statman may require an update to support the latest game.");
+		return false;
+	}
+
+	if (!m_Hooks->Install())
+	{
+		Log("Failed to install HM5 hooks. Statman may require an update to support the latest game.");
+		return false;
+	}
+
 	// Wait for late initialization.
 	Log("Waiting for game late initialization...\n");
 

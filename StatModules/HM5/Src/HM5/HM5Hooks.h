@@ -24,8 +24,10 @@ public:
 	HM5Hooks();
 	~HM5Hooks();
 
-protected:
+public:
 	bool Install();
+
+protected:
 	void Uninstall();
 
 public:

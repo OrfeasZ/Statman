@@ -6,7 +6,6 @@
 HM5Hooks::HM5Hooks() :
 	m_Installed(false)
 {
-	Install();
 }
 
 HM5Hooks::~HM5Hooks()
