@@ -71,6 +71,9 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PeNet, Version=0.6.8.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PeNet.0.6.8\lib\net461\PeNet.dll</HintPath>
     </Reference>
@@ -96,9 +99,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engines\HM5Engine.cs" />
+    <Compile Include="Engines\HM5\Controls\AdvancedRating.xaml.cs">
+      <DependentUpon>AdvancedRating.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Engines\HM5\Controls\MainControl.xaml.cs">
       <DependentUpon>MainControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Engines\HM5\Controls\RatingChange.xaml.cs">
+      <DependentUpon>RatingChange.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Engines\HM5\Controls\VanillaRating.xaml.cs">
+      <DependentUpon>VanillaRating.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Engines\HM5\CustomTracker.cs" />
+    <Compile Include="Engines\HM5\CustomTracking\AmbianceValue.cs" />
+    <Compile Include="Engines\HM5\CustomTracking\DeadBodyData.cs" />
+    <Compile Include="Engines\HM5\CustomTracking\BodyFoundValue.cs" />
+    <Compile Include="Engines\HM5\CustomTracking\Events.cs" />
+    <Compile Include="Engines\HM5\CustomTracking\GameEvent.cs" />
+    <Compile Include="Engines\HM5\CustomTracking\KillData.cs" />
+    <Compile Include="Engines\HM5\CustomTracking\MurderedBodyValue.cs" />
+    <Compile Include="Engines\HM5\CustomTracking\SetPieceValue.cs" />
     <Compile Include="Engines\HM5\StatTracker.cs" />
     <Compile Include="Engines\HM5\Structs.cs" />
     <Compile Include="Engines\HM5\TimeTracker.cs" />
@@ -141,9 +162,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Engines\HM5\Controls\AdvancedRating.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Engines\HM5\Controls\MainControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Engines\HM5\Controls\RatingChange.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Engines\HM5\Controls\VanillaRating.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Engines\HM5\Windows\SceneLoader.xaml">
       <SubType>Designer</SubType>

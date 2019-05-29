@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Statman.Engines.HM5
 {
-    class TimeTracker
+    public class TimeTracker
     {
         public double GameTime { get; private set; }
         public double RealTime { get; private set; }

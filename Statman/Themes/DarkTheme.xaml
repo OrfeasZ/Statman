@@ -5,6 +5,7 @@
     <SolidColorBrush x:Key="TimerBrush" Color="#FF1B892F"/>
     <SolidColorBrush x:Key="LightLabelBrush" Color="#FFA0A0A0"/>
     <SolidColorBrush x:Key="AlertLabelBrush" Color="#FFBF1C1C"/>
+    <SolidColorBrush x:Key="SuccessLabelBrush" Color="#FF1B892F"/>
     <SolidColorBrush x:Key="BackgroundBrush" Color="#FF1B1B1B"/>
     <SolidColorBrush x:Key="BorderBrush" Color="#FF707070"/>
 

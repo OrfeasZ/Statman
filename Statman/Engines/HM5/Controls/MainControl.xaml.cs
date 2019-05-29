@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Statman.Engines.HM5.CustomTracking;
 
 namespace Statman.Engines.HM5.Controls
 {
@@ -8,9 +11,11 @@ namespace Statman.Engines.HM5.Controls
     {
         private long m_LastCooldownMs;
         private bool m_LastRatingStatus = true;
+        private HM5Engine m_Engine;
 
-        public MainControl()
+        public MainControl(HM5Engine p_Engine)
         {
+            m_Engine = p_Engine;
             InitializeComponent();
         }
 
@@ -65,12 +70,12 @@ namespace Statman.Engines.HM5.Controls
                 Dispatcher.Invoke(() =>
                 {
                     var s_TimeStamp = TimeSpan.FromMilliseconds(s_CurrentMs);
-                    KillCooldownLabel.Content = s_TimeStamp.ToString("s\\.fff");
+                    Vanilla.KillCooldownLabel.Content = s_TimeStamp.ToString("s\\.fff");
 
                     if (s_CurrentMs > 0)
-                        KillCooldownLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
+                        Vanilla.KillCooldownLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
                     else
-                        KillCooldownLabel.Foreground = (Brush)FindResource("LabelBrush");
+                        Vanilla.KillCooldownLabel.Foreground = (Brush)FindResource("LabelBrush");
                 });
             }
         }
@@ -81,13 +86,13 @@ namespace Statman.Engines.HM5.Controls
             {
                 if (p_Spotted)
                 {
-                    SpottedLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
-                    SpottedLabel.Content = "Yes";
+                    Vanilla.SpottedLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
+                    Vanilla.SpottedLabel.Content = "Yes";
                 }
                 else
                 {
-                    SpottedLabel.Foreground = (Brush)FindResource("LabelBrush");
-                    SpottedLabel.Content = "No";
+                    Vanilla.SpottedLabel.Foreground = (Brush)FindResource("LabelBrush");
+                    Vanilla.SpottedLabel.Content = "No";
                 }
             });
         }
@@ -98,13 +103,13 @@ namespace Statman.Engines.HM5.Controls
             {
                 if (p_NoticedKill)
                 {
-                    NoticedKillLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
-                    NoticedKillLabel.Content = "Yes";
+                    Vanilla.NoticedKillLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
+                    Vanilla.NoticedKillLabel.Content = "Yes";
                 }
                 else
                 {
-                    NoticedKillLabel.Foreground = (Brush)FindResource("LabelBrush");
-                    NoticedKillLabel.Content = "No";
+                    Vanilla.NoticedKillLabel.Foreground = (Brush)FindResource("LabelBrush");
+                    Vanilla.NoticedKillLabel.Content = "No";
                 }
             });
         }
@@ -115,13 +120,13 @@ namespace Statman.Engines.HM5.Controls
             {
                 if (p_BodyFound)
                 {
-                    BodyFoundLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
-                    BodyFoundLabel.Content = "Yes";
+                    Vanilla.BodyFoundLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
+                    Vanilla.BodyFoundLabel.Content = "Yes";
                 }
                 else
                 {
-                    BodyFoundLabel.Foreground = (Brush)FindResource("LabelBrush");
-                    BodyFoundLabel.Content = "No";
+                    Vanilla.BodyFoundLabel.Foreground = (Brush)FindResource("LabelBrush");
+                    Vanilla.BodyFoundLabel.Content = "No";
                 }
             });
         }
@@ -132,13 +137,13 @@ namespace Statman.Engines.HM5.Controls
             {
                 if (p_CaughtOnCamera)
                 {
-                    CaughtOnCameraLabel.Foreground = (Brush) FindResource("AlertLabelBrush");
-                    CaughtOnCameraLabel.Content = "Yes";
+                    Vanilla.CaughtOnCameraLabel.Foreground = (Brush) FindResource("AlertLabelBrush");
+                    Vanilla.CaughtOnCameraLabel.Content = "Yes";
                 }
                 else
                 {
-                    CaughtOnCameraLabel.Foreground = (Brush) FindResource("LabelBrush");
-                    CaughtOnCameraLabel.Content = "No";
+                    Vanilla.CaughtOnCameraLabel.Foreground = (Brush) FindResource("LabelBrush");
+                    Vanilla.CaughtOnCameraLabel.Content = "No";
                 }
             });
         }
@@ -149,13 +154,13 @@ namespace Statman.Engines.HM5.Controls
             {
                 if (p_NonTargetKill)
                 {
-                    NonTargetKillLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
-                    NonTargetKillLabel.Content = "Yes";
+                    Vanilla.NonTargetKillLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
+                    Vanilla.NonTargetKillLabel.Content = "Yes";
                 }
                 else
                 {
-                    NonTargetKillLabel.Foreground = (Brush)FindResource("LabelBrush");
-                    NonTargetKillLabel.Content = "No";
+                    Vanilla.NonTargetKillLabel.Foreground = (Brush)FindResource("LabelBrush");
+                    Vanilla.NonTargetKillLabel.Content = "No";
                 }
             });
         }
@@ -170,9 +175,89 @@ namespace Statman.Engines.HM5.Controls
             Dispatcher.Invoke(() =>
             {
                 if (p_Perfect)
-                    RatingLabel.Foreground = (Brush)FindResource("LabelBrush");
+                    Vanilla.RatingLabel.Foreground = (Brush)FindResource("LabelBrush");
                 else
-                    RatingLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
+                    Vanilla.RatingLabel.Foreground = (Brush)FindResource("AlertLabelBrush");
+            });
+        }
+
+        public void ToggleRatingMode()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if (Vanilla.Visibility == Visibility.Hidden)
+                {
+                    Advanced.Visibility = Visibility.Hidden;
+                    Vanilla.Visibility = Visibility.Visible;
+                    Height = 350;
+                }
+                else
+                {
+                    Vanilla.Visibility = Visibility.Hidden;
+                    Advanced.Visibility = Visibility.Visible;
+                    Height = 390;
+                }
+
+                m_Engine.ResetControl();
+            });
+        }
+
+        public void OnRatingEvent(EventType p_Event)
+        {
+            // Get the attribute for this value.
+            var s_Type = typeof(EventType);
+            var s_Name = Enum.GetName(s_Type, p_Event);
+
+            var s_Attribute = s_Type.GetField(s_Name)
+                .GetCustomAttributes(false)
+                .OfType<RatingEventAttribute>()
+                .FirstOrDefault();
+
+            if (s_Attribute == null)
+                return;
+
+            Dispatcher.Invoke(() =>
+            {
+                // TODO: Add support for allowing users to customize points and selectively toggle events.
+                var s_PointsLabel = s_Attribute.Points.ToString();
+
+                if (s_Attribute.Points >= 0)
+                    s_PointsLabel = "+" + s_PointsLabel;
+
+                var s_Control = new RatingChange
+                {
+                    EventLabel = { Content = s_Attribute.Description },
+                    PointsLabel = { Content = s_PointsLabel }
+                };
+
+                if (s_Attribute.Points > 0)
+                    s_Control.PointsLabel.Foreground = (Brush) FindResource("AlertLabelBrush");
+
+                if (s_Attribute.Points < 0)
+                    s_Control.PointsLabel.Foreground = (Brush) FindResource("SuccessLabelBrush");
+
+                Advanced.RatingEventsList.Items.Insert(0, s_Control);
+            });
+        }
+
+        public void SetNotoriety(long p_Value)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                Advanced.NotorietyLabel.Content = p_Value.ToString();
+
+                // TODO: Set rating accordingly.
+            });
+        }
+
+        public void ResetAdvancedRating()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                Advanced.NotorietyLabel.Content = "0";
+                Advanced.RatingEventsList.Items.Clear();
+                Advanced.RatingLabel.Content = "Silent Assassin";
+                Advanced.RatingLabel.Foreground = (Brush) FindResource("LabelBrush");
             });
         }
     }

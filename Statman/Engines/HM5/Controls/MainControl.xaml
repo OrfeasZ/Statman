@@ -2,9 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:Statman.Engines.HM5.Controls"
              mc:Ignorable="d" 
-             Height="348.942" Width="332">
+             Height="350" Width="332">
     <Grid>
         <Label Foreground="{DynamicResource LabelBrush}" x:Name="CurrentLevelLabel" Content="No Level" Margin="10,31,10,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center"/>
         <Label Foreground="{DynamicResource LabelBrush}" x:Name="GameTimeHeaderLabel" Content="Game Time" Margin="10,73,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="14" HorizontalAlignment="Left" Width="156"/>
@@ -12,18 +13,7 @@
         <Label Foreground="{DynamicResource LabelBrush}" x:Name="RealTimeHeaderLabel" Content="Real Time" Margin="0,73,10,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="14" HorizontalAlignment="Right" Width="156"/>
         <Label Foreground="{DynamicResource TimerBrush}" x:Name="RealTimeLabel" Content="00:00:00.000" Margin="0,92,10,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right" Width="156"/>
         <Label Foreground="{DynamicResource LabelBrush}" x:Name="GameModeLabel" Content="HITMAN" Margin="10,14,10,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
-        <Label Foreground="{DynamicResource LabelBrush}" Content="Spotted" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="10,143,166,0"/>
-        <Label Foreground="{DynamicResource LabelBrush}" x:Name="SpottedLabel" Content="No" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="10,159,166,0" FontSize="14" FontWeight="Bold"/>
-        <Label Foreground="{DynamicResource LabelBrush}" Content="Noticed Kill" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="166,143,10,0"/>
-        <Label Foreground="{DynamicResource LabelBrush}" x:Name="NoticedKillLabel" Content="No" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="166,159,10,0" FontSize="14" FontWeight="Bold"/>
-        <Label Foreground="{DynamicResource LabelBrush}" Content="Non-Target Kill" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="10,187,166,0"/>
-        <Label Foreground="{DynamicResource LabelBrush}" x:Name="NonTargetKillLabel" Content="No" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="10,203,166,0" FontSize="14" FontWeight="Bold"/>
-        <Label Foreground="{DynamicResource LabelBrush}" Content="Body Found" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="166,187,10,0"/>
-        <Label Foreground="{DynamicResource LabelBrush}" x:Name="BodyFoundLabel" Content="No" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="166,203,10,0" FontSize="14" FontWeight="Bold"/>
-        <Label Foreground="{DynamicResource LabelBrush}" Content="Caught on Camera" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="10,231,166,0"/>
-        <Label Foreground="{DynamicResource LabelBrush}" x:Name="CaughtOnCameraLabel" Content="No" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="10,247,166,0" FontSize="14" FontWeight="Bold"/>
-        <Label Foreground="{DynamicResource LabelBrush}" x:Name="RatingLabel" Content="Silent Assassin" Margin="10,0,10,20" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Height="34" VerticalAlignment="Bottom" RenderTransformOrigin="0.429,0.529"/>
-        <Label Foreground="{DynamicResource LabelBrush}" Content="Kill Cooldown" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="166,231,10,0"/>
-        <Label Foreground="{DynamicResource LabelBrush}" x:Name="KillCooldownLabel" Content="0.000" VerticalAlignment="Top" Grid.Column="0" RenderTransformOrigin="0.191,-0.308" HorizontalContentAlignment="Center" Margin="166,247,10,0" FontSize="14" FontWeight="Bold"/>
+        <controls:VanillaRating x:Name="Vanilla" Margin="0,134,0,10"></controls:VanillaRating>
+        <controls:AdvancedRating x:Name="Advanced" Margin="0,134,0,18" Visibility="Hidden"></controls:AdvancedRating>
     </Grid>
 </UserControl>

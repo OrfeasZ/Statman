@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Statman.Engines.HM5
 {
-    class StatTracker
+    public class StatTracker
     {
         public const long KillCooldown = 2750;
 

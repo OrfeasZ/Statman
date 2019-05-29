@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace Statman.Util
 {
-    class ProcessMemoryReader
+    public class ProcessMemoryReader
     {
         [DllImport("kernel32.dll")]
         private static extern IntPtr OpenProcess(uint dwDesiredAccess, int bInheritHandle, uint dwProcessId);
