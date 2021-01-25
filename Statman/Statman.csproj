@@ -98,6 +98,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engines\HM52021Engine.cs" />
+    <Compile Include="Engines\HM52021\Controls\MainControl.xaml.cs">
+      <DependentUpon>MainControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Engines\HM52021\Windows\SceneLoader.xaml.cs">
+      <DependentUpon>SceneLoader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Engines\HM5Engine.cs" />
     <Compile Include="Engines\HM5\Controls\AdvancedRating.xaml.cs">
       <DependentUpon>AdvancedRating.xaml</DependentUpon>
@@ -161,6 +168,14 @@
     <Page Include="Engines\HM3\Controls\MainControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Engines\HM52021\Controls\MainControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Engines\HM52021\Windows\SceneLoader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Engines\HM5\Controls\AdvancedRating.xaml">
       <SubType>Designer</SubType>

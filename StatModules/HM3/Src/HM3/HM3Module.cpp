@@ -25,7 +25,7 @@ HM3Module::HM3Module() :
 
 #ifdef _DEBUG
 	char s_Buffer[2];
-	if (!GetEnvironmentVariableA("Statman_HM5", s_Buffer, 2) || s_Buffer[0] != 0x02)
+	if (!GetEnvironmentVariableA("Statman_HM3", s_Buffer, 2) || s_Buffer[0] != 0x02)
 	{
 		AllocConsole();
 		AttachConsole(GetCurrentProcessId());
@@ -78,13 +78,13 @@ HM3Module::~HM3Module()
 	m_Pointers = nullptr;
 	m_Functions = nullptr;
 
-	SetEnvironmentVariable("Statman_HM5", "\x02\x00");
+	SetEnvironmentVariable("Statman_HM3", "\x02\x00");
 }
 
 bool HM3Module::CheckInstance()
 {
 	char s_Buffer[2];
-	if (GetEnvironmentVariableA("Statman_HM5", s_Buffer, 2) && s_Buffer[0] == 0x01)
+	if (GetEnvironmentVariableA("Statman_HM3", s_Buffer, 2) && s_Buffer[0] == 0x01)
 		return false;
 
 	return true;
