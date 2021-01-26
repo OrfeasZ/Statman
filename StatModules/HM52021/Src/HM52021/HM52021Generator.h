@@ -15,6 +15,7 @@ struct GeneratedType
 	std::unordered_set<std::string> Dependencies;
 	std::string Source;
 	std::string Header;
+	bool ShouldSkip;
 };
 
 class HM52021Generator
