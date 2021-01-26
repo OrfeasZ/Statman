@@ -19,9 +19,9 @@
 #include <HM52021/Structs/ZModule.h>
 #include <HM52021/Structs/ZGameContext.h>
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
 #include "HM52021Generator.h"
-#endif
+//#endif
 
 HM52021Module::HM52021Module() :
 	m_Pipeman(nullptr),
@@ -58,7 +58,7 @@ bool HM52021Module::Init()
 		return false;
 	}
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	char s_Buffer[2];
 	if (!GetEnvironmentVariableA("Statman_HM52021", s_Buffer, 2) || s_Buffer[0] != 0x02)
 	{
@@ -69,7 +69,7 @@ bool HM52021Module::Init()
 		FILE* s_Con;
 		freopen_s(&s_Con, "CON", "w", stdout);
 	}
-#endif
+//#endif
 
 	Log("Initializing Statman HM52021 stat module...\n");
 
@@ -133,11 +133,11 @@ bool HM52021Module::Init()
 		g_Module->Pipe()->SendPipeMessage("SC", s_PointerStr);*/
 	});
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	// If we're running in debug mode dump all reflection data.
 	HM52021Generator s_Generator;
 	s_Generator.Generate();
-#endif
+//#endif
 
 	return true;
 }
