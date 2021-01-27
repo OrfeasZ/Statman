@@ -35,12 +35,14 @@ private:
 
 	void GenerateReflectiveClasses();
 	void GeneratePropertyNamesFiles();
+	void GenerateEnumsFiles();
 	
 	void Visit(GeneratedType* p_Type, std::unordered_set<GeneratedType*>& p_Visited, std::vector<GeneratedType*>& p_Sorted);
 
 private:
 	std::unordered_map<uint32_t, std::string> m_PropertyNames;
 	std::unordered_map<std::string, STypeID*> m_Types;
+	std::unordered_map<std::string, std::unordered_map<int, std::string>> m_Enums;
 
 	std::unordered_map<std::string, GeneratedType*> m_ReflectiveClasses;
 	
@@ -52,4 +54,7 @@ private:
 	
 	std::ofstream m_PropertyNamesHeaderFile;
 	std::ofstream m_PropertyNamesSourceFile;
+	
+	std::ofstream m_EnumsHeaderFile;
+	std::ofstream m_EnumsSourceFile;
 };
