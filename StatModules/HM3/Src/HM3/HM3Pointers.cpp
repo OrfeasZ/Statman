@@ -12,5 +12,5 @@ HM3Pointers::~HM3Pointers()
 
 void HM3Pointers::Setup()
 {
-	m_Stats = (HM3Stats*) 0x009B2538;
+	m_Stats = (HM3Stats*) 0x009B3B38;
 }
