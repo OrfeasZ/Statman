@@ -106,17 +106,10 @@ namespace Statman.Engines.HM3
             // Get difficulty.
             try
             {
-                var s_DifficultyPtrData = m_Engine.Reader.Read(m_Engine.Reader.Process.MainModule.BaseAddress + 0x41F83C, 4);
+                var s_Difficulty = m_Engine.Reader.Read(m_Engine.Reader.Process.MainModule.BaseAddress + 0x4B2B54, 1);
 
-                if (s_DifficultyPtrData != null)
-                {
-                    var s_UnknownPtr = BitConverter.ToUInt32(s_DifficultyPtrData, 0);
-                    
-                    var s_Difficulty = m_Engine.Reader.Read(s_UnknownPtr + 0x6664, 1);
-
-                    if (s_Difficulty != null)
-                        Difficulty = s_Difficulty[0];
-                }
+                if (s_Difficulty != null)
+                    Difficulty = s_Difficulty[0];
             }
             catch (Exception)
             {
