@@ -15,4 +15,5 @@ protected:
 
 public:
 	HM3Stats* m_Stats;
+	void* m_Difficulty;
 };

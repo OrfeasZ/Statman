@@ -317,6 +317,24 @@ namespace Statman.Engines
 
                     break;
                 }
+                case "SA":
+                {
+                    int statAddr = 0;
+                    if (int.TryParse(p_Data, out statAddr))
+                    {
+                        StatTracker.StatAddress = new IntPtr(statAddr);
+                    }
+                    break;
+                }
+                case "DA":
+                {
+                    int difficultyAddr = 0;
+                    if (int.TryParse(p_Data, out difficultyAddr))
+                    {
+                        StatTracker.DifficultyAddress = new IntPtr(difficultyAddr);
+                    }
+                    break;
+                }
             }
         }
 
