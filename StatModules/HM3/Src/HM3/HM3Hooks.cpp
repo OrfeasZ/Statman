@@ -7,7 +7,7 @@ struct DetourAddresses
 	uint32_t LoadSceneDetour;
 	uint32_t UnknownUpdateDetour;
 	uint32_t EndLevelDetour;
-	uint32_t LimitedLivesDetour
+	uint32_t LimitedLivesDetour;
 };
 
 // The order corresponds to HM3Version enum values and should not be changed
