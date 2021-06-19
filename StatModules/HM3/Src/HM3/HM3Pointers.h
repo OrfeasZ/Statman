@@ -11,11 +11,16 @@ public:
 	HM3Pointers(HM3Version version);
 	~HM3Pointers();
 
+	void* DifficultyPtr() const;
+	void* TimePtr() const;
+
 protected:
 	void Setup(HM3Version version);
 
 public:
 	HM3Stats* m_Stats;
-	void* m_Difficulty;
-	void* m_Time;
+
+protected:
+	uint8_t** m_Difficulty;
+	uint8_t** m_Time;
 };
