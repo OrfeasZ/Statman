@@ -278,12 +278,6 @@ namespace Statman.Engines
 
             if (!Active)
                 return;
-
-            if (StatTracker.DifficultyAddress == IntPtr.Zero ||
-                StatTracker.StatAddress == IntPtr.Zero)
-            {
-                SendMessage("S", "");
-            }
             
             // Update our trackers.
             TimeTracker.Update();

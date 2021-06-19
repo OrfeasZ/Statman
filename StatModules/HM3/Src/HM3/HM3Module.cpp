@@ -51,10 +51,6 @@ HM3Module::HM3Module() :
 	// Setup Pipeman.
 	m_Pipeman = new Pipeman("\\\\.\\pipe\\Statman_IPC", "H3");
 	m_Pipeman->SetMessageCallback(std::bind(&HM3Module::OnMessage, this, std::placeholders::_1, std::placeholders::_2));
-
-	m_Pipeman->SendPipeMessage("SA", std::to_string((int)m_Pointers->m_Stats));
-	m_Pipeman->SendPipeMessage("DA", std::to_string((int)m_Pointers->m_Difficulty));
-	m_Pipeman->SendPipeMessage("TA", std::to_string((int)m_Pointers->m_Time));
 }
 
 HM3Module::~HM3Module()
@@ -112,14 +108,6 @@ void HM3Module::OnMessage(const std::string& p_Type, const std::string& p_Conten
 	{
 		// Unlimited saves.
 		m_Hitman2016Mode = p_Content == "true";
-		return;
-	}
-
-	if (p_Type == "S")
-	{
-		m_Pipeman->SendPipeMessage("SA", std::to_string((int)m_Pointers->m_Stats));
-		m_Pipeman->SendPipeMessage("DA", std::to_string((int)m_Pointers->m_Difficulty));
-		m_Pipeman->SendPipeMessage("TA", std::to_string((int)m_Pointers->m_Time));
 		return;
 	}
 }
