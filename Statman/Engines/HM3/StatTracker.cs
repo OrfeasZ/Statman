@@ -84,8 +84,7 @@ namespace Statman.Engines.HM3
         {
             try
             {
-                IntPtr structAddr = StatAddress != IntPtr.Zero ? StatAddress : m_Engine.Reader.Process.MainModule.BaseAddress + 0x005B2538;
-                var s_StructData = m_Engine.Reader.Read(structAddr, 0x10C);
+                var s_StructData = StatAddress != IntPtr.Zero ? m_Engine.Reader.Read(StatAddress, 0x10C) : null;
 
                 if (s_StructData == null)
                     return false;
@@ -110,8 +109,7 @@ namespace Statman.Engines.HM3
             // Get difficulty.
             try
             {
-                IntPtr difficultyAddr = DifficultyAddress != IntPtr.Zero ? DifficultyAddress : m_Engine.Reader.Process.MainModule.BaseAddress + 0x4B2B54;
-                var s_Difficulty = m_Engine.Reader.Read(difficultyAddr, 1);
+                var s_Difficulty = DifficultyAddress != IntPtr.Zero ? m_Engine.Reader.Read(DifficultyAddress, 1) : null;
 
                 if (s_Difficulty != null)
                     Difficulty = s_Difficulty[0];

@@ -8,6 +8,8 @@ namespace Statman.Engines.HM3
 
         private readonly HM3Engine m_Engine;
 
+        public IntPtr TimeAddress = IntPtr.Zero;
+
         public TimeTracker(HM3Engine p_Engine)
         {
             m_Engine = p_Engine;
@@ -17,14 +19,7 @@ namespace Statman.Engines.HM3
         {
             try
             {
-                var s_BasePtrData = m_Engine.Reader.Read(m_Engine.Reader.Process.MainModule.BaseAddress + 0x0041F820, 4);
-
-                if (s_BasePtrData == null)
-                    return false;
-
-                var s_BasePtr = BitConverter.ToUInt32(s_BasePtrData, 0);
-
-                var s_TimeData = m_Engine.Reader.Read(s_BasePtr + 0x48, 4);
+                var s_TimeData = TimeAddress != IntPtr.Zero ? m_Engine.Reader.Read(TimeAddress, 4) : null;
 
                 if (s_TimeData == null)
                     return false;

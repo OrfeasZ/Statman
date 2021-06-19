@@ -278,6 +278,12 @@ namespace Statman.Engines
 
             if (!Active)
                 return;
+
+            if (StatTracker.DifficultyAddress == IntPtr.Zero ||
+                StatTracker.StatAddress == IntPtr.Zero)
+            {
+                SendMessage("S", "");
+            }
             
             // Update our trackers.
             TimeTracker.Update();
@@ -332,6 +338,15 @@ namespace Statman.Engines
                     if (int.TryParse(p_Data, out difficultyAddr))
                     {
                         StatTracker.DifficultyAddress = new IntPtr(difficultyAddr);
+                    }
+                    break;
+                }
+                case "TA":
+                {
+                    int timeAddr = 0;
+                    if (int.TryParse(p_Data, out timeAddr))
+                    {
+                        TimeTracker.TimeAddress = new IntPtr(timeAddr);
                     }
                     break;
                 }
