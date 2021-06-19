@@ -40,11 +40,13 @@ HM3Module::HM3Module() :
 	// Patch required data.
 	PerformPatches();
 
+	const HM3Version version = CheckVersion();
+
 	// Setup pointers, functions, and hooks.
-	m_Pointers = new HM3Pointers();
+	m_Pointers = new HM3Pointers(version);
 	// TODO: figure out addresses for these in GOG version
-	//m_Functions = new HM3Functions();
-	//m_Hooks = new HM3Hooks();
+	m_Functions = new HM3Functions();
+	m_Hooks = new HM3Hooks();
 
 	// Setup Pipeman.
 	m_Pipeman = new Pipeman("\\\\.\\pipe\\Statman_IPC", "H3");
@@ -52,6 +54,7 @@ HM3Module::HM3Module() :
 
 	m_Pipeman->SendPipeMessage("SA", std::to_string((int)m_Pointers->m_Stats));
 	m_Pipeman->SendPipeMessage("DA", std::to_string((int)m_Pointers->m_Difficulty));
+	m_Pipeman->SendPipeMessage("TA", std::to_string((int)m_Pointers->m_Time));
 }
 
 HM3Module::~HM3Module()
@@ -109,6 +112,14 @@ void HM3Module::OnMessage(const std::string& p_Type, const std::string& p_Conten
 	{
 		// Unlimited saves.
 		m_Hitman2016Mode = p_Content == "true";
+		return;
+	}
+
+	if (p_Type == "S")
+	{
+		m_Pipeman->SendPipeMessage("SA", std::to_string((int)m_Pointers->m_Stats));
+		m_Pipeman->SendPipeMessage("DA", std::to_string((int)m_Pointers->m_Difficulty));
+		m_Pipeman->SendPipeMessage("TA", std::to_string((int)m_Pointers->m_Time));
 		return;
 	}
 }
