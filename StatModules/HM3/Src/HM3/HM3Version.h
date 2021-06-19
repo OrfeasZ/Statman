@@ -4,8 +4,8 @@
 enum HM3Version
 {
 	HM3_UNKNOWN = 0,
-	HM3_STEAM = 1,
-	HM3_GOG   = 2
+	HM3_STEAM,
+	HM3_GOG
 };
 
 HM3Version CheckVersion();
