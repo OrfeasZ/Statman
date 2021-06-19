@@ -18,9 +18,9 @@ protected:
 	void Install(HM3Version version);
 
 public:
-	typedef char (__thiscall* LoadScene_t)(void* th, const char* scene);
+	typedef char (__thiscall* LoadScene_t)(void* th);
 	static LoadScene_t LoadScene;
-	static char __fastcall c_LoadScene(void* th, int, const char* scene);
+	static char __fastcall c_LoadScene(void* th);
 
 	typedef char (__thiscall* UnknownUpdateFunc01_t)(UnknownClass01* th);
 	static UnknownUpdateFunc01_t UnknownUpdateFunc01;
