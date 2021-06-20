@@ -42,15 +42,15 @@ char __fastcall HM3Hooks::c_UnknownUpdateFunc01(UnknownClass01* th, int)
 
 	int s_WeaponsInHand = 0;
 
-	UnknownClass03* s_Class03 = *(UnknownClass03**) 0x0081F83C;
+	UnknownClass03* s_Class03 = *(UnknownClass03**)g_Module->Pointers()->m_class03Ptr;
 
-	if (s_Class03 && th->m_Unknown03 && s_Class03->m_Unknown02)
+	if (s_Class03 && th->m_Unknown03)
 	{
 		g_Module->Functions()->UnknownFunction01(th->m_Unknown03, s_Class03->m_Unknown02);
 		s_WeaponsInHand += g_Module->Functions()->UnknownFunction02(th->m_Unknown03);
 	}
 
-	if (s_Class03 && th->m_Unknown04 && s_Class03->m_Unknown02)
+	if (s_Class03 && th->m_Unknown04)
 	{
 		g_Module->Functions()->UnknownFunction01(th->m_Unknown04, s_Class03->m_Unknown02);
 		s_WeaponsInHand += g_Module->Functions()->UnknownFunction02(th->m_Unknown04);
