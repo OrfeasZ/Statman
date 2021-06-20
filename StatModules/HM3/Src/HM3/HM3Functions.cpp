@@ -13,7 +13,7 @@ static const FunctionAddresses FunctionVersions[]
 {
 	{ 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000 }, // Unknown
 	{ 0x004E5110, 0x0055FA10, 0x00656A10, 0x00656A60, 0x006AE000 }, // Steam
-	{ 0x004E5BE0, 0x00000000, 0x00657170, 0x006571C0, 0x006AE880 }  // GOG
+	{ 0x004E5BE0, 0x00560440, 0x00657170, 0x006571C0, 0x006AE880 }  // GOG
 };
 
 HM3Functions::HM3Functions(HM3Version version)
