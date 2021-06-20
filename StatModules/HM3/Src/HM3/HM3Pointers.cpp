@@ -3,7 +3,7 @@
 struct DataAddresses
 {
 	uint32_t Stats;
-	uint32_t DifficultyPtr;
+	uint32_t Class03Ptr;
 	uint32_t TimePtr;
 };
 
@@ -29,13 +29,13 @@ void HM3Pointers::Setup(HM3Version version)
 	const DataAddresses& addresses(DataVersions[version]);
 
 	m_Stats = (HM3Stats*)addresses.Stats;
-	m_Difficulty = (uint8_t**)addresses.DifficultyPtr;
+	m_class03Ptr = (uint8_t**)addresses.Class03Ptr;
 	m_Time = (uint8_t**)addresses.TimePtr;
 }
 
 void* HM3Pointers::DifficultyPtr() const
 {
-	return m_Difficulty != nullptr && *m_Difficulty != nullptr ? *m_Difficulty + 0x6664 : nullptr;
+	return m_class03Ptr != nullptr && *m_class03Ptr != nullptr ? *m_class03Ptr + 0x6664 : nullptr;
 }
 
 void* HM3Pointers::TimePtr() const

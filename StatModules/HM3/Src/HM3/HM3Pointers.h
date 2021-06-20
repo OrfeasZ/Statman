@@ -19,8 +19,8 @@ protected:
 
 public:
 	HM3Stats* m_Stats;
+	uint8_t** m_class03Ptr;
 
 protected:
-	uint8_t** m_Difficulty;
 	uint8_t** m_Time;
 };
