@@ -66,7 +66,7 @@ namespace Statman.Engines
             { "m06\\m06_news", new Tuple<string, string, bool>("Murder of the Crows", "News", false) },
             
             { "m02\\m02_premission", new Tuple<string, string, bool>("You Better Watch Out", "Pre-Mission", false) },
-            { "scenes\\m07\\m07_premission.gms", new Tuple<string, string, bool>("You Better Watch Out", "Pre-Mission", false) },
+            { "scenes\\m02\\m02_premission.gms", new Tuple<string, string, bool>("You Better Watch Out", "Pre-Mission", false) },
             { "m02\\m02_main", new Tuple<string, string, bool>("You Better Watch Out", "In-Game", true) },
             { "scenes\\m02\\m02_main.gms", new Tuple<string, string, bool>("You Better Watch Out", "In-Game", true) },
             { "m02\\m02_postmission", new Tuple<string, string, bool>("You Better Watch Out", "Post-Mission", false) },
