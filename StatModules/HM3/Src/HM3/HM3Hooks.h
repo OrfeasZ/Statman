@@ -5,6 +5,7 @@
 
 class UnknownClass01;
 class UnknownClass02;
+class UnknownClass05;
 class LimitSavesElement;
 struct DetectionIterator;
 
@@ -18,9 +19,9 @@ protected:
 	void Install(HM3Version version);
 
 public:
-	typedef char (__thiscall* LoadScene_t)(void* th);
+	typedef char (__thiscall* LoadScene_t)(UnknownClass05* th, void* unknown);
 	static LoadScene_t LoadScene;
-	static char __fastcall c_LoadScene(void* th);
+	static char __fastcall c_LoadScene(UnknownClass05* th, int, void* unknown);
 
 	typedef char (__thiscall* UnknownUpdateFunc01_t)(UnknownClass01* th);
 	static UnknownUpdateFunc01_t UnknownUpdateFunc01;

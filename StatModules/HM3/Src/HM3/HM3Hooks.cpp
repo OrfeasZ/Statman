@@ -15,7 +15,7 @@ static const DetourAddresses DetourVersions[]
 {
 	{ 0x00000000, 0x00000000, 0x00000000, 0x00000000 }, // Unknown version
 	{ 0x0045A440, 0x006AF230, 0x006AEC80, 0x00677660 }, // Steam
-	{ 0x0045AC30, 0x006AFAF0, 0x006AF540, 0x00677F70 }  // GOG
+	{ 0x0045FCF0, 0x006AFAF0, 0x006AF540, 0x00677F70 }  // GOG
 };
 
 HM3Hooks::HM3Hooks(HM3Version version)
