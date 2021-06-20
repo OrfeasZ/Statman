@@ -25,6 +25,7 @@ namespace Statman.Engines
             { "scenes\\hideout\\hideout_main.gms", new Tuple<string, string, bool>("Hideout", "In-Game", true) },
 
             { "m00\\m00_intro", new Tuple<string, string, bool>("Death of a Showman", "Intro", false) },
+            { "scenes\\m00\\m00_intro.gms", new Tuple<string, string, bool>("Death of a Showman", "Intro", false) },
             { "m00\\m00_main", new Tuple<string, string, bool>("Death of a Showman", "In-Game", true) },
             { "scenes\\m00\\m00_main.gms", new Tuple<string, string, bool>("Death of a Showman", "In-Game", true) },
             { "m00\\m00_news", new Tuple<string, string, bool>("Death of a Showman", "News", false) },
@@ -108,6 +109,7 @@ namespace Statman.Engines
             { "m12\\m12_news", new Tuple<string, string, bool>("Amendment XXV", "News", false) },
 
             { "m13\\m13_intro", new Tuple<string, string, bool>("Requiem", "Intro", false) },
+            { "scenes\\m13\\m13_intro.gms", new Tuple<string, string, bool>("Requiem", "Intro", false) },
             { "m13\\m13_main", new Tuple<string, string, bool>("Requiem", "In-Game", true) },
             { "scenes\\m13\\m13_main.gms", new Tuple<string, string, bool>("Requiem", "In-Game", true) },
         };
