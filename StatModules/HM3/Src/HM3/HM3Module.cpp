@@ -45,7 +45,7 @@ HM3Module::HM3Module() :
 	// Setup pointers, functions, and hooks.
 	m_Pointers = new HM3Pointers(version);
 	// TODO: figure out addresses for these in GOG version
-	m_Functions = new HM3Functions();
+	m_Functions = new HM3Functions(version);
 	m_Hooks = new HM3Hooks(version);
 
 	// Setup Pipeman.

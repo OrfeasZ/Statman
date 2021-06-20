@@ -1,5 +1,6 @@
 #pragma once
 
+#include "HM3Version.h"
 #include <stdafx.h>
 
 class HM3NPC;
@@ -8,11 +9,11 @@ class GUIElement;
 class HM3Functions
 {
 public:
-	HM3Functions();
+	HM3Functions(HM3Version version);
 	~HM3Functions();
 
 protected:
-	void Setup();
+	void Setup(HM3Version version);
 
 public:
 	typedef HM3NPC* (__cdecl* GetNPCByID_t)(int id);
