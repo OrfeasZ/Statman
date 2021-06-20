@@ -25,7 +25,7 @@ int __fastcall HM3Hooks::c_EndLevel(UnknownClass01* th, int)
 	// Custom "Hitman 2016" logic.
 	if (g_Module && g_Module->Hitman2016Mode())
 	{
-		auto s_Class03 = *reinterpret_cast<UnknownClass03**>(0x0081F83C);
+		auto s_Class03 = *reinterpret_cast<UnknownClass03**>(0x0082083C);
 
 		/*auto s_WeaponsInHand = 0;
 
