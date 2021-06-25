@@ -273,6 +273,10 @@ namespace Statman.Engines
                 {
                     m_GameProcess = null;
                     Active = false;
+                    StatTracker.StatAddress = IntPtr.Zero;
+                    StatTracker.DifficultyAddress = IntPtr.Zero;
+                    TimeTracker.TimeAddress = IntPtr.Zero;
+
                 }
             }
 
