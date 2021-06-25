@@ -96,7 +96,6 @@
     <ClInclude Include="Src\HM3\Structs\LimitSavesElement.h" />
     <ClInclude Include="Src\HM3\Structs\UnknownClass03.h" />
     <ClInclude Include="Src\HM3\Structs\UnknownClass04.h" />
-    <ClInclude Include="Src\HM3\Structs\UnknownClass05.h" />
     <ClInclude Include="Src\stdafx.h" />
     <ClInclude Include="Src\HM3\Structs\HM3NPC.h" />
     <ClInclude Include="Src\HM3\Structs\HM3Stats.h" />

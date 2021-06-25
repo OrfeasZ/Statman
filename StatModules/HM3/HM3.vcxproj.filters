@@ -60,9 +60,6 @@
     <ClInclude Include="Src\HM3\HM3Version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\HM3\Structs\UnknownClass05.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\HM3\HM3Functions.cpp">
