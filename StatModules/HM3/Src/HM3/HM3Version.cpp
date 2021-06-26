@@ -12,7 +12,7 @@ struct PossibleVersion
 static const PossibleVersion POSSIBLE_VERSIONS[]
 {
 	{ "blood-build3-20060616-26123", (const char*)0x007562C0, HM3_GOG },
-	{ "blood-build3-20060601-26089", (const char*)0x007552C0, HM3_STEAM }, // Unknown
+	{ "blood-build3-20060601-26089", (const char*)0x007552C0, HM3_STEAM }
 };
 
 HM3Version CheckVersion()
