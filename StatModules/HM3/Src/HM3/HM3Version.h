@@ -1,5 +1,4 @@
-#ifndef HM3VERSION_H
-#define HM3VERSION_H
+#pragma once
 
 enum HM3Version
 {
@@ -10,4 +9,3 @@ enum HM3Version
 
 HM3Version CheckVersion();
 
-#endif
