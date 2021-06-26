@@ -19,7 +19,14 @@ namespace Statman.Engines.HM3
         {
             try
             {
-                var s_TimeData = TimeAddress != IntPtr.Zero ? m_Engine.Reader.Read(TimeAddress, 4) : null;
+                var s_BasePtrData = TimeAddress != IntPtr.Zero ? m_Engine.Reader.Read(TimeAddress, 4) : null;
+
+                if (s_BasePtrData == null)
+                    return false;
+
+                var s_BasePtr = BitConverter.ToUInt32(s_BasePtrData, 0);
+
+                var s_TimeData = m_Engine.Reader.Read(s_BasePtr + 0x48, 4);
 
                 if (s_TimeData == null)
                     return false;

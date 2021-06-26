@@ -30,17 +30,7 @@ void HM3Pointers::Setup(HM3Version version)
 	const DataAddresses& addresses(DataVersions[version]);
 
 	m_Stats = (HM3Stats*)addresses.Stats;
-	m_class03Ptr = (uint8_t**)addresses.Class03Ptr;
-	m_Time = (uint8_t**)addresses.TimePtr;
+	m_class03Ptr = (void*)addresses.Class03Ptr;
+	m_Time = (void*)addresses.TimePtr;
 	m_cheatsEnabled = (bool*)addresses.CheatPtr;
-}
-
-void* HM3Pointers::DifficultyPtr() const
-{
-	return m_class03Ptr != nullptr && *m_class03Ptr != nullptr ? *m_class03Ptr + 0x6664 : nullptr;
-}
-
-void* HM3Pointers::TimePtr() const
-{
-	return m_Time != nullptr && *m_Time != nullptr ? *m_Time + 0x48 : nullptr;
 }
