@@ -1,5 +1,6 @@
 #pragma once
 
+#include "HM3Version.h"
 #include <stdafx.h>
 
 class UnknownClass01;
@@ -10,11 +11,11 @@ struct DetectionIterator;
 class HM3Hooks
 {
 public:
-	HM3Hooks();
+	HM3Hooks(HM3Version version);
 	~HM3Hooks();
 
 protected:
-	void Install();
+	void Install(HM3Version version);
 
 public:
 	typedef char (__thiscall* LoadScene_t)(void* th, const char* scene);

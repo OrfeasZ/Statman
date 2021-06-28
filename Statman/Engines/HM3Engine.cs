@@ -273,6 +273,10 @@ namespace Statman.Engines
                 {
                     m_GameProcess = null;
                     Active = false;
+                    StatTracker.StatAddress = IntPtr.Zero;
+                    StatTracker.DifficultyAddress = IntPtr.Zero;
+                    TimeTracker.TimeAddress = IntPtr.Zero;
+
                 }
             }
 
@@ -315,6 +319,33 @@ namespace Statman.Engines
                     Control.SetCurrentLevel(CurrentLevel);
                     Control.SetCurrentLevelScene(CurrentLevelScene);
 
+                    break;
+                }
+                case "SA":
+                {
+                    int statAddr = 0;
+                    if (int.TryParse(p_Data, out statAddr))
+                    {
+                        StatTracker.StatAddress = new IntPtr(statAddr);
+                    }
+                    break;
+                }
+                case "DA":
+                {
+                    int difficultyAddr = 0;
+                    if (int.TryParse(p_Data, out difficultyAddr))
+                    {
+                        StatTracker.DifficultyAddress = new IntPtr(difficultyAddr);
+                    }
+                    break;
+                }
+                case "TA":
+                {
+                    int timeAddr = 0;
+                    if (int.TryParse(p_Data, out timeAddr))
+                    {
+                        TimeTracker.TimeAddress = new IntPtr(timeAddr);
+                    }
                     break;
                 }
             }
