@@ -10,7 +10,7 @@
     <RootNamespace>Statman</RootNamespace>
     <AssemblyName Condition="'$(Platform)'=='x86'">Statman</AssemblyName>
     <AssemblyName Condition="'$(Platform)'=='x64'">Statman64</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -32,26 +32,6 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>..\bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
   <PropertyGroup>
     <StartupObject>Statman.App</StartupObject>
   </PropertyGroup>
@@ -63,15 +43,15 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <OutputPath>..\_build\bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;AMD64</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>..\bin\Release\</OutputPath>
+    <OutputPath>..\_build\bin\Release\</OutputPath>
     <DefineConstants>TRACE;AMD64</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -82,7 +62,24 @@
   <PropertyGroup>
     <AssemblyName>Statman</AssemblyName>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <OutputPath>..\_build\bin32\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\_build\bin32\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PeNet, Version=0.6.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PeNet.0.6.8\lib\net461\PeNet.dll</HintPath>
+    </Reference>
+    <Reference Include="PeNet.Asn1, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PeNet.Asn1.1.0.8\lib\net461\PeNet.Asn1.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -101,9 +98,40 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engines\HM52021Engine.cs" />
+    <Compile Include="Engines\HM52021\Controls\MainControl.xaml.cs">
+      <DependentUpon>MainControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Engines\HM52021\Windows\SceneLoader.xaml.cs">
+      <DependentUpon>SceneLoader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Engines\HM5Engine.cs" />
+    <Compile Include="Engines\HM5\Controls\AdvancedRating.xaml.cs">
+      <DependentUpon>AdvancedRating.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Engines\HM5\Controls\MainControl.xaml.cs">
       <DependentUpon>MainControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Engines\HM5\Controls\RatingChange.xaml.cs">
+      <DependentUpon>RatingChange.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Engines\HM5\Controls\VanillaRating.xaml.cs">
+      <DependentUpon>VanillaRating.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Engines\HM5\CustomTracker.cs" />
+    <Compile Include="Engines\HM5\CustomTracking\AmbianceValue.cs" />
+    <Compile Include="Engines\HM5\CustomTracking\DeadBodyData.cs" />
+    <Compile Include="Engines\HM5\CustomTracking\BodyFoundValue.cs" />
+    <Compile Include="Engines\HM5\CustomTracking\Events.cs" />
+    <Compile Include="Engines\HM5\CustomTracking\GameEvent.cs" />
+    <Compile Include="Engines\HM5\CustomTracking\KillData.cs" />
+    <Compile Include="Engines\HM5\CustomTracking\MurderedBodyValue.cs" />
+    <Compile Include="Engines\HM5\CustomTracking\SetPieceValue.cs" />
+    <Compile Include="Engines\HM5\StatTracker.cs" />
+    <Compile Include="Engines\HM5\Structs.cs" />
+    <Compile Include="Engines\HM5\TimeTracker.cs" />
+    <Compile Include="Engines\HM5\Windows\SceneLoader.xaml.cs">
+      <DependentUpon>SceneLoader.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\UpdateWindow.xaml.cs">
       <DependentUpon>UpdateWindow.xaml</DependentUpon>
@@ -141,9 +169,33 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Engines\HM52021\Controls\MainControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Engines\HM52021\Windows\SceneLoader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Engines\HM5\Controls\AdvancedRating.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Engines\HM5\Controls\MainControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Engines\HM5\Controls\RatingChange.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Engines\HM5\Controls\VanillaRating.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Engines\HM5\Windows\SceneLoader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\AnimatedWindow.generic.xaml">
       <SubType>Designer</SubType>
@@ -207,6 +259,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.manifest" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

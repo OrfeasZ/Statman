@@ -11,12 +11,10 @@
 #include <HM3/Structs/UnknownClass03.h>
 #include <HM3/Structs/UnknownClass04.h>
 
-HM3Hooks::EndLevel_t HM3Hooks::EndLevel = nullptr;
-
-int __fastcall HM3Hooks::c_EndLevel(UnknownClass01* th, int)
+DECLARE_THISCALL_DETOUR(HM3Hooks, int, EndLevel, UnknownClass01* th)
 {
 	if (!g_Module || !g_Module->Pointers() || !g_Module->Functions())
-		return EndLevel(th);
+		return o_EndLevel(th);
 
 	// Reset witness count.
 	if (g_Module->Pointers()->m_Stats)
@@ -49,5 +47,5 @@ int __fastcall HM3Hooks::c_EndLevel(UnknownClass01* th, int)
 			s_Class03->m_Unknown01->m_Unknown01 = s_Class03->m_Unknown01->m_Unknown02 = nullptr;
 	}
 
-	return EndLevel(th);
+	return o_EndLevel(th);
 }

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{DB4ADF8E-25DF-466F-A4C0-C80CD4B931B0}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>HM52021</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)_build\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)_build\obj\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)_build\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)_build\obj\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;HM5_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Src;$(SolutionDir)External\include;$(SolutionDir)Libraries\Pipeman\Include;$(SolutionDir)_build\lib\$(Configuration)\$(Platform);$(SolutionDir)External\modules\minhook\include;$(SolutionDir)Libraries\StatmanCommons\Include</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)External\lib;$(SolutionDir)_build\lib\$(Configuration)\$(Platform)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Pipeman.lib;libMinHook.lib;StatmanCommons.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;HM5_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Src;$(SolutionDir)External\include;$(SolutionDir)Libraries\Pipeman\Include;$(SolutionDir)_build\lib\$(Configuration)\$(Platform);$(SolutionDir)External\modules\minhook\include;$(SolutionDir)Libraries\StatmanCommons\Include</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)External\lib;$(SolutionDir)_build\lib\$(Configuration)\$(Platform)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Pipeman.lib;libMinHook.lib;StatmanCommons.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\HM52021\HM52021Generator.h" />
+    <ClInclude Include="Src\HM52021\HM52021Hooks.h" />
+    <ClInclude Include="Src\HM52021\HM52021Module.h" />
+    <ClInclude Include="Src\HM52021\HM52021PinHandler.h" />
+    <ClInclude Include="Src\HM52021\HM52021Pointers.h" />
+    <ClInclude Include="Src\HM52021\Structs\Reflection.h" />
+    <ClInclude Include="Src\HM52021\Structs\TArray.h" />
+    <ClInclude Include="Src\HM52021\Structs\THashMap.h" />
+    <ClInclude Include="Src\HM52021\Structs\TMap.h" />
+    <ClInclude Include="Src\HM52021\Structs\TPair.h" />
+    <ClInclude Include="Src\HM52021\Structs\ZAIGameState.h" />
+    <ClInclude Include="Src\HM52021\Structs\ZEntity.h" />
+    <ClInclude Include="Src\HM52021\Structs\ZGameContext.h" />
+    <ClInclude Include="Src\HM52021\Structs\ZGameStats.h" />
+    <ClInclude Include="Src\HM52021\Structs\ZGameTime.h" />
+    <ClInclude Include="Src\HM52021\Structs\ZHttp.h" />
+    <ClInclude Include="Src\HM52021\Structs\ZModule.h" />
+    <ClInclude Include="Src\HM52021\Structs\ZObject.h" />
+    <ClInclude Include="Src\HM52021\Structs\ZResourceID.h" />
+    <ClInclude Include="Src\HM52021\Structs\ZScene.h" />
+    <ClInclude Include="Src\HM52021\Structs\ZString.h" />
+    <ClInclude Include="Src\HM52021\Structs\ZTypeRegistry.h" />
+    <ClInclude Include="Src\stdafx.h" />
+    <ClInclude Include="Src\targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\Entry.cpp" />
+    <ClCompile Include="Src\HM52021\HM52021Generator.cpp" />
+    <ClCompile Include="Src\HM52021\HM52021Hooks.cpp" />
+    <ClCompile Include="Src\HM52021\HM52021Module.cpp" />
+    <ClCompile Include="Src\HM52021\HM52021PinHandler.cpp" />
+    <ClCompile Include="Src\HM52021\HM52021PinRegistry.cpp" />
+    <ClCompile Include="Src\HM52021\HM52021Pointers.cpp" />
+    <ClCompile Include="Src\HM52021\Hooks\Network.cpp" />
+    <ClCompile Include="Src\HM52021\Hooks\Scenes.cpp" />
+    <ClCompile Include="Src\HM52021\Hooks\Scripting.cpp" />
+    <ClCompile Include="Src\HM52021\Structs\ZObject.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -26,8 +26,8 @@ namespace Statman.Windows
 
         public MainWindow()
         {
-            string[] arguments = Environment.GetCommandLineArgs().Skip(1).ToArray();
-            m_DarkTheme = arguments.Length > 0 ? arguments[0] == "-dark" : false;
+            m_DarkTheme = Environment.GetCommandLineArgs().Skip(1).Any(p_Argument =>
+                p_Argument.Equals("-dark", StringComparison.OrdinalIgnoreCase));
 
             m_DefaultMenuItems = new List<Control>();
             m_ContextMenuItems = new ObservableCollection<Control>();

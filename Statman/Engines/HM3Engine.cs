@@ -243,7 +243,7 @@ namespace Statman.Engines
                         Active = true;
 
                         // Create our injector and inject our stat module.
-                        m_Injector = new Injector(m_GameProcess, false);
+                        m_Injector = new Injector(m_GameProcess, true);
                         m_Injector.InjectLibrary("HM3.dll");
 
                         // Setup our main control.
@@ -351,7 +351,7 @@ namespace Statman.Engines
             }
         }
 
-        public void SendMessage(string p_Type, string p_Contents)
+        public void SendMessage(string p_Type, string p_Contents = "")
         {
             MainApp.Pipeman.PushMessage(new PipeMessage()
             {
@@ -363,6 +363,8 @@ namespace Statman.Engines
 
         public void Dispose()
         {
+            SendMessage("XX");
+
             if (Reader != null)
             {
                 Reader.CloseHandle();

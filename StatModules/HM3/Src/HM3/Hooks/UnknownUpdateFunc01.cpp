@@ -11,12 +11,10 @@
 #include <HM3/Structs/UnknownClass03.h>
 #include <HM3/Structs/UnknownClass04.h>
 
-HM3Hooks::UnknownUpdateFunc01_t HM3Hooks::UnknownUpdateFunc01 = nullptr;
-
-char __fastcall HM3Hooks::c_UnknownUpdateFunc01(UnknownClass01* th, int)
+DECLARE_THISCALL_DETOUR(HM3Hooks, char, UnknownUpdateFunc01, UnknownClass01* th)
 {
 	if (!g_Module || !g_Module->Pointers() || !g_Module->Functions())
-		return UnknownUpdateFunc01(th);
+		return o_UnknownUpdateFunc01(th);
 
 	// VTable: 0x00755ADC
 	UnknownClass02* s_Class02 = (UnknownClass02*) ((char*) th + sizeof(UnknownClass01));
@@ -69,5 +67,5 @@ char __fastcall HM3Hooks::c_UnknownUpdateFunc01(UnknownClass01* th, int)
 			g_Module->Pointers()->m_Stats->m_SuitLeftOnLevel = false;
 	}
 
-	return UnknownUpdateFunc01(th);
+	return o_UnknownUpdateFunc01(th);
 }

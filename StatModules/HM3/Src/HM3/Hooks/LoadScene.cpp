@@ -4,9 +4,7 @@
 
 #include <Pipeman.h>
 
-HM3Hooks::LoadScene_t HM3Hooks::LoadScene = nullptr;
-
-char __fastcall HM3Hooks::c_LoadScene(void* th, int, const char* scene)
+DECLARE_THISCALL_DETOUR(HM3Hooks, char, LoadScene, void* th, const char* scene)
 {
 	// Send Pipeman message.
 	if (g_Module && g_Module->Pipe())
@@ -19,7 +17,7 @@ char __fastcall HM3Hooks::c_LoadScene(void* th, int, const char* scene)
 
 	Log("Loading scene: %s\n", scene);
 
-	char s_Return = LoadScene(th, scene);
+	char s_Return = o_LoadScene(th, scene);
 
 	// Cheats
 	if (g_Module)

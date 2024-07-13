@@ -13,6 +13,8 @@ Pipeman::Pipeman(const std::string& p_PipeName, const std::string& p_Module) :
 	m_Pipe(NULL),
 	m_PendingMessageLength(0),
 	m_MessageCallback(nullptr),
+	m_ConnectedCallback(nullptr),
+	m_DisconnectedCallback(nullptr),
 	m_Thread(&Pipeman::Update, this)
 {
 	if (m_Module.size() == 0)
@@ -27,13 +29,26 @@ Pipeman::Pipeman(const std::string& p_PipeName, const std::string& p_Module) :
 
 Pipeman::~Pipeman()
 {
+	// Wait for disconnect.
 	Disconnect();
+	m_Thread.join();
+
 	DeleteCriticalSection(&m_CriticalSection);
 }
 
 void Pipeman::SetMessageCallback(MessageCallback_t p_Callback)
 {
 	m_MessageCallback = p_Callback;
+}
+
+void Pipeman::SetConnectedCallback(std::function<void()> p_Callback)
+{
+	m_ConnectedCallback = p_Callback;
+}
+
+void Pipeman::SetDisconnectedCallback(std::function<void()> p_Callback)
+{
+	m_DisconnectedCallback = p_Callback;
 }
 
 void Pipeman::Disconnect()
@@ -86,7 +101,7 @@ void Pipeman::Update()
 
 			if (m_Pipe == NULL || m_Pipe == INVALID_HANDLE_VALUE || GetLastError() == ERROR_PIPE_BUSY)
 			{
-				Log("Failed to connect to handshake pipe %d %d.\n", GetLastError(), m_Pipe);
+				//Log("Failed to connect to handshake pipe %d %d.\n", GetLastError(), m_Pipe);
 				SetLastError(0);
 				m_Pipe = NULL;
 				continue;
@@ -167,7 +182,7 @@ void Pipeman::Update()
 
 			if (m_Pipe == NULL || m_Pipe == INVALID_HANDLE_VALUE || GetLastError() == ERROR_PIPE_BUSY)
 			{
-				Log("Failed to connect to main pipe %d %d.\n", GetLastError(), m_Pipe);
+				Log("Failed to connect to main pipe %d %p.\n", GetLastError(), m_Pipe);
 
 				SetLastError(0);
 				m_Pipe = NULL;
@@ -175,6 +190,8 @@ void Pipeman::Update()
 			}
 
 			Log("Connected to main pipe!\n");
+			if (m_ConnectedCallback)
+				m_ConnectedCallback();
 		}
 
 		if (m_Pipe == NULL)
@@ -204,6 +221,9 @@ void Pipeman::Update()
 				m_Pipe = NULL;
 
 				LeaveCriticalSection(&m_CriticalSection);
+
+				if (m_DisconnectedCallback)
+					m_DisconnectedCallback();
 				
 				continue;
 			}
@@ -221,6 +241,10 @@ void Pipeman::Update()
 
 			CloseHandle(m_Pipe);
 			m_Pipe = NULL;
+
+
+			if (m_DisconnectedCallback)
+				m_DisconnectedCallback();
 
 			continue;
 		}
@@ -241,6 +265,9 @@ void Pipeman::Update()
 
 				CloseHandle(m_Pipe);
 				m_Pipe = NULL;
+
+				if (m_DisconnectedCallback)
+					m_DisconnectedCallback();
 
 				continue;
 			}

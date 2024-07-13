@@ -1,7 +1,5 @@
 #include "HM3Hooks.h"
 
-#include <detours.h>
-
 struct DetourAddresses
 {
 	uint32_t LoadSceneDetour;
@@ -18,22 +16,58 @@ static const DetourAddresses DetourVersions[]
 	{ 0x0045A510, 0x006AFAF0, 0x006AF540, 0x00677F70 }  // GOG
 };
 
-HM3Hooks::HM3Hooks(HM3Version version)
+HM3Hooks::HM3Hooks(HM3Version p_Version) :
+	m_Installed(false)
 {
-	Install(version);
+	Install(p_Version);
 }
 
 HM3Hooks::~HM3Hooks()
 {
-
+	Uninstall();
 }
 
-void HM3Hooks::Install(HM3Version version)
+void HM3Hooks::Install(HM3Version p_Version)
 {
-	const DetourAddresses& addresses(DetourVersions[version]);
+	if (m_Installed)
+		return;
 
-	LoadScene = addresses.LoadSceneDetour != 0 ? (LoadScene_t) DetourFunction((PBYTE) addresses.LoadSceneDetour, (PBYTE) c_LoadScene) : nullptr;
-	UnknownUpdateFunc01 = addresses.UnknownUpdateDetour != 0 ? (UnknownUpdateFunc01_t) DetourFunction((PBYTE) addresses.UnknownUpdateDetour, (PBYTE) c_UnknownUpdateFunc01) : nullptr;
-	EndLevel = addresses.EndLevelDetour != 0 ? (EndLevel_t) DetourFunction((PBYTE) addresses.EndLevelDetour, (PBYTE) c_EndLevel) : nullptr;
-	LimitedLives_SelectedGUIElement = addresses.LimitedLivesDetour != 0 ? (LimitedLives_SelectedGUIElement_t) DetourFunction((PBYTE) addresses.LimitedLivesDetour, (PBYTE) c_LimitedLives_SelectedGUIElement) : nullptr;
+	if (MH_Initialize() != MH_OK)
+	{
+		Log("Failed to initialize MinHook.\n");
+		return;
+	}
+
+	const DetourAddresses& s_Addresses(DetourVersions[p_Version]);
+
+	if (s_Addresses.LoadSceneDetour == 0)
+	{
+		Log("Unsupported game version.\n");
+		return;
+	}
+
+	m_Installed = true;
+
+	DECLARE_OFFSET_HOOK(LoadScene, s_Addresses.LoadSceneDetour);
+	DECLARE_OFFSET_HOOK(UnknownUpdateFunc01, s_Addresses.UnknownUpdateDetour);
+	DECLARE_OFFSET_HOOK(EndLevel, s_Addresses.EndLevelDetour);
+	DECLARE_OFFSET_HOOK(LimitedLives_SelectedGUIElement, s_Addresses.LimitedLivesDetour);
+	//DECLARE_OFFSET_HOOK(UnknownClass02_NextDetectionNPC, 0x0042E810); // 0x0042E850?
+}
+
+void HM3Hooks::Uninstall()
+{
+	if (!m_Installed)
+		return;
+	
+	m_Installed = false;
+
+	REMOVE_HOOK(LoadScene);
+	REMOVE_HOOK(UnknownUpdateFunc01);
+	REMOVE_HOOK(EndLevel);
+	REMOVE_HOOK(LimitedLives_SelectedGUIElement);
+	//REMOVE_HOOK(UnknownClass02_NextDetectionNPC);
+
+	if (MH_Uninitialize() != MH_OK)
+		Log("Failed to uninitialize MinHook.\n");
 }

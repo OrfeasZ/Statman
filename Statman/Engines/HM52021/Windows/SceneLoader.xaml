@@ -1,0 +1,23 @@
+﻿<Window x:Class="Statman.Engines.HM52021.Windows.SceneLoader"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Statman.Engines.HM5.Windows"
+        mc:Ignorable="d"
+        Title="SceneLoader" Height="395" Width="516">
+    <Grid>
+        <Button x:Name="LoadSceneBtn" Content="Load Scene" Margin="0,0,10,10" HorizontalAlignment="Right" Width="98" Click="LoadSceneBtn_Click" Height="20" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="SceneNameText" Height="23" Margin="10,41,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Label Content="Scene Name" Margin="10,15,10,0" VerticalAlignment="Top" RenderTransformOrigin="0.079,0.5" Height="26"/>
+        <TextBox x:Name="Brick1Text" Height="23" Margin="10,106,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Label Content="Additional Bricks" Margin="10,80,10,0" VerticalAlignment="Top" RenderTransformOrigin="0.079,0.5" Height="26"/>
+        <TextBox x:Name="Brick2Text" Height="23" Margin="10,134,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="Brick3Text" Height="23" Margin="10,162,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="SceneTypeText" Height="23" Margin="10,229,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Label Content="Scene Type" Margin="10,203,10,0" VerticalAlignment="Top" RenderTransformOrigin="0.079,0.5" Height="26"/>
+        <TextBox x:Name="CodeNameHintText" Height="23" Margin="10,291,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Label Content="CodeName Hint" Margin="10,265,10,0" VerticalAlignment="Top" RenderTransformOrigin="0.079,0.5" Height="26"/>
+
+    </Grid>
+</Window>

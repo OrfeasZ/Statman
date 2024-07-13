@@ -17,12 +17,21 @@ HM3Module::HM3Module() :
 	m_Hitman2016Mode(false)
 {
 	if (!CheckInstance())
+	{
+		Log("The current stat module is already loaded. Exiting.\n");
 		return;
+	}
+
 
 #ifdef _DEBUG
-	AllocConsole();
-	AttachConsole(GetCurrentProcessId());
-	freopen("CON", "w", stdout);
+	char s_Buffer[2];
+	if (!GetEnvironmentVariableA("Statman_HM3", s_Buffer, 2) || s_Buffer[0] != 0x02)
+	{
+		AllocConsole();
+		AttachConsole(GetCurrentProcessId());
+		SetConsoleTitleA("Statman - Debug Console");
+		freopen("CON", "w", stdout);
+	}
 #endif
 
 	Log("Initializing Statman HM3 stat module...\n");
@@ -70,6 +79,8 @@ HM3Module::~HM3Module()
 	m_Hooks = nullptr;
 	m_Pointers = nullptr;
 	m_Functions = nullptr;
+
+	SetEnvironmentVariable("Statman_HM3", "\x02\x00");
 }
 
 bool HM3Module::CheckInstance()
@@ -88,6 +99,8 @@ void HM3Module::PerformPatches()
 
 void HM3Module::OnMessage(const std::string& p_Type, const std::string& p_Content)
 {
+	Log("Got message '%s' from IPC: %s\n", p_Type.c_str(), p_Content.c_str());
+
 	if (p_Type == "EC")
 	{
 		// Enable cheats.
@@ -107,6 +120,21 @@ void HM3Module::OnMessage(const std::string& p_Type, const std::string& p_Conten
 	{
 		// Unlimited saves.
 		m_Hitman2016Mode = p_Content == "true";
+		return;
+	}
+
+	if (p_Type == "XX")
+	{
+		Log("Statman requested exit.\n");
+
+		std::thread s_ExitThread([]()
+		{
+			delete g_Module;
+			g_Module = nullptr;
+		});
+
+		s_ExitThread.detach();
+
 		return;
 	}
 }

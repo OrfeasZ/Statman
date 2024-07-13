@@ -67,8 +67,7 @@ namespace Statman.Network
 
             m_NotifiedSucceeded = true;
 
-            if (Disconnected != null)
-                Disconnected(this);
+            Disconnected?.Invoke(this);
         }
 
         private void ReadPipe()
@@ -83,8 +82,7 @@ namespace Statman.Network
                     return;
                 }
 
-                if (ReceiveMessage != null)
-                    ReceiveMessage(this, s_Message);
+                ReceiveMessage?.Invoke(this, s_Message);
             }
         }
 
@@ -93,6 +91,7 @@ namespace Statman.Network
             while (IsConnected && m_StreamWrapper.CanWrite)
             {
                 m_WriteSignal.WaitOne();
+
                 while (m_WriteQueue.Count > 0)
                 {
                     m_StreamWrapper.WriteMessage(m_WriteQueue.Dequeue());
