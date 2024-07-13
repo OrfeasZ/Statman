@@ -56,3 +56,13 @@ This is currently a "custom" mode which makes the game not consider the location
 In order to use Statman you simply need to extract the binaries from the downloaded archive (or compile it yourself), and run **Statman.exe**. It is recommended to start Statman before starting the game in order to have full tracking capabilities from the beginning.
 
 Game-specific features can be accessed by right-clicking on the statman logo while the game is running.
+
+### Building
+
+Clone the git repo and ensure all submodules are checked out by running:
+
+```sh
+git submodule update --init --recursive
+```
+
+Then open `Statman.sln` in Visual Studio 2022, select the `x86` platform target for using Statman with Hitman Blood Money, or the `x64` platform target for using it with Hitman 2016+, and press `|> Start`.
