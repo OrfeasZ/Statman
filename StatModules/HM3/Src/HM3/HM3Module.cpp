@@ -49,10 +49,12 @@ HM3Module::HM3Module() :
 	// Patch required data.
 	PerformPatches();
 
+	const HM3Version version = CheckVersion();
+
 	// Setup pointers, functions, and hooks.
-	m_Pointers = new HM3Pointers();
-	m_Functions = new HM3Functions();
-	m_Hooks = new HM3Hooks();
+	m_Pointers = new HM3Pointers(version);
+	m_Functions = new HM3Functions(version);
+	m_Hooks = new HM3Hooks(version);
 
 	// Setup Pipeman.
 	m_Pipeman = new Pipeman("\\\\.\\pipe\\Statman_IPC", "H3");

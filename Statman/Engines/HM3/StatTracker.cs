@@ -72,6 +72,9 @@ namespace Statman.Engines.HM3
 
         private readonly HM3Engine m_Engine;
 
+        public static IntPtr StatAddress = IntPtr.Zero;
+        public static IntPtr DifficultyAddress = IntPtr.Zero;
+
         public StatTracker(HM3Engine p_Engine)
         {
             m_Engine = p_Engine;
@@ -81,7 +84,7 @@ namespace Statman.Engines.HM3
         {
             try
             {
-                var s_StructData = m_Engine.Reader.Read(m_Engine.Reader.Process.MainModule.BaseAddress + 0x005B2538, 0x10C);
+                var s_StructData = StatAddress != IntPtr.Zero ? m_Engine.Reader.Read(StatAddress, 0x10C) : null;
 
                 if (s_StructData == null)
                     return false;
@@ -106,7 +109,7 @@ namespace Statman.Engines.HM3
             // Get difficulty.
             try
             {
-                var s_DifficultyPtrData = m_Engine.Reader.Read(m_Engine.Reader.Process.MainModule.BaseAddress + 0x41F83C, 4);
+                var s_DifficultyPtrData = DifficultyAddress != IntPtr.Zero ? m_Engine.Reader.Read(DifficultyAddress, 4) : null;
 
                 if (s_DifficultyPtrData != null)
                 {

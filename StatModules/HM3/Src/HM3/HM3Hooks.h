@@ -2,6 +2,7 @@
 
 #include <stdafx.h>
 #include <Hooks.h>
+#include "HM3Version.h"
 
 class UnknownClass01;
 class UnknownClass02;
@@ -11,11 +12,11 @@ struct DetectionIterator;
 class HM3Hooks
 {
 public:
-	HM3Hooks();
+	HM3Hooks(HM3Version version);
 	~HM3Hooks();
 
 protected:
-	void Install();
+	void Install(HM3Version version);
 	void Uninstall();
 
 public:

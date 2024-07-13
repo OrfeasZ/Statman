@@ -23,7 +23,7 @@ DECLARE_THISCALL_DETOUR(HM3Hooks, int, EndLevel, UnknownClass01* th)
 	// Custom "Hitman 2016" logic.
 	if (g_Module && g_Module->Hitman2016Mode())
 	{
-		auto s_Class03 = *reinterpret_cast<UnknownClass03**>(0x0081F83C);
+		auto s_Class03 = *reinterpret_cast<UnknownClass03**>(g_Module->Pointers()->m_class03Ptr);
 
 		/*auto s_WeaponsInHand = 0;
 

@@ -1,8 +1,24 @@
 #include "HM3Functions.h"
 
-HM3Functions::HM3Functions()
+struct FunctionAddresses
 {
-	Setup();
+	uint32_t GetNPCByIDAddr;
+	uint32_t SelectedGUIElementAddr;
+	uint32_t UnknownFunction01Addr;
+	uint32_t UnknownFunction02Addr;
+	uint32_t GetNPCWeaponCountAddr;
+};
+
+static const FunctionAddresses FunctionVersions[]
+{
+	{ 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000 }, // Unknown
+	{ 0x004E5110, 0x0055FA10, 0x00656A10, 0x00656A60, 0x006AE000 }, // Steam
+	{ 0x004E5BE0, 0x00560440, 0x00657170, 0x006571C0, 0x006AE880 }  // GOG
+};
+
+HM3Functions::HM3Functions(HM3Version version)
+{
+	Setup(version);
 }
 
 HM3Functions::~HM3Functions()
@@ -10,11 +26,12 @@ HM3Functions::~HM3Functions()
 
 }
 
-void HM3Functions::Setup()
+void HM3Functions::Setup(HM3Version version)
 {
-	GetNPCByID = (GetNPCByID_t) 0x004E5110;
-	SelectedGUIElement = (SelectedGUIElement_t) 0x0055FA10;
-	UnknownFunction01 = (UnknownFunction01_t) 0x00656A10;
-	UnknownFunction02 = (UnknownFunction02_t) 0x00656A60;
-	GetNPCWeaponCount = (GetNPCWeaponCount_t) 0x006AE000;
+	const FunctionAddresses& addresses(FunctionVersions[version]);
+	GetNPCByID = (GetNPCByID_t) addresses.GetNPCByIDAddr;
+	SelectedGUIElement = (SelectedGUIElement_t) addresses.SelectedGUIElementAddr;
+	UnknownFunction01 = (UnknownFunction01_t) addresses.UnknownFunction01Addr;
+	UnknownFunction02 = (UnknownFunction02_t) addresses.UnknownFunction02Addr;
+	GetNPCWeaponCount = (GetNPCWeaponCount_t) addresses.GetNPCWeaponCountAddr;
 }
