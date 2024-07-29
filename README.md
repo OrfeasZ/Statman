@@ -65,4 +65,6 @@ Clone the git repo and ensure all submodules are checked out by running:
 git submodule update --init --recursive
 ```
 
+Make sure that the [DirectX SDK](https://www.microsoft.com/en-us/download/details.aspx?id=6812) is installed.
+
 Then open `Statman.sln` in Visual Studio 2022, select the `x86` platform target for using Statman with Hitman Blood Money, or the `x64` platform target for using it with Hitman 2016+, and press `|> Start`.

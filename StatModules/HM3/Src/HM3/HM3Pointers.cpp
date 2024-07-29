@@ -30,7 +30,7 @@ void HM3Pointers::Setup(HM3Version version)
 	const DataAddresses& addresses(DataVersions[version]);
 
 	m_Stats = (HM3Stats*)addresses.Stats;
-	m_class03Ptr = (void*)addresses.Class03Ptr;
-	m_Time = (void*)addresses.TimePtr;
+	m_class03Ptr = (Class03**)addresses.Class03Ptr;
+	m_Time = (HM3Time**)addresses.TimePtr;
 	m_cheatsEnabled = (bool*)addresses.CheatPtr;
 }

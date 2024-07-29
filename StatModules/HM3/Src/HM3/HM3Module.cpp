@@ -46,6 +46,21 @@ HM3Module::HM3Module() :
 
 	Log("Initialized!\n");
 
+	/*
+	// Print item names
+	struct ItemTypeName {
+		int32_t id;
+		const char* name;
+	};
+
+	auto* s_ItemTypeNames = reinterpret_cast<ItemTypeName*>(0x008031E0);
+
+	for (int i = 0; i < 321; ++i) {
+		Log("Item [%d] = %s\n", s_ItemTypeNames[i].id, s_ItemTypeNames[i].name);
+	}
+
+	Sleep(5000);*/
+
 	// Patch required data.
 	PerformPatches();
 
@@ -60,6 +75,7 @@ HM3Module::HM3Module() :
 	m_Pipeman = new Pipeman("\\\\.\\pipe\\Statman_IPC", "H3");
 	m_Pipeman->SetMessageCallback(std::bind(&HM3Module::OnMessage, this, std::placeholders::_1, std::placeholders::_2));
 }
+
 
 HM3Module::~HM3Module()
 {

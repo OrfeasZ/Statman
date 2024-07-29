@@ -5,6 +5,16 @@
 
 class HM3Stats;
 
+struct HM3Time {
+	PAD(0x48);
+	uint32_t m_Ticks;
+};
+
+struct Class03 {
+	PAD(0x6664);
+	uint8_t m_Difficulty;
+};
+
 class HM3Pointers
 {
 public:
@@ -16,7 +26,7 @@ protected:
 
 public:
 	HM3Stats* m_Stats;
-	void*     m_class03Ptr;
+	Class03** m_class03Ptr;
 	bool*     m_cheatsEnabled;
-	void*     m_Time;
+	HM3Time** m_Time;
 };

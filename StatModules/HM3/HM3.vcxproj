@@ -59,13 +59,13 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;HM3_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <AdditionalIncludeDirectories>$(ProjectDir)Src;$(SolutionDir)External\include;$(SolutionDir)Libraries\Pipeman\Include;$(SolutionDir)_build\lib\$(Configuration)\$(Platform);$(SolutionDir)External\modules\minhook\include;$(SolutionDir)Libraries\StatmanCommons\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Src;$(SolutionDir)External\include;$(SolutionDir)Libraries\Pipeman\Include;$(SolutionDir)_build\lib\$(Configuration)\$(Platform);$(SolutionDir)External\modules\minhook\include;$(SolutionDir)Libraries\StatmanCommons\Include;$(DXSDK_DIR)Include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)External\lib;$(SolutionDir)_build\lib\$(Configuration)\$(Platform);$(SolutionDir)lib\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)External\lib;$(SolutionDir)_build\lib\$(Configuration)\$(Platform);$(SolutionDir)lib\$(Configuration);$(DXSDK_DIR)Lib\x86</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <AdditionalDependencies>Pipeman.lib;libMinHook.x86.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -78,7 +78,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;HM3_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)Src;$(SolutionDir)External\include;$(SolutionDir)Libraries\Pipeman\Include;$(SolutionDir)_build\lib\$(Configuration)\$(Platform);$(SolutionDir)External\modules\minhook\include;$(SolutionDir)Libraries\StatmanCommons\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Src;$(SolutionDir)External\include;$(SolutionDir)Libraries\Pipeman\Include;$(SolutionDir)_build\lib\$(Configuration)\$(Platform);$(SolutionDir)External\modules\minhook\include;$(SolutionDir)Libraries\StatmanCommons\Include;$(DXSDK_DIR)Include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -86,7 +86,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)External\lib;$(SolutionDir)_build\lib\$(Configuration)\$(Platform);$(SolutionDir)lib\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)External\lib;$(SolutionDir)_build\lib\$(Configuration)\$(Platform);$(SolutionDir)lib\$(Configuration);$(DXSDK_DIR)Lib\x86</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <AdditionalDependencies>Pipeman.lib;libMinHook.x86.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -109,6 +109,7 @@
     <ClInclude Include="Src\targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\HM3\Overlay.cpp" />
     <ClCompile Include="Src\Entry.cpp" />
     <ClCompile Include="Src\HM3\HM3Module.cpp" />
     <ClCompile Include="Src\HM3\HM3Functions.cpp" />

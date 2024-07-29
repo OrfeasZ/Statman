@@ -95,5 +95,8 @@
     <ClCompile Include="Src\HM3\HM3Version.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\HM3\Overlay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

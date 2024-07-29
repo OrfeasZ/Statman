@@ -83,13 +83,13 @@
 		typedef returnType (__cdecl* name ## _t)(__VA_ARGS__); \
 		static name ## _t o_ ## name; \
 		static returnType __cdecl c_ ## name(__VA_ARGS__); \
-		static void* m_ ## name;
+		void* m_ ## name;
 
 #	define DECLARE_STDCALL_HOOK(returnType, name, ...) \
 		typedef returnType (__stdcall* name ## _t)(__VA_ARGS__); \
 		static name ## _t o_ ## name; \
 		static returnType __stdcall c_ ## name(__VA_ARGS__); \
-		static void* m_ ## name;
+		void* m_ ## name;
 #endif
 
 // Detour macros

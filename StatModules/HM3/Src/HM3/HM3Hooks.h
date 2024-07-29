@@ -3,6 +3,8 @@
 #include <stdafx.h>
 #include <Hooks.h>
 #include "HM3Version.h"
+#include <d3d9.h>
+#pragma comment(lib, "d3d9")
 
 class UnknownClass01;
 class UnknownClass02;
@@ -18,6 +20,7 @@ public:
 protected:
 	void Install(HM3Version version);
 	void Uninstall();
+	void HookD3D9();
 
 public:
 	DECLARE_THISCALL_HOOK(char, LoadScene, void* th, const char* scene);
@@ -25,6 +28,7 @@ public:
 	DECLARE_THISCALL_HOOK(int, EndLevel, UnknownClass01* th);
 	DECLARE_THISCALL_HOOK(void, LimitedLives_SelectedGUIElement, LimitSavesElement* th, void* a2, void* a3, void* a4);
 	DECLARE_THISCALL_HOOK(int, UnknownClass02_NextDetectionNPC, UnknownClass02* th, DetectionIterator* a2);
+	DECLARE_STDCALL_HOOK(HRESULT, IDirect3DDevice9__EndScene, IDirect3DDevice9* th);
 
 private:
 	bool m_Installed;

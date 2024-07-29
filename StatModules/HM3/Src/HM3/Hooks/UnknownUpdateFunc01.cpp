@@ -25,7 +25,7 @@ DECLARE_THISCALL_DETOUR(HM3Hooks, char, UnknownUpdateFunc01, UnknownClass01* th)
 	DetectionIterator s_DetectionIt;
 	s_Class02->InitDetectionIterator(&s_DetectionIt);
 
-	Log("Class2: %p\n", s_Class02);
+	//Log("Class2: %p\n", s_Class02);
 
 	for (int s_NPCID = s_Class02->NextDetectionNPC(&s_DetectionIt); s_DetectionIt.m_Unk01 > 0; s_NPCID = s_Class02->NextDetectionNPC(&s_DetectionIt))
 	{
