@@ -139,6 +139,13 @@ void HM3Module::OnMessage(const std::string& p_Type, const std::string& p_Conten
 		return;
 	}
 
+	if (p_Type == "OV")
+	{
+		// Overlay toggle
+		m_OverlayEnabled = p_Content == "true";
+		return;
+	}
+
 	if (p_Type == "XX")
 	{
 		Log("Statman requested exit.\n");

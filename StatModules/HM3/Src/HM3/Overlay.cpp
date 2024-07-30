@@ -327,6 +327,10 @@ DECLARE_STDCALL_DETOUR(HM3Hooks, HRESULT, IDirect3DDevice9__EndScene, IDirect3DD
 	const auto c_LeftOffset = 132;
 	const auto s_BottomOffset = 100;
 
+	if (!g_Module->OverlayEnabled()) {
+		return o_IDirect3DDevice9__EndScene(th);
+	}
+
 	if (!s_Font) {
 		const auto s_Result = D3DXCreateFont(th, 20, 0, FW_BOLD, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Arial", &s_Font);
 

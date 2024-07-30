@@ -160,10 +160,20 @@ namespace Statman.Engines
 
                 s_Hitman2016.Click += OnHitman2016Mode;
 
+                var s_IngameOverlay = new MenuItem()
+                {
+                    Header = "In-game Overlay",
+                    IsCheckable = true,
+                    IsChecked = Options.Get().HM3.Overlay,
+                };
+
+                s_IngameOverlay.Click += OnIngameOverlay;
+
                 m_MenuItems.Clear();
                 m_MenuItems.Add(s_EnableCheats);
                 m_MenuItems.Add(s_UnlimitedSaves);
                 m_MenuItems.Add(s_Hitman2016);
+                m_MenuItems.Add(s_IngameOverlay);
             });
         }
 
@@ -195,6 +205,16 @@ namespace Statman.Engines
                 return;
 
             SendMessage("H2", s_MenuItem.IsChecked ? "true" : "false");
+        }
+
+        private void OnIngameOverlay(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
+        {
+            var s_MenuItem = p_Sender as MenuItem;
+
+            if (s_MenuItem == null)
+                return;
+
+            SendMessage("OV", s_MenuItem.IsChecked ? "true" : "false");
         }
 
         public void Update()
@@ -303,6 +323,7 @@ namespace Statman.Engines
                     SendMessage("EC", Options.Get().HM3.Cheats ? "true" : "false");
                     SendMessage("US", Options.Get().HM3.UnlimitedSaves ? "true" : "false");
                     SendMessage("H2", Options.Get().HM3.Hitman2016Mode ? "true" : "false");
+                    SendMessage("OV", Options.Get().HM3.Overlay ? "true" : "false");
 
                     break;
                 }
