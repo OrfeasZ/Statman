@@ -2,32 +2,32 @@
 
 #include <stdafx.h>
 #include <Hooks.h>
-#include "HM3Version.h"
 #include <d3d9.h>
 #pragma comment(lib, "d3d9")
 
-class UnknownClass01;
-class UnknownClass02;
-class LimitSavesElement;
 struct DetectionIterator;
+class ZScene;
+class ZHM3LevelControl;
+class ZLimitSaves;
+class ZXMLGUISystem;
+enum eZWUserEvents : int32_t;
 
 class HM3Hooks
 {
 public:
-	HM3Hooks(HM3Version version);
+	HM3Hooks();
 	~HM3Hooks();
 
 protected:
-	void Install(HM3Version version);
+	bool Install();
 	void Uninstall();
-	void HookD3D9();
+	bool HookD3D9();
 
 public:
-	DECLARE_THISCALL_HOOK(char, LoadScene, void* th, const char* scene);
-	DECLARE_THISCALL_HOOK(char, UnknownUpdateFunc01, UnknownClass01* th);
-	DECLARE_THISCALL_HOOK(int, EndLevel, UnknownClass01* th);
-	DECLARE_THISCALL_HOOK(void, LimitedLives_SelectedGUIElement, LimitSavesElement* th, void* a2, void* a3, void* a4);
-	DECLARE_THISCALL_HOOK(int, UnknownClass02_NextDetectionNPC, UnknownClass02* th, DetectionIterator* a2);
+	DECLARE_THISCALL_HOOK(void, ZScene_Load, ZScene* th, const char* scene);
+	DECLARE_THISCALL_HOOK(void, ZHM3LevelControl_FrameUpdate, ZHM3LevelControl* th);
+	DECLARE_THISCALL_HOOK(int, ZHM3LevelControl_MissionCompleted2, ZHM3LevelControl* th);
+	DECLARE_THISCALL_HOOK(void, ZLimitSaves_Click, ZLimitSaves* th, eZWUserEvents a2, int a3, ZXMLGUISystem* a4);
 	DECLARE_STDCALL_HOOK(HRESULT, IDirect3DDevice9__EndScene, IDirect3DDevice9* th);
 
 private:

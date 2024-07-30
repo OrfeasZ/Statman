@@ -15,11 +15,15 @@ public:
 	HM3Module();
 	~HM3Module();
 
+	bool Init();
+
 public:
 	Pipeman* Pipe() const { return m_Pipeman; }
 	HM3Hooks* Hooks() const { return m_Hooks; }
 	HM3Pointers* Pointers() const { return m_Pointers; }
 	HM3Functions* Functions() const { return m_Functions; }
+	uintptr_t GetModuleBase() const { return m_ModuleBase; }
+	uint32_t GetSizeOfCode() const { return m_SizeOfCode; }
 
 public:
 	bool CheatsEnabled() const { return m_CheatsEnabled; }
@@ -33,10 +37,12 @@ protected:
 	void OnMessage(const std::string& p_Type, const std::string& p_Content);
 
 protected:
-	Pipeman* m_Pipeman;
-	HM3Hooks* m_Hooks;
-	HM3Pointers* m_Pointers;
-	HM3Functions* m_Functions;
+	Pipeman* m_Pipeman = nullptr;
+	HM3Hooks* m_Hooks = nullptr;
+	HM3Pointers* m_Pointers = nullptr;
+	HM3Functions* m_Functions = nullptr;
+	uintptr_t m_ModuleBase = 0;
+	uint32_t m_SizeOfCode = 0;
 
 protected:
 	bool m_CheatsEnabled = false;

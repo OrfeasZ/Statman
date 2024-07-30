@@ -67,7 +67,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)External\lib;$(SolutionDir)_build\lib\$(Configuration)\$(Platform);$(SolutionDir)lib\$(Configuration);$(DXSDK_DIR)Lib\x86</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalDependencies>Pipeman.lib;libMinHook.x86.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Pipeman.lib;libMinHook.x86.lib;StatmanCommons.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -88,7 +88,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)External\lib;$(SolutionDir)_build\lib\$(Configuration)\$(Platform);$(SolutionDir)lib\$(Configuration);$(DXSDK_DIR)Lib\x86</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalDependencies>Pipeman.lib;libMinHook.x86.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Pipeman.lib;libMinHook.x86.lib;StatmanCommons.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -96,15 +96,14 @@
     <ClInclude Include="Src\HM3\HM3Functions.h" />
     <ClInclude Include="Src\HM3\HM3Hooks.h" />
     <ClInclude Include="Src\HM3\HM3Pointers.h" />
-    <ClInclude Include="Src\HM3\HM3Version.h" />
     <ClInclude Include="Src\HM3\Structs\GUIElement.h" />
     <ClInclude Include="Src\HM3\Structs\LimitSavesElement.h" />
-    <ClInclude Include="Src\HM3\Structs\UnknownClass03.h" />
+    <ClInclude Include="Src\HM3\Structs\ZHM3GameData.h" />
     <ClInclude Include="Src\HM3\Structs\UnknownClass04.h" />
     <ClInclude Include="Src\stdafx.h" />
-    <ClInclude Include="Src\HM3\Structs\HM3NPC.h" />
+    <ClInclude Include="Src\HM3\Structs\ZGEOM.h" />
     <ClInclude Include="Src\HM3\Structs\HM3Stats.h" />
-    <ClInclude Include="Src\HM3\Structs\UnknownClass01.h" />
+    <ClInclude Include="Src\HM3\Structs\ZHM3LevelControl.h" />
     <ClInclude Include="Src\HM3\Structs\UnknownClass02.h" />
     <ClInclude Include="Src\targetver.h" />
   </ItemGroup>
@@ -115,12 +114,10 @@
     <ClCompile Include="Src\HM3\HM3Functions.cpp" />
     <ClCompile Include="Src\HM3\HM3Hooks.cpp" />
     <ClCompile Include="Src\HM3\HM3Pointers.cpp" />
-    <ClCompile Include="Src\HM3\HM3Version.cpp" />
-    <ClCompile Include="Src\HM3\Hooks\EndLevel.cpp" />
-    <ClCompile Include="Src\HM3\Hooks\LoadScene.cpp" />
-    <ClCompile Include="Src\HM3\Hooks\LimitedLives_SelectedGUIElement.cpp" />
-    <ClCompile Include="Src\HM3\Hooks\UnknownClass02_NextDetectionNPC.cpp" />
-    <ClCompile Include="Src\HM3\Hooks\UnknownUpdateFunc01.cpp" />
+    <ClCompile Include="Src\HM3\Hooks\ZHM3LevelControl_MissionCompleted2.cpp" />
+    <ClCompile Include="Src\HM3\Hooks\ZScene_Load.cpp" />
+    <ClCompile Include="Src\HM3\Hooks\ZLimitSaves_Click.cpp" />
+    <ClCompile Include="Src\HM3\Hooks\ZHM3LevelControl_FrameUpdate.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

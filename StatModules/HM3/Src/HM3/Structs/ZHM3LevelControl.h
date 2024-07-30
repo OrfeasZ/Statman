@@ -2,7 +2,7 @@
 
 #include <stdafx.h>
 
-ALIGN(4) class UnknownClass01
+ALIGN(4) class ZHM3LevelControl
 {
 public:
 	virtual void unk001() = 0;
@@ -19,8 +19,8 @@ public:
 	PAD(0x1C); // 0x1B8
 	void* m_Unknown02; // 0x01D4
 	PAD(0xEC); // 0x1D8
-	void* m_Unknown03; // 0x02C4
-	void* m_Unknown04; // 0x02C8
+	ZHitmanWeaponStorage* m_pWeaponStorage; // 0x02C4
+	ZHitmanWeaponStorage* m_pWeaponStorage2; // 0x02C8
 	PAD(0x1A4); // 0x2CC
 	void* m_Unknown05; // 0x470
 };

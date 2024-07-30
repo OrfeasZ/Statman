@@ -95,6 +95,12 @@ uintptr_t Utils::GetRelativeAddr(uintptr_t p_Base, int32_t p_Offset)
 	return s_RelAddrPtr + s_RelAddr + sizeof(int32_t);
 }
 
+uintptr_t Utils::GetAbsoluteAddr(uintptr_t p_Base, int32_t p_Offset)
+{
+	uintptr_t s_AbsAddrPtr = p_Base + p_Offset;
+	return *reinterpret_cast<uintptr_t*>(s_AbsAddrPtr);
+}
+
 std::vector<std::string> Utils::SplitString(const std::string& p_String, char p_Delimiter)
 {
 	std::vector<std::string> s_Parts;

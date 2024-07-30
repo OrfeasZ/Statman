@@ -13,5 +13,6 @@ public:
 	static uintptr_t SearchPattern(uintptr_t p_BaseAddress, size_t p_ScanSize, uint8_t* p_Pattern, const char* p_Mask);
 	static std::tuple<uintptr_t, uintptr_t> GetSectionStartAndEnd(HMODULE p_Module, const std::string& p_SectionName);
 	static uintptr_t GetRelativeAddr(uintptr_t p_Base, int32_t p_Offset);
+	static uintptr_t GetAbsoluteAddr(uintptr_t p_Base, int32_t p_Offset);
 	static std::vector<std::string> SplitString(const std::string& p_String, char p_Delimiter);
 };

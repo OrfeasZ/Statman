@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Commons.h" />
+    <ClInclude Include="Include\Functions.h" />
     <ClInclude Include="Include\Hooks.h" />
     <ClInclude Include="Include\json.hpp" />
     <ClInclude Include="Include\Pointers.h" />

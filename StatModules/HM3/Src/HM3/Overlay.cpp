@@ -2,6 +2,7 @@
 #include <HM3/HM3Module.h>
 #include <HM3/HM3Pointers.h>
 #include <HM3/Structs/HM3Stats.h>
+#include <HM3/Structs/ZHM3GameData.h>
 
 #include <tuple>
 
@@ -15,7 +16,7 @@ static const double m_Multipliers[] = {
 };
 
 uint32_t CalculateRating0() {
-	const auto* s_Stats = g_Module->Pointers()->m_Stats;
+	const auto* s_Stats = g_Module->Pointers()->ZHM3LevelControl__m_stats;
 
 	double s_Rating0 = 0.0;
 
@@ -50,8 +51,8 @@ uint32_t CalculateRating0() {
 }
 
 uint32_t CalculateRating1() {
-	const auto* s_Stats = g_Module->Pointers()->m_Stats;
-	const auto* s_Class03 = *g_Module->Pointers()->m_class03Ptr;
+	const auto* s_Stats = g_Module->Pointers()->ZHM3LevelControl__m_stats;
+	const auto* s_GameData = *g_Module->Pointers()->g_pGameData;
 
 	double s_Rating1 = 0.0;
 
@@ -65,7 +66,7 @@ uint32_t CalculateRating1() {
 
 	// Bodies Found
 	int s_BodiesFound;
-	if (s_Class03->m_Difficulty <= 1)
+	if (s_GameData->m_iDifficulty <= 1)
 		s_BodiesFound = s_Stats->m_BodiesFound >= 34 ? 33 : s_Stats->m_BodiesFound;
 	else
 		s_BodiesFound = (s_Stats->m_BodiesFound + s_Stats->m_TargetBodiesFound) >= 34 ? 33 : (s_Stats->m_BodiesFound + s_Stats->m_TargetBodiesFound);
@@ -85,7 +86,7 @@ uint32_t CalculateRating1() {
 	s_Rating1 += m_Multipliers[s_CameraCaught] * 10.0;
 
 	// Items Left
-	if (s_Class03->m_Difficulty == 3)
+	if (s_GameData->m_iDifficulty == 3)
 	{
 		if (s_Stats->m_CustomWeaponsLeftOnLevel > 0)
 			s_Rating1 += 5.0;
@@ -258,8 +259,8 @@ std::tuple<bool, const char*> GetRating() {
 }
 
 std::string GetRatingIssues() {
-	const auto* s_Stats = g_Module->Pointers()->m_Stats;
-	const auto* s_Class03 = *g_Module->Pointers()->m_class03Ptr;
+	const auto* s_Stats = g_Module->Pointers()->ZHM3LevelControl__m_stats;
+	const auto* s_GameData = *g_Module->Pointers()->g_pGameData;
 
 	std::string s_Issues = "";
 
@@ -279,7 +280,7 @@ std::string GetRatingIssues() {
 		s_Issues += " | Cover Blown";
 	}
 
-	if (s_Class03->m_Difficulty <= 1) {
+	if (s_GameData->m_iDifficulty <= 1) {
 		if (s_Stats->m_BodiesFound > 0 || s_Stats->m_UnconsciousBodiesFound > 0) {
 			s_Issues += " | Bodies Found";
 		}
@@ -294,7 +295,7 @@ std::string GetRatingIssues() {
 		s_Issues += " | Witnesses";
 	}
 
-	if (s_Class03->m_Difficulty == 3) {
+	if (s_GameData->m_iDifficulty == 3) {
 		if (s_Stats->m_CustomWeaponsLeftOnLevel > 0 || s_Stats->m_SuitLeftOnLevel > 0) {
 			s_Issues += " | Items Left";
 		}
@@ -358,8 +359,8 @@ DECLARE_STDCALL_DETOUR(HM3Hooks, HRESULT, IDirect3DDevice9__EndScene, IDirect3DD
 
 	if (s_Font) {
 		// Render the timer.
-		const auto s_CurrentTimeSeconds = (g_Module->Pointers()->m_Time && *g_Module->Pointers()->m_Time)
-			? static_cast<double>((*g_Module->Pointers()->m_Time)->m_Ticks) * 0.0009765625
+		const auto s_CurrentTimeSeconds = (g_Module->Pointers()->g_pSysInterface && *g_Module->Pointers()->g_pSysInterface)
+			? static_cast<double>((*g_Module->Pointers()->g_pSysInterface)->m_Ticks) * 0.0009765625
 			: 0.0f;
 
 		int s_Hours = static_cast<int>(s_CurrentTimeSeconds / 3600);

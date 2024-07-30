@@ -7,19 +7,40 @@
 #include <Pipeman.h>
 #include <functional>
 
-HM3Module::HM3Module() :
-	m_Pipeman(nullptr),
-	m_Hooks(nullptr),
-	m_Pointers(nullptr),
-	m_Functions(nullptr),
-	m_CheatsEnabled(false),
-	m_UnlimitedSaves(false),
-	m_Hitman2016Mode(false)
+#include "Utils.h"
+
+HM3Module::HM3Module()
+{
+}
+
+HM3Module::~HM3Module()
+{
+	if (m_Pipeman)
+		delete m_Pipeman;
+
+	if (m_Hooks)
+		delete m_Hooks;
+
+	if (m_Pointers)
+		delete m_Pointers;
+
+	if (m_Functions)
+		delete m_Functions;
+
+	m_Pipeman = nullptr;
+	m_Hooks = nullptr;
+	m_Pointers = nullptr;
+	m_Functions = nullptr;
+
+	SetEnvironmentVariable("Statman_HM3", "\x02\x00");
+}
+
+bool HM3Module::Init()
 {
 	if (!CheckInstance())
 	{
 		Log("The current stat module is already loaded. Exiting.\n");
-		return;
+		return false;
 	}
 
 #ifdef _DEBUG
@@ -45,6 +66,14 @@ HM3Module::HM3Module() :
 
 	Log("Initialized!\n");
 
+	// Get the module base address and size.
+	HMODULE s_Module = GetModuleHandleA(nullptr);
+	m_ModuleBase = reinterpret_cast<uintptr_t>(s_Module) + Utils::GetBaseOfCode(s_Module);
+	m_SizeOfCode = Utils::GetSizeOfCode(s_Module);
+
+	Log("Module base address: %x\n", m_ModuleBase);
+	Log("Module size: %x\n", m_SizeOfCode);
+
 	/*
 	// Print item names
 	struct ItemTypeName {
@@ -63,40 +92,18 @@ HM3Module::HM3Module() :
 	// Patch required data.
 	PerformPatches();
 
-	const HM3Version version = CheckVersion();
-
 	// Setup pointers, functions, and hooks.
-	m_Pointers = new HM3Pointers(version);
-	m_Functions = new HM3Functions(version);
-	m_Hooks = new HM3Hooks(version);
+	m_Pointers = new HM3Pointers();
+	m_Functions = new HM3Functions();
+	m_Hooks = new HM3Hooks();
 
 	// Setup Pipeman.
-	m_Pipeman = new Pipeman("\\\\.\\pipe\\Statman_IPC", "H3");
+	m_Pipeman = new Pipeman(R"(\\.\pipe\Statman_IPC)", "H3");
 	m_Pipeman->SetMessageCallback(std::bind(&HM3Module::OnMessage, this, std::placeholders::_1, std::placeholders::_2));
 
 	m_Pipeman->SendPipeMessage("HI", "");
-}
 
-HM3Module::~HM3Module()
-{
-	if (m_Pipeman)
-		delete m_Pipeman;
-
-	if (m_Hooks)
-		delete m_Hooks;
-
-	if (m_Pointers)
-		delete m_Pointers;
-
-	if (m_Functions)
-		delete m_Functions;
-
-	m_Pipeman = nullptr;
-	m_Hooks = nullptr;
-	m_Pointers = nullptr;
-	m_Functions = nullptr;
-
-	SetEnvironmentVariable("Statman_HM3", "\x02\x00");
+	return true;
 }
 
 bool HM3Module::CheckInstance()
@@ -121,7 +128,7 @@ void HM3Module::OnMessage(const std::string& p_Type, const std::string& p_Conten
 	{
 		// Enable cheats.
 		m_CheatsEnabled = p_Content == "true";
-		*Pointers()->m_cheatsEnabled = m_CheatsEnabled;
+		*Pointers()->CConfiguration__m_bCheatsEnabled = m_CheatsEnabled;
 		return;
 	}
 

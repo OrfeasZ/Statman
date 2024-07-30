@@ -1,23 +1,12 @@
 #include "HM3Pointers.h"
+#include "HM3Module.h"
 
-struct DataAddresses
-{
-	uint32_t Stats;
-	uint32_t Class03Ptr;
-	uint32_t TimePtr;
-	uint32_t CheatPtr;
-};
+#include <Utils.h>
+#include <Pointers.h>
 
-static const DataAddresses DataVersions[]
+HM3Pointers::HM3Pointers()
 {
-	{ 0x00000000, 0x00000000, 0x00000000, 0x00000000 }, // Unknown version
-	{ 0x009B2538, 0x0081F83C, 0x0081F820, 0x008ABA89 }, // Steam
-	{ 0x009B3B38, 0x0082083C, 0x00820820, 0x008ACA89 }  // GOG
-};
-
-HM3Pointers::HM3Pointers(HM3Version version)
-{
-	Setup(version);
+	Setup();
 }
 
 HM3Pointers::~HM3Pointers()
@@ -25,12 +14,37 @@ HM3Pointers::~HM3Pointers()
 
 }
 
-void HM3Pointers::Setup(HM3Version version)
+bool HM3Pointers::Setup()
 {
-	const DataAddresses& addresses(DataVersions[version]);
+	FIND_POINTER_ABSOLUTE(
+		HM3Stats*,
+		ZHM3LevelControl__m_stats,
+		"\xBF\x00\x00\x00\x00\xF3\xAB\xB8\x00\x00\x00\x00\x5F",
+		"x????xxx????x",
+		1
+	)
 
-	m_Stats = (HM3Stats*)addresses.Stats;
-	m_class03Ptr = (Class03**)addresses.Class03Ptr;
-	m_Time = (HM3Time**)addresses.TimePtr;
-	m_cheatsEnabled = (bool*)addresses.CheatPtr;
+	FIND_POINTER_ABSOLUTE(
+		ZHM3GameData**,
+		g_pGameData,
+		"\xA1\x00\x00\x00\x00\x85\xC0\x56\x74",
+		"x????xxxx",
+		1
+	)
+
+	FIND_POINTER_ABSOLUTE(
+		bool*,
+		CConfiguration__m_bCheatsEnabled,
+		"\x88\x1D\x00\x00\x00\x00\x8B\x8C\x24\x88\x00\x00\x00",
+		"xx????xxxxxxx",
+		2
+	)
+
+	FIND_POINTER_ABSOLUTE(
+		ZSysInterface**,
+		g_pSysInterface,
+		"\x8B\x0D\x00\x00\x00\x00\x8B\x11\x83\xC4\x00\x68",
+		"xx????xxxx?x",
+		2
+	)
 }

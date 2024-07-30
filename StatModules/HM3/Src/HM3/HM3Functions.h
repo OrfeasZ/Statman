@@ -1,33 +1,29 @@
 #pragma once
 
-#include "HM3Version.h"
 #include <stdafx.h>
 
-class HM3NPC;
-class GUIElement;
+#include <Functions.h>
+
+class ZGEOM;
+class ZOpenWindow;
+class ZHitmanWeaponStorage;
+class ZLevelLinking;
+class ZXMLGUISystem;
+enum eZWUserEvents : int32_t;
 
 class HM3Functions
 {
 public:
-	HM3Functions(HM3Version version);
+	HM3Functions();
 	~HM3Functions();
 
 protected:
-	void Setup(HM3Version version);
+	bool Setup();
 
 public:
-	typedef HM3NPC* (__cdecl* GetNPCByID_t)(int id);
-	GetNPCByID_t GetNPCByID;
-
-	typedef void (__thiscall* SelectedGUIElement_t)(GUIElement* th, void* a2, void* a3, void* a4);
-	SelectedGUIElement_t SelectedGUIElement;
-
-	typedef void (__thiscall* UnknownFunction01_t)(void* th, void* a2);
-	UnknownFunction01_t UnknownFunction01;
-
-	typedef int (__thiscall* UnknownFunction02_t)(void* th);
-	UnknownFunction02_t UnknownFunction02;
-
-	typedef int (__cdecl* GetNPCWeaponCount_t)();
-	GetNPCWeaponCount_t GetNPCWeaponCount;
+	DECLARE_CDECL_FUNCTION(ZGEOM*, ZGEOM_RefToPtr, uint32_t ref)
+	DECLARE_THISCALL_FUNCTION(void, ZOpenWindow_Click, ZOpenWindow* th, eZWUserEvents a2, int a3, ZXMLGUISystem* a4)
+	DECLARE_THISCALL_FUNCTION(void, ZHitmanWeaponStorage_EmptyStorage, ZHitmanWeaponStorage* th, ZLevelLinking* a2)
+	DECLARE_THISCALL_FUNCTION(int, ZHitmanWeaponStorage_NrOfCustomWeaponsInStorage, ZHitmanWeaponStorage* th)
+	DECLARE_CDECL_FUNCTION(int, ZHM3LevelControl_GetCustomWeaponsInventoryCount)
 };

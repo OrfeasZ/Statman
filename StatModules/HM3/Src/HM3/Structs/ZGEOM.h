@@ -2,7 +2,7 @@
 
 #include <stdafx.h>
 
-ALIGN(4) class HM3NPC
+ALIGN(4) class ZGEOM
 {
 public:
 	virtual void unk001() = 0; // 0

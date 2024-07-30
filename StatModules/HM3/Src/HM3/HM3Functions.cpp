@@ -1,24 +1,12 @@
 #include "HM3Functions.h"
+#include "HM3Module.h"
 
-struct FunctionAddresses
-{
-	uint32_t GetNPCByIDAddr;
-	uint32_t SelectedGUIElementAddr;
-	uint32_t UnknownFunction01Addr;
-	uint32_t UnknownFunction02Addr;
-	uint32_t GetNPCWeaponCountAddr;
-};
+#include "Pointers.h"
+#include "Utils.h"
 
-static const FunctionAddresses FunctionVersions[]
+HM3Functions::HM3Functions()
 {
-	{ 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000 }, // Unknown
-	{ 0x004E5110, 0x0055FA10, 0x00656A10, 0x00656A60, 0x006AE000 }, // Steam
-	{ 0x004E5BE0, 0x00560440, 0x00657170, 0x006571C0, 0x006AE880 }  // GOG
-};
-
-HM3Functions::HM3Functions(HM3Version version)
-{
-	Setup(version);
+	Setup();
 }
 
 HM3Functions::~HM3Functions()
@@ -26,12 +14,35 @@ HM3Functions::~HM3Functions()
 
 }
 
-void HM3Functions::Setup(HM3Version version)
+bool HM3Functions::Setup()
 {
-	const FunctionAddresses& addresses(FunctionVersions[version]);
-	GetNPCByID = (GetNPCByID_t) addresses.GetNPCByIDAddr;
-	SelectedGUIElement = (SelectedGUIElement_t) addresses.SelectedGUIElementAddr;
-	UnknownFunction01 = (UnknownFunction01_t) addresses.UnknownFunction01Addr;
-	UnknownFunction02 = (UnknownFunction02_t) addresses.UnknownFunction02Addr;
-	GetNPCWeaponCount = (GetNPCWeaponCount_t) addresses.GetNPCWeaponCountAddr;
+	FIND_FUNCTION_POINTER(
+		ZGEOM_RefToPtr,
+		"\xA1\x00\x00\x00\x00\x85\xC0\x75\x00\x00\x8B\x44\x24\x04\x8B\x0D\x00\x00\x00\x00\x50\xE8\x00\x00\x00\x00\xC3\x00\x00\x00\x00\x00\x8A\x41\x0C",
+		"x????xxx??xxxxxx????xx????x?????xxx"
+	)
+
+	FIND_FUNCTION_POINTER(
+		ZOpenWindow_Click,
+		"\x8B\x44\x24\x0C\x56\x57\x8B\x7C\x24\x0C\x8B\xF1\x8B\x4C\x24\x10\x50\x51\x57\x8B\xCE\xE8\x00\x00\x00\x00\x3B\x7E\x6C\x75",
+		"xxxxxxxxxxxxxxxxxxxxxx????xxxx"
+	)
+
+	FIND_FUNCTION_POINTER(
+		ZHitmanWeaponStorage_EmptyStorage,
+		"\x56\x8B\xF1\x8B\x86\x84\x00\x00\x00\x8B\x96\x88\x00\x00\x00\x57\x03\xC2\x33\xFF",
+		"xxxxxxxxxxxxxxxxxxxx"
+	)
+
+	FIND_FUNCTION_POINTER(
+		ZHitmanWeaponStorage_NrOfCustomWeaponsInStorage,
+		"\x55\x56\x8B\xF1\x8B\x86\x84\x00\x00\x00",
+		"xxxxxxxxxx"
+	)
+
+	FIND_FUNCTION_POINTER(
+		ZHM3LevelControl_GetCustomWeaponsInventoryCount,
+		"\xA1\x00\x00\x00\x00\x8B\x88\x40\x0A\x00\x00\x83\xEC\x00\x53",
+		"x????xxxxxxxx?x"
+	)
 }
