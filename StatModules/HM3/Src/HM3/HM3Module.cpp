@@ -22,7 +22,6 @@ HM3Module::HM3Module() :
 		return;
 	}
 
-
 #ifdef _DEBUG
 	char s_Buffer[2];
 	if (!GetEnvironmentVariableA("Statman_HM3", s_Buffer, 2) || s_Buffer[0] != 0x02)
@@ -74,8 +73,9 @@ HM3Module::HM3Module() :
 	// Setup Pipeman.
 	m_Pipeman = new Pipeman("\\\\.\\pipe\\Statman_IPC", "H3");
 	m_Pipeman->SetMessageCallback(std::bind(&HM3Module::OnMessage, this, std::placeholders::_1, std::placeholders::_2));
-}
 
+	m_Pipeman->SendPipeMessage("HI", "");
+}
 
 HM3Module::~HM3Module()
 {
@@ -134,7 +134,7 @@ void HM3Module::OnMessage(const std::string& p_Type, const std::string& p_Conten
 
 	if (p_Type == "H2")
 	{
-		// Unlimited saves.
+		// Hitman 2016 mode.
 		m_Hitman2016Mode = p_Content == "true";
 		return;
 	}

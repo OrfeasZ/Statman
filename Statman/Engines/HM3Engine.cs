@@ -137,7 +137,7 @@ namespace Statman.Engines
                 {
                     Header = "Enable Cheats",
                     IsCheckable = true,
-                    IsChecked = false
+                    IsChecked = Options.Get().HM3.Cheats,
                 };
 
                 s_EnableCheats.Click += OnEnableCheats;
@@ -146,7 +146,7 @@ namespace Statman.Engines
                 {
                     Header = "Unlimited Saves",
                     IsCheckable = true,
-                    IsChecked = false
+                    IsChecked = Options.Get().HM3.UnlimitedSaves,
                 };
 
                 s_UnlimitedSaves.Click += OnUnlimitedSaves;
@@ -155,7 +155,7 @@ namespace Statman.Engines
                 {
                     Header = "Hitman 2016 Mode",
                     IsCheckable = true,
-                    IsChecked = false
+                    IsChecked = Options.Get().HM3.Hitman2016Mode,
                 };
 
                 s_Hitman2016.Click += OnHitman2016Mode;
@@ -276,7 +276,6 @@ namespace Statman.Engines
                     StatTracker.StatAddress = IntPtr.Zero;
                     StatTracker.DifficultyAddress = IntPtr.Zero;
                     TimeTracker.TimeAddress = IntPtr.Zero;
-
                 }
             }
 
@@ -298,6 +297,16 @@ namespace Statman.Engines
         {
             switch (p_Type)
             {
+                case "HI":
+                {
+                    // Received hello. Send relevant configuration messages.
+                    SendMessage("EC", Options.Get().HM3.Cheats ? "true" : "false");
+                    SendMessage("US", Options.Get().HM3.UnlimitedSaves ? "true" : "false");
+                    SendMessage("H2", Options.Get().HM3.Hitman2016Mode ? "true" : "false");
+
+                    break;
+                }
+
                 case "CS":
                 {
                     CurrentScene = p_Data.ToLowerInvariant().Replace("/", "\\");
@@ -321,6 +330,7 @@ namespace Statman.Engines
 
                     break;
                 }
+
                 case "SA":
                 {
                     int statAddr = 0;
@@ -330,6 +340,7 @@ namespace Statman.Engines
                     }
                     break;
                 }
+
                 case "DA":
                 {
                     int difficultyAddr = 0;
@@ -339,6 +350,7 @@ namespace Statman.Engines
                     }
                     break;
                 }
+
                 case "TA":
                 {
                     int timeAddr = 0;

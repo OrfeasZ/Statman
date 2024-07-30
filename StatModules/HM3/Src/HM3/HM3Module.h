@@ -38,7 +38,7 @@ protected:
 	HM3Functions* m_Functions;
 
 protected:
-	bool m_CheatsEnabled;
-	bool m_UnlimitedSaves;
-	bool m_Hitman2016Mode;
+	bool m_CheatsEnabled = false;
+	bool m_UnlimitedSaves = false;
+	bool m_Hitman2016Mode = false;
 };

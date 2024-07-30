@@ -27,7 +27,7 @@ namespace Statman.Windows
         public MainWindow()
         {
             m_DarkTheme = Environment.GetCommandLineArgs().Skip(1).Any(p_Argument =>
-                p_Argument.Equals("-dark", StringComparison.OrdinalIgnoreCase));
+                p_Argument.Equals("-dark", StringComparison.OrdinalIgnoreCase)) || Options.Get().DarkMode;
 
             m_DefaultMenuItems = new List<Control>();
             m_ContextMenuItems = new ObservableCollection<Control>();
@@ -137,6 +137,8 @@ namespace Statman.Windows
                 ThemeManager.SetCurrentTheme(this, new Uri("/Statman;component/Themes/DarkTheme.xaml", UriKind.Relative));
 
             m_DarkTheme = !m_DarkTheme;
+
+            Options.Update(opt => opt.DarkMode = m_DarkTheme);
         }
 
         private void OnCheckForUpdates(object p_Sender, RoutedEventArgs p_RoutedEventArgs)

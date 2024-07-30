@@ -150,6 +150,7 @@
     <Compile Include="Engines\HM5\Windows\SceneLoader.xaml.cs">
       <DependentUpon>SceneLoader.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\Options.cs" />
     <Compile Include="Windows\UpdateWindow.xaml.cs">
       <DependentUpon>UpdateWindow.xaml</DependentUpon>
     </Compile>
