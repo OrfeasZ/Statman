@@ -31,6 +31,7 @@ Statman is currently in early stages of development, so there could still be iss
    - Ability to enable and disable cheats
    - Ability to enable unlimited saving/loading for all difficulties
    - Hitman 2016 Mode (Experimental)
+   - In-game tracker overlay
 
 ### Hitman Blood Money: 2016 Mode
 
@@ -42,7 +43,8 @@ This is currently a "custom" mode which makes the game not consider the location
 
 ### Download
 
- - [Version 1.3.3.0](https://github.com/OrfeasZ/Statman/releases/download/v1.3.3.0/Statman_1.3.3.0.zip) (Latest)
+ - [Version 1.4.0.0](https://github.com/OrfeasZ/Statman/releases/download/v1.4.0.0/Statman_1.4.0.0.zip) (Latest)
+ - [Version 1.3.3.0](https://github.com/OrfeasZ/Statman/releases/download/v1.3.3.0/Statman_1.3.3.0.zip)
  - [Version 1.3.2.0](https://github.com/OrfeasZ/Statman/releases/download/v1.3.2.0/Statman_1.3.2.0.zip)
  - [Version 1.3.1.0](https://github.com/OrfeasZ/Statman/releases/download/v1.3.1.0/Statman_1.3.1.0.zip)
  - [Version 1.3.0.0](https://github.com/OrfeasZ/Statman/releases/download/v1.3.0.0/Statman_1.3.0.0.zip)
