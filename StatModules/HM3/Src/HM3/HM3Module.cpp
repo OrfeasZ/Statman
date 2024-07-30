@@ -121,7 +121,7 @@ void HM3Module::OnMessage(const std::string& p_Type, const std::string& p_Conten
 	{
 		// Enable cheats.
 		m_CheatsEnabled = p_Content == "true";
-		*(bool*) (0x008ABA89) = m_CheatsEnabled;
+		*Pointers()->m_cheatsEnabled = m_CheatsEnabled;
 		return;
 	}
 
