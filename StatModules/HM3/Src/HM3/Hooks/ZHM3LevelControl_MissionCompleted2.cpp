@@ -6,7 +6,7 @@
 
 #include <HM3/Structs/HM3Stats.h>
 #include <HM3/Structs/ZHM3GameData.h>
-#include <HM3/Structs/UnknownClass04.h>
+#include <HM3/Structs/ZHM3Actor.h>
 
 DECLARE_THISCALL_DETOUR(HM3Hooks, int, ZHM3LevelControl_MissionCompleted2, ZHM3LevelControl* th)
 {
@@ -40,8 +40,8 @@ DECLARE_THISCALL_DETOUR(HM3Hooks, int, ZHM3LevelControl_MissionCompleted2, ZHM3L
 		if (g_Module->Pointers()->m_Stats)
 			th->m_WeaponsLeftOnLevel = s_WeaponsInHand - g_Module->Functions()->GetNPCWeaponCount();*/
 
-		if (s_GameData && s_GameData->m_Unknown01)
-			s_GameData->m_Unknown01->m_Unknown01 = s_GameData->m_Unknown01->m_Unknown02 = nullptr;
+		if (s_GameData && s_GameData->m_pHitman)
+			s_GameData->m_pHitman->m_Unknown01 = s_GameData->m_pHitman->m_Unknown02 = nullptr;
 	}
 
 	return o_ZHM3LevelControl_MissionCompleted2(th);

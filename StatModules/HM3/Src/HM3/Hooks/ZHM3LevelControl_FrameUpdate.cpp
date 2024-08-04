@@ -4,12 +4,15 @@
 #include <HM3/HM3Functions.h>
 #include <HM3/HM3Pointers.h>
 
-#include <HM3/Structs/ZGEOM.h>
+#include <HM3/Structs/ZHM3Actor.h>
 #include <HM3/Structs/HM3Stats.h>
 #include <HM3/Structs/ZHM3LevelControl.h>
 #include <HM3/Structs/UnknownClass02.h>
 #include <HM3/Structs/ZHM3GameData.h>
-#include <HM3/Structs/UnknownClass04.h>
+#include <HM3/Structs/ZHM3Actor.h>
+#include <HM3/Structs/ZRender.h>
+
+#include <directxmath.h>
 
 DECLARE_THISCALL_DETOUR(HM3Hooks, void, ZHM3LevelControl_FrameUpdate, ZHM3LevelControl* th)
 {
@@ -27,9 +30,11 @@ DECLARE_THISCALL_DETOUR(HM3Hooks, void, ZHM3LevelControl_FrameUpdate, ZHM3LevelC
 
 	//Log("Class2: %p\n", s_Class02);
 
-	for (int s_NPCID = s_Class02->NextDetectionNPC(&s_DetectionIt); s_DetectionIt.m_Unk01 > 0; s_NPCID = s_Class02->NextDetectionNPC(&s_DetectionIt))
+	auto s_Hitman = (*g_Module->Pointers()->g_pGameData)->m_pHitman;
+
+	for (ZREF s_NPCID = s_Class02->NextDetectionNPC(&s_DetectionIt); s_DetectionIt.m_Unk01 > 0; s_NPCID = s_Class02->NextDetectionNPC(&s_DetectionIt))
 	{
-		auto s_NPC = g_Module->Functions()->ZGEOM_RefToPtr(s_NPCID);
+		auto s_NPC = reinterpret_cast<ZHM3Actor*>(g_Module->Functions()->ZGEOM_RefToPtr(s_NPCID));
 
 		if (!s_NPC)
 			continue;
@@ -60,12 +65,64 @@ DECLARE_THISCALL_DETOUR(HM3Hooks, void, ZHM3LevelControl_FrameUpdate, ZHM3LevelC
 		g_Module->Pointers()->ZHM3LevelControl__m_stats->m_Witnesses = s_Witnesses;
 		g_Module->Pointers()->ZHM3LevelControl__m_stats->m_CustomWeaponsLeftOnLevel = th->m_WeaponsLeftOnLevel - s_WeaponsInHand - g_Module->Functions()->ZHM3LevelControl_GetCustomWeaponsInventoryCount();
 
-		if (s_GameData && s_GameData->m_Unknown01)
-			g_Module->Pointers()->ZHM3LevelControl__m_stats->m_SuitLeftOnLevel = s_GameData->m_Unknown01->m_Unknown01 != s_GameData->m_Unknown01->m_Unknown02;
+		if (s_GameData && s_GameData->m_pHitman)
+			g_Module->Pointers()->ZHM3LevelControl__m_stats->m_SuitLeftOnLevel = s_GameData->m_pHitman->m_Unknown01 != s_GameData->m_pHitman->m_Unknown02;
 
 		if (g_Module && g_Module->Hitman2016Mode())
 			g_Module->Pointers()->ZHM3LevelControl__m_stats->m_SuitLeftOnLevel = false;
 	}
+
+	/*static int s_DidShit = 0;
+
+	if (GetAsyncKeyState(VK_F5) && s_Hitman)
+	{
+		if (s_DidShit >= (*g_Module->Pointers()->g_pGameData)->m_nActorCount)
+			s_DidShit = 0;
+
+		Log("Hitman: %p\n", s_Hitman);
+
+		auto s_TargetNpc = (*g_Module->Pointers()->g_pGameData)->m_aActors[s_DidShit++];
+		Log("Target NPC: %p\n", s_TargetNpc);
+
+		auto s_HitmanAs = s_TargetNpc->GetHitmanAs();
+		Log("Hitman as: %x\n", s_HitmanAs);
+
+		if (s_HitmanAs)
+		{
+			auto s_HitmanAsPtr = reinterpret_cast<ZHM3HmAs*>(g_Module->Functions()->ZGEOM_RefToPtr(s_HitmanAs));
+			Log("Hitman as ptr: %p\n", s_HitmanAsPtr);
+
+			if (s_HitmanAsPtr)
+			{
+				g_Module->Functions()->ZHitman3_ChangeIntoNewClothes(s_Hitman, s_HitmanAsPtr, s_TargetNpc, false, nullptr, 0);
+				//Log("Dog: %f\n", s_Hitman->GetHealth());
+			}
+		}
+
+		/*if ((*g_Module->Pointers()->g_pSysInterface)->m_pRenderer)
+		{
+			auto s_Renderer = (*g_Module->Pointers()->g_pSysInterface)->m_pRenderer;
+			auto s_MainCamera = s_Renderer->GetCamera(0);
+
+			if (s_MainCamera)
+			{
+				auto s_CameraPtr = reinterpret_cast<ZCAMERA*>(g_Module->Functions()->ZGEOM_RefToPtr(s_MainCamera));
+				Log("Camera ptr: %p\n", s_CameraPtr);
+
+				Log("Near: %f\n", s_CameraPtr->m_fNear);
+				Log("Far: %f\n", s_CameraPtr->m_fFar);
+				Log("FOV: %f\n", s_CameraPtr->GetFOV());
+				Log("View Aspect: %f\n", s_CameraPtr->GetViewAspect());
+
+				s_CameraPtr->SetFOV(120.0f);
+
+				//auto s_ProjectionMatrix = DirectX::XMMatrixPerspectiveFovLH(s_CameraPtr->GetFOV(), s_CameraPtr->GetViewAspect(), s_CameraPtr->m_fNear, s_CameraPtr->m_fFar);
+				
+			}
+		}#1#
+
+		//Sleep(500);
+	}*/
 
 	return o_ZHM3LevelControl_FrameUpdate(th);
 }

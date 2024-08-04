@@ -4,7 +4,7 @@
 
 struct DetectionIterator
 {
-	void* m_Unk01; // 0x0000
+	uint32_t m_Unk01; // 0x0000
 	uint32_t m_SeenByNPCs; // 0x0004
 	uint32_t m_Unk03; // 0x0008
 };
@@ -36,7 +36,7 @@ public:
 	virtual void unk22() = 0; // 84
 	virtual void unk23() = 0; // 88
 	virtual void unk24() = 0; // 92
-	virtual int NextDetectionNPC(DetectionIterator* a2) = 0; // 96
+	virtual ZREF NextDetectionNPC(DetectionIterator* a2) = 0; // 96
 	virtual void unk26() = 0; // 100
 	virtual void unk27() = 0; // 104
 

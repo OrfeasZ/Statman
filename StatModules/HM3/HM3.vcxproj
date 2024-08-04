@@ -61,6 +61,7 @@
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <AdditionalIncludeDirectories>$(ProjectDir)Src;$(SolutionDir)External\include;$(SolutionDir)Libraries\Pipeman\Include;$(SolutionDir)_build\lib\$(Configuration)\$(Platform);$(SolutionDir)External\modules\minhook\include;$(SolutionDir)Libraries\StatmanCommons\Include;$(DXSDK_DIR)Include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -80,6 +81,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;HM3_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)Src;$(SolutionDir)External\include;$(SolutionDir)Libraries\Pipeman\Include;$(SolutionDir)_build\lib\$(Configuration)\$(Platform);$(SolutionDir)External\modules\minhook\include;$(SolutionDir)Libraries\StatmanCommons\Include;$(DXSDK_DIR)Include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -98,10 +100,11 @@
     <ClInclude Include="Src\HM3\HM3Pointers.h" />
     <ClInclude Include="Src\HM3\Structs\GUIElement.h" />
     <ClInclude Include="Src\HM3\Structs\LimitSavesElement.h" />
+    <ClInclude Include="Src\HM3\Structs\ZCore.h" />
     <ClInclude Include="Src\HM3\Structs\ZHM3GameData.h" />
-    <ClInclude Include="Src\HM3\Structs\UnknownClass04.h" />
+    <ClInclude Include="Src\HM3\Structs\ZRender.h" />
     <ClInclude Include="Src\stdafx.h" />
-    <ClInclude Include="Src\HM3\Structs\ZGEOM.h" />
+    <ClInclude Include="Src\HM3\Structs\ZHM3Actor.h" />
     <ClInclude Include="Src\HM3\Structs\HM3Stats.h" />
     <ClInclude Include="Src\HM3\Structs\ZHM3LevelControl.h" />
     <ClInclude Include="Src\HM3\Structs\UnknownClass02.h" />

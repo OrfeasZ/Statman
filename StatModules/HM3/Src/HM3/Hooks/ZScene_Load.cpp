@@ -1,6 +1,8 @@
 #include <HM3/HM3Hooks.h>
 #include <HM3/HM3Pointers.h>
 #include <HM3/HM3Module.h>
+#include <HM3/Structs/ZHM3GameData.h>
+#include <HM3/Structs/ZHM3Actor.h>
 
 #include <Pipeman.h>
 

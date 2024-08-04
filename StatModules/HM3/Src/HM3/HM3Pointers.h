@@ -2,6 +2,7 @@
 
 #include <stdafx.h>
 
+class ZRender;
 class HM3Stats;
 class ZSysInterface;
 class ZHM3GameData;
@@ -9,8 +10,10 @@ class ZHM3GameData;
 class ZSysInterface
 {
 public:	
-	PAD(0x48);
+	PAD(0x48)
 	uint32_t m_Ticks; // 0x0048
+	PAD(0x930)
+    ZRender* m_pRenderer; //0x097C
 };
 
 class HM3Pointers
