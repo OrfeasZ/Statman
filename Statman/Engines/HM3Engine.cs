@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using PeNet.Header.Net.MetaDataTables;
 using Statman.Engines.HM3;
 using Statman.Engines.HM3.Controls;
 using Statman.Network;
@@ -160,6 +161,15 @@ namespace Statman.Engines
 
                 s_Hitman2016.Click += OnHitman2016Mode;
 
+                var s_Hitman2016Debug = new MenuItem()
+                {
+                    Header = "Hitman 2016 Mode Debug",
+                    IsCheckable = true,
+                    IsChecked = Options.Get().HM3.Hitman2016DebugMode,
+                };
+
+                s_Hitman2016Debug.Click += OnHitman2016DebugMode;
+
                 var s_IngameOverlay = new MenuItem()
                 {
                     Header = "In-game Overlay",
@@ -173,6 +183,7 @@ namespace Statman.Engines
                 m_MenuItems.Add(s_EnableCheats);
                 m_MenuItems.Add(s_UnlimitedSaves);
                 m_MenuItems.Add(s_Hitman2016);
+                m_MenuItems.Add(s_Hitman2016Debug);
                 m_MenuItems.Add(s_IngameOverlay);
             });
         }
@@ -185,6 +196,7 @@ namespace Statman.Engines
                 return;
 
             SendMessage("EC", s_MenuItem.IsChecked ? "true" : "false");
+            Options.Update(opt => opt.HM3.Cheats = s_MenuItem.IsChecked);
         }
 
         private void OnUnlimitedSaves(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
@@ -195,6 +207,7 @@ namespace Statman.Engines
                 return;
 
             SendMessage("US", s_MenuItem.IsChecked ? "true" : "false");
+            Options.Update(opt => opt.HM3.UnlimitedSaves = s_MenuItem.IsChecked);
         }
 
         private void OnHitman2016Mode(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
@@ -205,6 +218,18 @@ namespace Statman.Engines
                 return;
 
             SendMessage("H2", s_MenuItem.IsChecked ? "true" : "false");
+            Options.Update(opt => opt.HM3.Hitman2016Mode = s_MenuItem.IsChecked);
+        }
+
+        private void OnHitman2016DebugMode(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
+        {
+            var s_MenuItem = p_Sender as MenuItem;
+
+            if (s_MenuItem == null)
+                return;
+
+            SendMessage("2D", s_MenuItem.IsChecked ? "true" : "false");
+            Options.Update(opt => opt.HM3.Hitman2016DebugMode = s_MenuItem.IsChecked);
         }
 
         private void OnIngameOverlay(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
@@ -215,6 +240,7 @@ namespace Statman.Engines
                 return;
 
             SendMessage("OV", s_MenuItem.IsChecked ? "true" : "false");
+            Options.Update(opt => opt.HM3.Overlay = s_MenuItem.IsChecked);
         }
 
         public void Update()
@@ -320,11 +346,18 @@ namespace Statman.Engines
                 case "HI":
                 {
                     // Received hello. Send relevant configuration messages.
+                    
+                    // Send Hitman 2016 data.
+                    var s_Hitman2016Data = System.IO.File.ReadAllText("HM3_locations.json");
+                    SendMessage("2J", s_Hitman2016Data);
+
+                    // Send configuration values.
                     SendMessage("EC", Options.Get().HM3.Cheats ? "true" : "false");
                     SendMessage("US", Options.Get().HM3.UnlimitedSaves ? "true" : "false");
                     SendMessage("H2", Options.Get().HM3.Hitman2016Mode ? "true" : "false");
+                    SendMessage("2D", Options.Get().HM3.Hitman2016DebugMode ? "true" : "false");
                     SendMessage("OV", Options.Get().HM3.Overlay ? "true" : "false");
-
+                    
                     break;
                 }
 

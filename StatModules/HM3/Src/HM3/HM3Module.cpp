@@ -6,6 +6,9 @@
 
 #include <Pipeman.h>
 #include <functional>
+#include <json.hpp>
+#include <fstream>
+#include <filesystem>
 
 #include "Utils.h"
 
@@ -88,7 +91,7 @@ bool HM3Module::Init()
 	}
 
 	Sleep(5000);*/
-
+	
 	// Patch required data.
 	PerformPatches();
 
@@ -100,8 +103,10 @@ bool HM3Module::Init()
 	// Setup Pipeman.
 	m_Pipeman = new Pipeman(R"(\\.\pipe\Statman_IPC)", "H3");
 	m_Pipeman->SetMessageCallback(std::bind(&HM3Module::OnMessage, this, std::placeholders::_1, std::placeholders::_2));
-
-	m_Pipeman->SendPipeMessage("HI", "");
+	m_Pipeman->SetConnectedCallback([this]()
+	{
+		m_Pipeman->SendPipeMessage("HI", "");
+	});
 
 	return true;
 }
@@ -153,6 +158,20 @@ void HM3Module::OnMessage(const std::string& p_Type, const std::string& p_Conten
 		return;
 	}
 
+	if (p_Type == "2D")
+	{
+		// Draw debug overlay for 2016 mode
+		m_Debug2016 = p_Content == "true";
+		return;
+	}
+
+	if (p_Type == "2J")
+	{
+		// Parse Hitman 2016 data.
+		ParseHitman2016Data(p_Content);
+		return;
+	}
+
 	if (p_Type == "XX")
 	{
 		Log("Statman requested exit.\n");
@@ -166,5 +185,49 @@ void HM3Module::OnMessage(const std::string& p_Type, const std::string& p_Conten
 		s_ExitThread.detach();
 
 		return;
+	}
+}
+EXTERN_C IMAGE_DOS_HEADER __ImageBase;
+#define HINST_THISCOMPONENT ((HINSTANCE)&__ImageBase)
+
+void HM3Module::ParseHitman2016Data(const std::string& p_Json) {
+	try {			
+		nlohmann::json s_Json = nlohmann::json::parse(p_Json);
+
+		if (s_Json.is_null())
+			return;
+
+		// Parse level starting locations.
+		for (auto& [s_Level, s_Locations] : s_Json.items()) {
+			std::vector<LevelStartingLocation> s_LevelLocations;
+
+			for (auto& [s_Name, s_Location] : s_Locations.items()) {
+				LevelStartingLocation s_LocationData;
+				s_LocationData.Name = s_Name;
+
+				const auto s_Positions = s_Location["position"];
+
+				s_LocationData.Rotation = {
+					.xAxis = { s_Positions[0][0], s_Positions[0][1], s_Positions[0][2] },
+					.yAxis = { s_Positions[1][0], s_Positions[1][1], s_Positions[1][2] },
+					.zAxis = { s_Positions[2][0], s_Positions[2][1], s_Positions[2][2] }
+				};
+
+				s_LocationData.Position = {
+					s_Positions[3][0],
+					s_Positions[3][1],
+					s_Positions[3][2]
+				};
+
+				s_LocationData.Outfit = s_Location["outfit"];
+
+				s_LevelLocations.push_back(s_LocationData);
+			}
+
+			m_LevelStartingLocations[s_Level] = s_LevelLocations;
+		}
+	}
+	catch (std::exception& e) {
+		Log("Could not parse Hitman 2016 data: %s\n", e.what());
 	}
 }

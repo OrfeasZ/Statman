@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <HM3/HM3Hooks.h>
 
 #include <HM3/HM3Module.h>
@@ -122,6 +123,64 @@ DECLARE_THISCALL_DETOUR(HM3Hooks, void, ZHM3LevelControl_FrameUpdate, ZHM3LevelC
 		}#1#
 
 		//Sleep(500);
+	}*/
+	
+	// If we're in Hitman 2016 mode, and the level just loaded, check if the loaded scene partially matches any of the levels.
+	if (g_Module->Hitman2016Mode() && g_Module->m_SceneLoaded)
+	{
+		g_Module->m_SceneLoaded = false;
+
+		Log("First frame after scene load. Trying to find a starting location.\n");
+
+		for (const auto& [s_Level, s_Locations] : g_Module->GetLevelStartingLocations())
+		{
+			auto s_LevelLower = s_Level;
+			std::transform(s_LevelLower.begin(), s_LevelLower.end(), s_LevelLower.begin(), ::tolower);
+
+			Log("Checking level %s with %d locations.\n", s_LevelLower.c_str(), s_Locations.size());
+			Log("Scene: %s\n", g_Module->m_SceneName.c_str());
+
+			// Check if s_Level is a substring of the loaded scene and if we have any locations for that level.
+			if (s_Locations.size() > 0 && g_Module->m_SceneName.find(s_LevelLower) != std::string::npos)
+			{
+				// Pick a random location.
+				const auto s_Location = s_Locations[rand() % s_Locations.size()];
+
+				Log("Selected starting location for level %s: %s\n", s_Level.c_str(), s_Location.Name.c_str());
+
+				// Try to get the actor with the given ID, and change hitman's outfit to theirs.
+				const auto s_Actor = (*g_Module->Pointers()->g_pGameData)->m_aActors[s_Location.Outfit];
+
+				if (s_Actor)
+				{
+					s_Actor->EnablePickupClothes();
+
+					if (auto s_HitmanAs = s_Actor->GetHitmanAs())
+					{
+						if (auto s_HitmanAsPtr = reinterpret_cast<ZHM3HmAs*>(g_Module->Functions()->ZGEOM_RefToPtr(s_HitmanAs)))
+						{
+							g_Module->Functions()->ZHitman3_ChangeIntoNewClothes(s_Hitman, s_HitmanAsPtr, nullptr, false, nullptr, 0);
+							auto s_Msg = (*g_Module->Pointers()->g_pSysInterface)->m_pEngineDb->RegisterZMsg("Hitman_ChangedClothes", 0, nullptr, 0);
+							(*g_Module->Pointers()->ZLIST__m_TrackLinkObjectsInstance)->SendCommandRecursive(s_Msg, nullptr, nullptr);
+						}
+					}
+				}
+
+				// Update Hitman's position.
+				s_Hitman->m_pBaseGeom->m_pParent->m_mMat = s_Location.Rotation;
+				s_Hitman->m_pBaseGeom->m_pParent->m_vPos = s_Location.Position;
+			}
+		}
+	}
+
+	/*for (int i = 0; i < (*g_Module->Pointers()->g_pGameData)->m_nActorCount; ++i)
+	{
+		auto s_Actor = (*g_Module->Pointers()->g_pGameData)->m_aActors[i];
+
+		if (s_Actor)
+		{
+			s_Actor->EnablePickupClothes();
+		}
 	}*/
 
 	return o_ZHM3LevelControl_FrameUpdate(th);

@@ -222,7 +222,7 @@ public:
         ZGeomEventList m_EventList;
     };
 
-    virtual void GetObjectId() = 0;
+    virtual ZREF GetObjectId() = 0;
     virtual void GetObjectIdAndMask(uint32_t&, uint32_t&) = 0;
     virtual void GetOldClassInfo() = 0;
     virtual void DoInit() = 0;
@@ -283,9 +283,9 @@ public:
     virtual void SendCommand(ZHM3Actor*, uint16_t, void*) = 0;
     virtual void SendCommand(uint32_t, uint16_t, void*) = 0;
     virtual void SendCommand(uint16_t, void*, ZHM3Actor*) = 0;
+    virtual void FreeEvents() = 0;
     virtual void SendCommandRecursive(uint16_t, void*, ZHM3Actor*) = 0;
     virtual void SendCommandRecursive(uint32_t, uint16_t, void*) = 0;
-    virtual void FreeEvents() = 0;
     virtual void FreeEvent(ZEventBase*) = 0;
     virtual void FreeEvent(char const*) = 0;
     virtual void RemoveEventFromList(ZEventBase*) = 0;

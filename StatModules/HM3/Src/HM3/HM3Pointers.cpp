@@ -47,4 +47,12 @@ bool HM3Pointers::Setup()
 		"xx????xxxx?x",
 		2
 	)
+
+	FIND_POINTER_ABSOLUTE(
+		ZGEOM**,
+		ZLIST__m_TrackLinkObjectsInstance,
+		"\x39\x1D\x00\x00\x00\x00\x74\x00\x00\xC7\x05",
+		"xx????x??xx",
+		2
+	)
 }

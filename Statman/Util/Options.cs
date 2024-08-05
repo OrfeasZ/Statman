@@ -14,6 +14,7 @@ namespace Statman.Util
         public bool Cheats { get; set; } = false;
         public bool UnlimitedSaves { get; set; } = false;
         public bool Hitman2016Mode { get; set; } = false;
+        public bool Hitman2016DebugMode { get; set; } = false;
         public bool Overlay { get; set; } = true;
     }
 

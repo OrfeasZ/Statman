@@ -1,13 +1,25 @@
 #pragma once
 
-#include <stdafx.h>
 #include <string>
+#include <unordered_map>
+#include <vector>
+
+#include "Structs/ZCore.h"
+#include "Structs/ZHM3Actor.h"
 
 class Pipeman;
 
 class HM3Hooks;
 class HM3Pointers;
 class HM3Functions;
+
+struct LevelStartingLocation
+{
+	std::string Name;
+	ZREF Outfit;
+	SMatrix33 Rotation;
+	SVector3 Position;
+};
 
 class HM3Module
 {
@@ -30,11 +42,14 @@ public:
 	bool UnlimitedSaves() const { return m_UnlimitedSaves; }
 	bool Hitman2016Mode() const { return m_Hitman2016Mode; }
 	bool OverlayEnabled() const { return m_OverlayEnabled; }
+	bool Debug2016() const { return m_Debug2016; }
+	const std::unordered_map<std::string, std::vector<LevelStartingLocation>>& GetLevelStartingLocations() const { return m_LevelStartingLocations; }
 
 protected:
 	bool CheckInstance();
 	void PerformPatches();
 	void OnMessage(const std::string& p_Type, const std::string& p_Content);
+	void ParseHitman2016Data(const std::string& p_Json);
 
 protected:
 	Pipeman* m_Pipeman = nullptr;
@@ -49,4 +64,11 @@ protected:
 	bool m_UnlimitedSaves = false;
 	bool m_Hitman2016Mode = false;
 	bool m_OverlayEnabled = false;
+	bool m_Debug2016 = false;
+
+	std::unordered_map<std::string, std::vector<LevelStartingLocation>> m_LevelStartingLocations;
+
+public:
+	std::string m_SceneName = "";
+	bool m_SceneLoaded = false;
 };
