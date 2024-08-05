@@ -160,6 +160,13 @@ namespace Statman.Engines
                 };
 
                 s_Hitman2016.Click += OnHitman2016Mode;
+                
+                var s_ReloadHitman2016 = new MenuItem()
+                {
+                    Header = "Reload locations",
+                };
+                
+                s_ReloadHitman2016.Click += OnReloadHitman2016;
 
                 var s_Hitman2016Debug = new MenuItem()
                 {
@@ -182,9 +189,10 @@ namespace Statman.Engines
                 m_MenuItems.Clear();
                 m_MenuItems.Add(s_EnableCheats);
                 m_MenuItems.Add(s_UnlimitedSaves);
-                m_MenuItems.Add(s_Hitman2016);
-                m_MenuItems.Add(s_Hitman2016Debug);
                 m_MenuItems.Add(s_IngameOverlay);
+                m_MenuItems.Add(s_Hitman2016);
+                m_MenuItems.Add(s_ReloadHitman2016);
+                m_MenuItems.Add(s_Hitman2016Debug);
             });
         }
 
@@ -219,6 +227,12 @@ namespace Statman.Engines
 
             SendMessage("H2", s_MenuItem.IsChecked ? "true" : "false");
             Options.Update(opt => opt.HM3.Hitman2016Mode = s_MenuItem.IsChecked);
+        }
+
+        private void OnReloadHitman2016(object p_Sender, RoutedEventArgs p_RoutedEventArgs)
+        {
+            var s_Hitman2016Data = System.IO.File.ReadAllText("HM3_locations.json");
+            SendMessage("2J", s_Hitman2016Data);
         }
 
         private void OnHitman2016DebugMode(object p_Sender, RoutedEventArgs p_RoutedEventArgs)

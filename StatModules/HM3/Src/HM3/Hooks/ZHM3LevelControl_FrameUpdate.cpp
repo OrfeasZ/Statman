@@ -149,19 +149,22 @@ DECLARE_THISCALL_DETOUR(HM3Hooks, void, ZHM3LevelControl_FrameUpdate, ZHM3LevelC
 				Log("Selected starting location for level %s: %s\n", s_Level.c_str(), s_Location.Name.c_str());
 
 				// Try to get the actor with the given ID, and change hitman's outfit to theirs.
-				const auto s_Actor = (*g_Module->Pointers()->g_pGameData)->m_aActors[s_Location.Outfit];
-
-				if (s_Actor)
+				if (s_Location.Outfit >= 0 && s_Location.Outfit < (*g_Module->Pointers()->g_pGameData)->m_nActorCount)
 				{
-					s_Actor->EnablePickupClothes();
+					const auto s_Actor = (*g_Module->Pointers()->g_pGameData)->m_aActors[s_Location.Outfit];
 
-					if (auto s_HitmanAs = s_Actor->GetHitmanAs())
+					if (s_Actor)
 					{
-						if (auto s_HitmanAsPtr = reinterpret_cast<ZHM3HmAs*>(g_Module->Functions()->ZGEOM_RefToPtr(s_HitmanAs)))
+						s_Actor->EnablePickupClothes();
+
+						if (auto s_HitmanAs = s_Actor->GetHitmanAs())
 						{
-							g_Module->Functions()->ZHitman3_ChangeIntoNewClothes(s_Hitman, s_HitmanAsPtr, nullptr, false, nullptr, 0);
-							auto s_Msg = (*g_Module->Pointers()->g_pSysInterface)->m_pEngineDb->RegisterZMsg("Hitman_ChangedClothes", 0, nullptr, 0);
-							(*g_Module->Pointers()->ZLIST__m_TrackLinkObjectsInstance)->SendCommandRecursive(s_Msg, nullptr, nullptr);
+							if (auto s_HitmanAsPtr = reinterpret_cast<ZHM3HmAs*>(g_Module->Functions()->ZGEOM_RefToPtr(s_HitmanAs)))
+							{
+								g_Module->Functions()->ZHitman3_ChangeIntoNewClothes(s_Hitman, s_HitmanAsPtr, nullptr, false, nullptr, 0);
+								auto s_Msg = (*g_Module->Pointers()->g_pSysInterface)->m_pEngineDb->RegisterZMsg("Hitman_ChangedClothes", 0, nullptr, 0);
+								(*g_Module->Pointers()->ZLIST__m_TrackLinkObjectsInstance)->SendCommandRecursive(s_Msg, nullptr, nullptr);
+							}
 						}
 					}
 				}

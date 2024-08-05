@@ -191,7 +191,9 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 #define HINST_THISCOMPONENT ((HINSTANCE)&__ImageBase)
 
 void HM3Module::ParseHitman2016Data(const std::string& p_Json) {
-	try {			
+	try {
+		m_LevelStartingLocations.clear();
+		
 		nlohmann::json s_Json = nlohmann::json::parse(p_Json);
 
 		if (s_Json.is_null())

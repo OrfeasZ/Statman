@@ -35,7 +35,7 @@ Statman is currently in early stages of development, so there could still be iss
 
 ### Hitman Blood Money: 2016 Mode
 
-This is currently a "custom" mode which makes the game not consider the location of your suit when calculating your rating. This is essentially a toggle that allows you to leave the level without your suit and still getting a Silent Assassin ranking. The plan for this is to get fledged out into a full mode, where you can create custom "gamemodes" where you can select (or create) a starting location anywhere on the map along with a starting disguise (based on available disguises on the level) and then proceed to play these gamemodes in corresponding levels.
+This is an experimental mode that adds support for custom starting locations with alternative disguises. You can find more info about how it works and how to configure it [here](/HM3_2016.md).
 
 ### Screenshots
 

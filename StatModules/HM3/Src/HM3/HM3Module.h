@@ -16,7 +16,7 @@ class HM3Functions;
 struct LevelStartingLocation
 {
 	std::string Name;
-	ZREF Outfit;
+	int Outfit;
 	SMatrix33 Rotation;
 	SVector3 Position;
 };
